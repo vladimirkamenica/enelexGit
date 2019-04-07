@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2046
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "enelex3", "enelex3\enelex3.csproj", "{C2FB1F5D-8862-4DC7-A7B8-E6F7B6994797}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C2FB1F5D-8862-4DC7-A7B8-E6F7B6994797}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C2FB1F5D-8862-4DC7-A7B8-E6F7B6994797}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C2FB1F5D-8862-4DC7-A7B8-E6F7B6994797}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C2FB1F5D-8862-4DC7-A7B8-E6F7B6994797}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B46DEED6-F8E1-40BD-8C48-A09EF73E63CF}
+	EndGlobalSection
+EndGlobal

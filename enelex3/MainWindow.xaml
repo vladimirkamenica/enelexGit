@@ -1,0 +1,677 @@
+﻿<Window x:Class="enelex3.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:enelex3"
+        mc:Ignorable="d"
+       Title="Enelex GE3030" Icon="Pics/radioactivity.png" Width="1400" Height="800" WindowStartupLocation="CenterScreen" WindowState="Maximized"  Background="WhiteSmoke">
+    <Window.Resources>
+        <SolidColorBrush x:Key="TextColor">Black</SolidColorBrush>
+        <SolidColorBrush x:Key="AltRowColor">#d8d8d8</SolidColorBrush>
+        <SolidColorBrush x:Key="AltRowColorDetails">#d8d8d8</SolidColorBrush>
+        <Thickness x:Key="CustMargin">10,5,5,5</Thickness>
+        <Style x:Key="btCustom" TargetType="Button">
+            <Setter Property="Margin" Value="{StaticResource CustMargin}"></Setter>
+            <Setter Property="Background" Value="LightGray"></Setter>
+        </Style>
+        <Style  TargetType="Button">
+            <Setter Property="Margin" Value="5,-2,0,0"></Setter>
+            <Setter Property="Background" Value="Transparent"></Setter>
+            <Setter Property="BorderBrush" Value="Transparent"></Setter>
+        </Style>
+        <Style x:Key="dgCustom" TargetType="DataGrid">
+            <Setter Property="AlternationCount" Value="2"></Setter>
+            <Setter Property="AlternatingRowBackground" Value="{StaticResource AltRowColor}"></Setter>
+            <Setter Property="Margin" Value="5,0,0,0"></Setter>
+            <Setter Property="Foreground" Value="{StaticResource TextColor}"></Setter>
+            <Setter Property="AutoGenerateColumns" Value="False"></Setter>
+            <Setter Property="VerticalGridLinesBrush" Value="#c6c6c6"></Setter>
+            <Setter Property="HorizontalGridLinesBrush" Value="#c6c6c6"></Setter>
+            <Setter Property="BorderBrush" Value="#c6c6c6"></Setter>
+            <Setter Property="Background" Value="White"></Setter>
+            <Setter Property="RowHeaderWidth" Value="0"></Setter>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition ></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <StackPanel Orientation="Horizontal" Margin="2,2,0,-2" >
+            <Button BorderBrush="Transparent" Background="Transparent" Click="Load_Click" >
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition ></RowDefinition>
+                        <RowDefinition ></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Image Source="Pics/001-file.png" Width="15"></Image>
+                    <Label Grid.Row="1" Margin="0,-5,0,0">Učitaj</Label>
+                </Grid>
+                <Button.Template>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Name="Border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}">
+                            <ContentPresenter Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}" Margin="{TemplateBinding Padding}"></ContentPresenter>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="Button.IsMouseOver" Value="True">
+                                <Setter TargetName="Border" Property="Background" Value="White"></Setter>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+
+                </Button.Template>
+            </Button>
+
+            <Button BorderBrush="Transparent" Background="Transparent" Click="Add_Click_1">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition ></RowDefinition>
+                        <RowDefinition ></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Image Source="Pics/addnew.png" Width="15"></Image>
+                    <Label Grid.Row="1" Margin="0,-5,0,0" >Unesi</Label>
+                </Grid>
+                <Button.Template>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Name="Border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}">
+                            <ContentPresenter Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}" Margin="{TemplateBinding Padding}"></ContentPresenter>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="Button.IsMouseOver" Value="True">
+                                <Setter TargetName="Border" Property="Background" Value="White"></Setter>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+
+                </Button.Template>
+            </Button>
+            <Button BorderBrush="Transparent" Background="Transparent" >
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition ></RowDefinition>
+                        <RowDefinition ></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Image Source="Pics/003-refresh.png" Width="17"></Image>
+                    <Label Grid.Row="1" Margin="0,-5,0,0">Ažuriraj</Label>
+                </Grid>
+                <Button.Template>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Name="Border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}">
+                            <ContentPresenter Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}" Margin="{TemplateBinding Padding}"></ContentPresenter>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="Button.IsMouseOver" Value="True">
+                                <Setter TargetName="Border" Property="Background" Value="White"></Setter>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+
+                </Button.Template>
+            </Button>
+            <Button BorderBrush="Transparent" Background="Transparent">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition ></RowDefinition>
+                        <RowDefinition ></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <Image Source="Pics/006-trash.png" Width="15"></Image>
+                    <Label Grid.Row="1" Margin="0,-5,0,0">Obriši</Label>
+                </Grid>
+                <Button.Template>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Name="Border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}">
+                            <ContentPresenter Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}" Margin="{TemplateBinding Padding}"></ContentPresenter>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="Button.IsMouseOver" Value="True">
+                                <Setter TargetName="Border" Property="Background" Value="White"></Setter>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+
+                </Button.Template>
+            </Button>
+        </StackPanel>
+
+        <DataGrid Name="dgMeasures" Grid.Row="1" Style="{StaticResource dgCustom}"  CanUserAddRows="False" Grid.RowSpan="2" >
+
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Broj uzoraka n [ j ] " Binding="{Binding Id}" Width="105"></DataGridTextColumn>
+                <DataGridTextColumn Header="Pepeo x [GE] " Binding="{Binding Ge, Mode=TwoWay, StringFormat={}{0:F2}}" ></DataGridTextColumn>
+                <DataGridTextColumn Header="Pepeo y [Lab]" Binding="{Binding Lab, Mode=TwoWay, StringFormat={}{0:F2}}" ></DataGridTextColumn>
+
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <StackPanel Grid.Row="1" Grid.Column="1" Background="White" Orientation="Vertical">
+            <GroupBox Header="Izračunavanje p i q" Margin="5,5,5,0" BorderThickness="2">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="10,10,0,0">
+                        <Image Source="Pics/suma1.png" Width="80" Margin="0,-10,0,0"></Image>
+                        <Label Margin="0,5,0,0">=</Label>
+                        <TextBox Name="tbSum1" Width="80" VerticalContentAlignment="Center" Margin="0,10,0,27" Height="20"></TextBox>
+                        <Image Source="Pics/suma2.png" Width="45" Margin="5,-10,0,0"></Image>
+                        <Label Margin="0,5,0,0">=</Label>
+                        <TextBox Name="tbSum2" Width="80" VerticalContentAlignment="Center" Margin="0,10,0,27" Height="20"></TextBox>
+                        <Image Source="Pics/suma3.png" Width="45" Margin="5,-10,0,0"></Image>
+                        <Label Margin="0,5,0,0">=</Label>
+                        <TextBox Name="tbSum3" Width="80" VerticalContentAlignment="Center" Margin="0,10,0,27" Height="20"></TextBox>
+                        <Image Source="Pics/suma4.png" Width="55" Margin="5,-10,0,0"></Image>
+                        <Label Margin="0,5,0,0">=</Label>
+                        <TextBox Name="tbSum4" Width="80" VerticalContentAlignment="Center" Margin="0,10,0,27" Height="20"></TextBox>
+                        <Image Source="Pics/suma5.png" Width="75" Margin="5,-10,0,0"></Image>
+                        <Label Margin="0,5,0,0">=</Label>
+                        <TextBox Name="tbSum5" Width="80" VerticalContentAlignment="Center" Margin="0,10,0,27" Height="20"></TextBox>
+                        <Label Margin="0,5,0,0">n=</Label>
+                        <TextBox Name="tbn" Width="80" VerticalContentAlignment="Center" Margin="0,10,0,27" Height="20"></TextBox>
+                    </StackPanel>
+                    <StackPanel  Grid.Row="1" Orientation="Horizontal" Margin="0,-15,0,0">
+                        <StackPanel Margin="10,10,0,0">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto" ></ColumnDefinition>
+                                    <ColumnDefinition ></ColumnDefinition>
+                                    <ColumnDefinition ></ColumnDefinition>
+                                    <ColumnDefinition ></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+
+                                <Image Grid.Column="1"  Source="Pics/p.png" Width="250"></Image>
+                                <Label Grid.Column="2" Margin="0,50,0,0">=</Label>
+                                <TextBox Name="tbP"  Grid.Column="3" Height="20"  Width="100" HorizontalAlignment="Left" Background="#ffffbf" VerticalContentAlignment="Center" Margin="0,55,0,57"></TextBox>
+                            </Grid>
+                        </StackPanel>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Grid.Row="2" Margin="10,5,0,0">
+                        <Image Source="Pics/suma3.png" Width="42" Margin="0,-10,0,0"></Image>
+                        <Label Margin="0,5,0,0">=</Label>
+                        <TextBox x:Name="tbSumQ1" Width="80" VerticalContentAlignment="Center" Margin="0,10,0,28" Height="20"/>
+                        <Image Source="Pics/suma6.png" Width="45" Margin="5,-10,0,0"></Image>
+                        <Label Margin="0,5,0,0">=</Label>
+                        <TextBox Name="tbSumQ2" Width="80" VerticalContentAlignment="Center" Margin="0,10,0,28" Height="20"></TextBox>
+                        <Label Margin="0,5,0,0">n=</Label>
+                        <TextBox Name="tbn1" Width="80" VerticalContentAlignment="Center" Margin="0,10,0,28" Height="20"></TextBox>
+                    </StackPanel>
+                    <StackPanel Margin="10,-20,0,0" Grid.Row="3" Orientation="Horizontal">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto" ></ColumnDefinition>
+                                <ColumnDefinition  ></ColumnDefinition>
+                                <ColumnDefinition ></ColumnDefinition>
+                                <ColumnDefinition ></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+
+                            <Image Grid.Column="1" Source="Pics/q.png" Width="155" Margin="0,5,0,0"></Image>
+                            <Label Grid.Column="2" Margin="0,67,0,0">=</Label>
+                            <TextBox Name="tbQ" Grid.Column="3" Width="100" HorizontalAlignment="Left" Background="#ffffbf" VerticalContentAlignment="Center" Margin="0,72,0,37" ></TextBox>
+                        </Grid>
+                    </StackPanel>
+                </Grid>
+            </GroupBox>
+            <StackPanel Margin="0,0,5,0">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <GroupBox Header="Novi tip kalibracije" Margin="5,5,5,0" BorderThickness="2" >
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <StackPanel Orientation="Horizontal" Margin="0,-8,0,10">
+
+                                <Button BorderBrush="Transparent" Background="Transparent" Click="Save_Click" Height="50" Margin="0,5,0,0" >
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition ></RowDefinition>
+                                            <RowDefinition ></RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <Image Source="Pics/save.png" Width="15"></Image>
+                                        <Label Grid.Row="1" Margin="0,-9,0,0">Snimi</Label>
+                                    </Grid>
+                                    <Button.Template>
+                                        <ControlTemplate TargetType="{x:Type Button}">
+                                            <Border Name="Border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}">
+                                                <ContentPresenter Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}" Margin="{TemplateBinding Padding}"></ContentPresenter>
+                                            </Border>
+                                            <ControlTemplate.Triggers>
+                                                <Trigger Property="Button.IsMouseOver" Value="True">
+                                                    <Setter TargetName="Border" Property="Background" Value="#d8d8d8"></Setter>
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+
+                                    </Button.Template>
+                                </Button>
+                                <Button BorderBrush="Transparent" Background="Transparent"  Height="50" Margin="0,5,0,0">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition ></RowDefinition>
+                                            <RowDefinition ></RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <Image Source="Pics/006-trash.png" Width="15"></Image>
+                                        <Label Grid.Row="1" Margin="0,-9,0,0">Obrisi</Label>
+                                    </Grid>
+                                    <Button.Template>
+                                        <ControlTemplate TargetType="{x:Type Button}">
+                                            <Border Name="Border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}">
+                                                <ContentPresenter Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}" Margin="{TemplateBinding Padding}"></ContentPresenter>
+                                            </Border>
+                                            <ControlTemplate.Triggers>
+                                                <Trigger Property="Button.IsMouseOver" Value="True">
+                                                    <Setter TargetName="Border" Property="Background" Value="#d8d8d8"></Setter>
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+
+                                    </Button.Template>
+                                </Button>
+                            </StackPanel >
+                            <DataGrid Name="dgTipAB" Style="{StaticResource dgCustom }" Margin="0,-10,0,15" CanUserAddRows="True" Grid.Row="1" Height="42">
+
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Vrednost [a]" Binding="{Binding NumberA, Mode=TwoWay, StringFormat={}{0:F2}}" ></DataGridTextColumn>
+                                    <DataGridTextColumn Header="Vrednost [b]" Binding="{Binding NumberB, Mode=TwoWay, StringFormat={}{0:F2}}" ></DataGridTextColumn>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                            <StackPanel Margin="10,40,0,0" Grid.Column="1" >
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto" ></ColumnDefinition>
+                                        <ColumnDefinition ></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <Label>A = p * a =</Label>
+                                    <TextBox Name="tbA" Grid.Column="1" Width="100" HorizontalAlignment="Left" Background="#ffffbf" VerticalContentAlignment="Center" Height="20"></TextBox>
+                                </Grid>
+                            </StackPanel>
+                            <StackPanel Margin="10,0,0,28" Grid.Column="1" Grid.Row="1">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto" ></ColumnDefinition>
+                                        <ColumnDefinition ></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Label>B = (p * b) + q =</Label>
+                                    <TextBox Name="tbB" Grid.Column="1" Width="100" HorizontalAlignment="Left" Background="#ffffbf" VerticalContentAlignment="Center" Height="20"></TextBox>
+                                </Grid>
+                            </StackPanel>
+                        </Grid>
+                    </GroupBox>
+                    <GroupBox Header="Apsolutno pomeranje" Grid.Column="1" Margin="5,5,0,0" BorderThickness="2">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"></ColumnDefinition>
+                                <ColumnDefinition Width="auto"></ColumnDefinition>
+                                <ColumnDefinition Width="auto"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Orientation="Horizontal" Margin="0,-8,0,10">
+
+                                <Button BorderBrush="Transparent" Background="Transparent" Click="Save_Click" Height="50">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition ></RowDefinition>
+                                            <RowDefinition ></RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <Image Source="Pics/save.png" Width="15"></Image>
+                                        <Label Grid.Row="1" Margin="0,-11,0,0">Snimi</Label>
+                                    </Grid>
+                                    <Button.Template>
+                                        <ControlTemplate TargetType="{x:Type Button}">
+                                            <Border Name="Border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}">
+                                                <ContentPresenter Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}" Margin="{TemplateBinding Padding}"></ContentPresenter>
+                                            </Border>
+                                            <ControlTemplate.Triggers>
+                                                <Trigger Property="Button.IsMouseOver" Value="True">
+                                                    <Setter TargetName="Border" Property="Background" Value="#d8d8d8"></Setter>
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+
+                                    </Button.Template>
+                                </Button>
+                                <Button BorderBrush="Transparent" Background="Transparent" Click="Load_Click" Height="50" >
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition ></RowDefinition>
+                                            <RowDefinition ></RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <Image Source="Pics/006-trash.png" Width="15"></Image>
+                                        <Label Grid.Row="1" Margin="0,-11,0,0">Obrisi</Label>
+                                    </Grid>
+                                    <Button.Template>
+                                        <ControlTemplate TargetType="{x:Type Button}">
+                                            <Border Name="Border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}">
+                                                <ContentPresenter Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}" Margin="{TemplateBinding Padding}"></ContentPresenter>
+                                            </Border>
+                                            <ControlTemplate.Triggers>
+                                                <Trigger Property="Button.IsMouseOver" Value="True">
+                                                    <Setter TargetName="Border" Property="Background" Value="#d8d8d8"></Setter>
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+
+                                    </Button.Template>
+                                </Button>
+
+                            </StackPanel >
+                            <DataGrid Name="dgApsolutno" Style="{StaticResource dgCustom}" Grid.Row="1" Grid.Column="0" Margin="0,-20,0,0" CanUserAddRows="True" Height="42">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Procenat pomeranja [%]" Binding="{Binding NumberP,  Mode=TwoWay, StringFormat={}{0:F2}}"></DataGridTextColumn>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                            <StackPanel Grid.Column="1" Margin="0,5,0,10">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <StackPanel Orientation="Horizontal" Margin="0,-8,0,10">
+
+                                        <Button BorderBrush="Transparent" Background="Transparent" Click="Save_Click" Height="50" Margin="0,5,0,0" >
+                                            <Grid>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition ></RowDefinition>
+                                                    <RowDefinition ></RowDefinition>
+                                                </Grid.RowDefinitions>
+                                                <Image Source="Pics/save.png" Width="15"></Image>
+                                                <Label Grid.Row="1" Margin="0,-10,0,0">Snimi</Label>
+                                            </Grid>
+                                            <Button.Template>
+                                                <ControlTemplate TargetType="{x:Type Button}">
+                                                    <Border Name="Border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}">
+                                                        <ContentPresenter Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}" Margin="{TemplateBinding Padding}"></ContentPresenter>
+                                                    </Border>
+                                                    <ControlTemplate.Triggers>
+                                                        <Trigger Property="Button.IsMouseOver" Value="True">
+                                                            <Setter TargetName="Border" Property="Background" Value="#d8d8d8"></Setter>
+                                                        </Trigger>
+                                                    </ControlTemplate.Triggers>
+                                                </ControlTemplate>
+
+                                            </Button.Template>
+                                        </Button>
+                                        <Button BorderBrush="Transparent" Background="Transparent"  Height="50" Margin="0,5,0,0" >
+                                            <Grid>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition ></RowDefinition>
+                                                    <RowDefinition ></RowDefinition>
+                                                </Grid.RowDefinitions>
+                                                <Image Source="Pics/006-trash.png" Width="15"></Image>
+                                                <Label Grid.Row="1" Margin="0,-10,0,0">Obrisi</Label>
+                                            </Grid>
+                                            <Button.Template>
+                                                <ControlTemplate TargetType="{x:Type Button}">
+                                                    <Border Name="Border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}">
+                                                        <ContentPresenter Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}" Margin="{TemplateBinding Padding}"></ContentPresenter>
+                                                    </Border>
+                                                    <ControlTemplate.Triggers>
+                                                        <Trigger Property="Button.IsMouseOver" Value="True">
+                                                            <Setter TargetName="Border" Property="Background" Value="#d8d8d8"></Setter>
+                                                        </Trigger>
+                                                    </ControlTemplate.Triggers>
+                                                </ControlTemplate>
+
+                                            </Button.Template>
+                                        </Button>
+                                    </StackPanel >
+                                </Grid>
+                            </StackPanel>
+                            <DataGrid Name="dgTipAB2" Grid.Column="1"  Style="{StaticResource dgCustom}" CanUserAddRows="True" Margin="10,-20,0,0" Grid.Row="1" Height="42">
+
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Vrednost [a]" Binding="{Binding NumberATwo, Mode=TwoWay, StringFormat={}{0:F2}}" ></DataGridTextColumn>
+                                    <DataGridTextColumn Header="Vrednost [b]" Binding="{Binding NumberBTwo, Mode=TwoWay, StringFormat={}{0:F2}}" ></DataGridTextColumn>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                            <StackPanel Grid.Column="2" Orientation="Vertical">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                </Grid>
+                                <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="2">
+                                    <Image Source="Pics/A2.png" Width="180" Margin="12,0,0,0"></Image>
+                                </StackPanel>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Grid.Column="2" Margin="10,40,0,0" Grid.RowSpan="2" >
+                                <Label Margin="0,10,0,20">A =</Label>
+                                <TextBox Name="tbAprocenat" Width="100" Height="20" HorizontalAlignment="Left" Background="#ffffbf" VerticalContentAlignment="Center" Margin="0,-25,0,10"  ></TextBox>
+                            </StackPanel>
+                            <StackPanel Grid.Row="1" Grid.Column="2" Orientation="Horizontal" Margin="10,15,0,0" Grid.RowSpan="2">
+                                <Label Margin="0,5,0,10">B =</Label>
+                                <TextBox Name="tbBprocenat" Width="100" Height="20" HorizontalAlignment="Left" Background="#ffffbf" VerticalContentAlignment="Center" Margin="0,5,0,10" ></TextBox>
+                            </StackPanel>
+                        </Grid>
+                    </GroupBox>
+                </Grid>
+            </StackPanel>
+            <StackPanel>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <GroupBox Header="Srazmerno pomeranje" Margin="5,0,0,5" BorderThickness="2">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition ></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Orientation="Horizontal" Margin="0,3,0,10" Grid.Column="0">
+                                <Button BorderBrush="Transparent" Background="Transparent" Height="50" Click="Add2_Click" >
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition ></RowDefinition>
+                                            <RowDefinition ></RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <Image Source="Pics/004-exit.png" Width="15"></Image>
+                                        <Label Grid.Row="1" Margin="0,-9,0,0">Unesi</Label>
+                                    </Grid>
+                                    <Button.Template>
+                                        <ControlTemplate TargetType="{x:Type Button}">
+                                            <Border Name="Border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}">
+                                                <ContentPresenter Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}" Margin="{TemplateBinding Padding}"></ContentPresenter>
+                                            </Border>
+                                            <ControlTemplate.Triggers>
+                                                <Trigger Property="Button.IsMouseOver" Value="True">
+                                                    <Setter TargetName="Border" Property="Background" Value="#d8d8d8"></Setter>
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+
+                                    </Button.Template>
+                                </Button>
+                                <Button BorderBrush="Transparent" Background="Transparent" Height="50" Click="Save_Click" >
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition ></RowDefinition>
+                                            <RowDefinition ></RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <Image Source="Pics/save.png" Width="15"></Image>
+                                        <Label Grid.Row="1" Margin="0,-9,0,0">Snimi</Label>
+                                    </Grid>
+                                    <Button.Template>
+                                        <ControlTemplate TargetType="{x:Type Button}">
+                                            <Border Name="Border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}">
+                                                <ContentPresenter Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}" Margin="{TemplateBinding Padding}"></ContentPresenter>
+                                            </Border>
+                                            <ControlTemplate.Triggers>
+                                                <Trigger Property="Button.IsMouseOver" Value="True">
+                                                    <Setter TargetName="Border" Property="Background" Value="#d8d8d8"></Setter>
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+
+                                    </Button.Template>
+                                </Button>
+                                <Button BorderBrush="Transparent" Background="Transparent" Height="50"  >
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition ></RowDefinition>
+                                            <RowDefinition ></RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <Image Source="Pics/006-trash.png" Width="15"></Image>
+                                        <Label Grid.Row="1" Margin="0,-9,0,0">Obrisi</Label>
+                                    </Grid>
+                                    <Button.Template>
+                                        <ControlTemplate TargetType="{x:Type Button}">
+                                            <Border Name="Border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}">
+                                                <ContentPresenter Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}" Margin="{TemplateBinding Padding}"></ContentPresenter>
+                                            </Border>
+                                            <ControlTemplate.Triggers>
+                                                <Trigger Property="Button.IsMouseOver" Value="True">
+                                                    <Setter TargetName="Border" Property="Background" Value="#d8d8d8"></Setter>
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+
+                                    </Button.Template>
+                                </Button>
+                            </StackPanel >
+                            <DataGrid Name="dgOne" Style="{StaticResource dgCustom}" CanUserAddRows="False" Grid.Row="1" Margin="0,0,0,0" >
+
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="" Binding="{Binding Id}"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="Laboratorija L [%] " Binding="{Binding L, Mode=TwoWay, StringFormat={}{0:F2}}"  ></DataGridTextColumn>
+                                    <DataGridTextColumn Header="Sadrzaj pepela P [%] " Binding="{Binding P, Mode=TwoWay, StringFormat={}{0:F2}}"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="Korigovanje k=L-P [%]  " Binding="{Binding SumLP}"></DataGridTextColumn>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                            <StackPanel Orientation="Horizontal" Margin="0,3,0,10" Grid.Column="1">
+
+                                <Button BorderBrush="Transparent" Background="Transparent" Click="Save_Click" Height="50" >
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition ></RowDefinition>
+                                            <RowDefinition ></RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <Image Source="Pics/save.png" Width="15"></Image>
+                                        <Label Grid.Row="1" Margin="0,-9,0,0">Snimi</Label>
+                                    </Grid>
+                                    <Button.Template>
+                                        <ControlTemplate TargetType="{x:Type Button}">
+                                            <Border Name="Border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}">
+                                                <ContentPresenter Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}" Margin="{TemplateBinding Padding}"></ContentPresenter>
+                                            </Border>
+                                            <ControlTemplate.Triggers>
+                                                <Trigger Property="Button.IsMouseOver" Value="True">
+                                                    <Setter TargetName="Border" Property="Background" Value="#d8d8d8"></Setter>
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+
+                                    </Button.Template>
+                                </Button>
+                                <Button BorderBrush="Transparent" Background="Transparent" Height="50"  >
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition ></RowDefinition>
+                                            <RowDefinition ></RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <Image Source="Pics/006-trash.png" Width="15"></Image>
+                                        <Label Grid.Row="1" Margin="0,-9,0,0">Obrisi</Label>
+                                    </Grid>
+                                    <Button.Template>
+                                        <ControlTemplate TargetType="{x:Type Button}">
+                                            <Border Name="Border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}">
+                                                <ContentPresenter Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}" Margin="{TemplateBinding Padding}"></ContentPresenter>
+                                            </Border>
+                                            <ControlTemplate.Triggers>
+                                                <Trigger Property="Button.IsMouseOver" Value="True">
+                                                    <Setter TargetName="Border" Property="Background" Value="#d8d8d8"></Setter>
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+
+                                    </Button.Template>
+                                </Button>
+                            </StackPanel>
+                            <StackPanel Grid.Column="1" Grid.Row="1" >
+                                <DataGrid Name="dgTipAB3" Style="{StaticResource dgCustom}" CanUserAddRows="True" Height="42"  Margin="10,0,0,0">
+
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="Vrednost [a]" Binding="{Binding NumberAThree, Mode=TwoWay, StringFormat={}{0:F2}}" ></DataGridTextColumn>
+                                        <DataGridTextColumn Header="Vrednost [b]" Binding="{Binding NumberBThree, Mode=TwoWay, StringFormat={}{0:F2}}" ></DataGridTextColumn>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </StackPanel>
+                            <StackPanel Grid.Column="2" Grid.Row="1" Orientation="Vertical" Margin="0,-19,0,0" >
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <StackPanel Orientation="Horizontal"  Margin="10,0,0,0">
+                                        <Image Source="Pics/As.png" Width="95"></Image>
+                                        <Label Margin="0,5,0,0">=</Label>
+                                        <TextBox Name="tbAsraz" Width="100" Background="#ffffbf" VerticalContentAlignment="Center" Height="20"></TextBox>
+
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="13,0,0,0">
+                                        <Image Source="Pics/Bs.png" Width="128"></Image>
+                                        <Label Margin="0,5,0,0">=</Label>
+                                        <TextBox Name="tbBsraz" Width="100" Background="#ffffbf" VerticalContentAlignment="Center" Height="20" Margin="0,0,0,0"></TextBox>
+
+                                    </StackPanel>
+                                </Grid>
+                            </StackPanel>
+
+                        </Grid>
+                    </GroupBox>
+
+                </Grid>
+            </StackPanel>
+
+
+        </StackPanel>
+        <StackPanel Grid.Row="2" Grid.Column="1" Background="White">
+            <StackPanel  Background="White"  HorizontalAlignment="Right">
+                <Image Source="Pics/logo.png" Width="100" Margin="0,0,10,10"></Image>
+            </StackPanel>
+        </StackPanel>
+        <StackPanel Grid.Row="2" Background="Transparent"></StackPanel>
+
+
+
+    </Grid>
+</Window>
