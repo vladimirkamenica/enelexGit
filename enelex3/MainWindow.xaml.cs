@@ -25,33 +25,38 @@ namespace enelex3
         public MainWindow()
         {
             InitializeComponent();
+            ListOfMeasures = new List<MeasuresView>();
             DataContext = this;
 
         }
         private MeasuresFE mfe;
-        private List<MeasuresView> table;
+        public List<MeasuresView> ListOfMeasures { get; set; }
         private CalibrationFE cfe;
         private PercentageFE pct;
+
+        public double FinalA { get; set; }
+
+        public double FinalB { get; set; }
 
         private void Load()
         {
             db = new Model1();
             mfe = new MeasuresFE(db);
-            table = mfe.GetMeasures();
-            dgMeasures.ItemsSource = table;
+            ListOfMeasures.Clear();
+            ListOfMeasures.AddRange(mfe.GetMeasures());
 
-            if (table.Count > 0)
+          
+
+            if (ListOfMeasures.Count > 0)
             {
 
-                db = new Model1();
-
-
-             
+                db = new Model1();             
                
                 cfe = new CalibrationFE(db);
                 pct = new PercentageFE(db);
-               
-                dgTipAB.ItemsSource = cfe.GetCalibrations();
+               var listOfCalibrations = cfe.GetCalibrations();
+                var listOfCalibarationsThree = cfe.GetCalibrationsThree();
+                dgTipAB.ItemsSource = listOfCalibrations;
                 dgApsolutno.ItemsSource = pct.GetPercentages();
                 dgTipAB2.ItemsSource = cfe.GetCalibrationsTwo();
                 dgOne.ItemsSource = cfe.GetCalibrationOnes();
@@ -59,28 +64,28 @@ namespace enelex3
                 
                 if (dgTipAB3.Items.Count > -1)
                 {
-                    dgTipAB3.ItemsSource = cfe.GetCalibrationsThree();
+                    dgTipAB3.ItemsSource = listOfCalibarationsThree;
                 }
 
                
-                var maxId = table.Max(x => x.Id);
+                var maxId = ListOfMeasures.Max(x => x.Id);
                 tbn.Text = maxId.ToString();
                 tbn1.Text = maxId.ToString();
 
 
-                var sum2 = table.Sum(x => x.Ge);
+                var sum2 = ListOfMeasures.Sum(x => x.Ge);
                 tbSum2.Text = sum2.ToString();
 
-                var sum3 = table.Sum(x => x.Lab);
+                var sum3 = ListOfMeasures.Sum(x => x.Lab);
                 tbSum3.Text = sum3.ToString();
 
-                var sum1 = maxId * table.Sum(x => x.SumMeasure);
+                var sum1 = maxId * ListOfMeasures.Sum(x => x.SumMeasure);
                 tbSum1.Text = sum1.ToString();
 
-                var sum4 = table.Sum(x => x.SumGe) * maxId;
+                var sum4 = ListOfMeasures.Sum(x => x.SumGe) * maxId;
                 tbSum4.Text = sum4.ToString();
 
-                var sum5 = table.Sum(x => x.Ge) * table.Sum(x => x.Ge);
+                var sum5 = ListOfMeasures.Sum(x => x.Ge) * ListOfMeasures.Sum(x => x.Ge);
                 tbSum5.Text = sum5.ToString();
 
                 var gorep = sum1 - sum2 * sum3;
@@ -89,10 +94,10 @@ namespace enelex3
                 var sumP = gorep / dolep;
                 tbP.Text = sumP.ToString("0.####");
 
-                var sumQ1 = table.Sum(x => x.Lab);
+                var sumQ1 = ListOfMeasures.Sum(x => x.Lab);
                 tbSumQ1.Text = sumQ1.ToString();
 
-                var sumQ2 = table.Sum(x => x.Ge);
+                var sumQ2 = ListOfMeasures.Sum(x => x.Ge);
 
 
                 var sumq2 = sumQ2 * sumP;
@@ -104,11 +109,11 @@ namespace enelex3
                 var sumQ = goreq / maxId;
                 tbQ.Text = sumQ.ToString("0.#####");
 
-                var suma = cfe.GetCalibrations().Sum(x => x.NumberA);
+                var suma = listOfCalibrations.Sum(x => x.NumberA);
                 var sumaa = suma * sumP;
                 tbA.Text = sumaa.ToString("0.####");
 
-                var sumb = cfe.GetCalibrations().Sum(x => x.NumberB);
+                var sumb = listOfCalibrations.Sum(x => x.NumberB);
                 var sumbb = sumP * sumb + sumQ;
                 tbB.Text = sumbb.ToString("0.####");
 
@@ -120,20 +125,26 @@ namespace enelex3
                 var ukupno = -bprocenat + pomeraj;
                 var pozitivno = -1 * ukupno;
                 tbBprocenat.Text = pozitivno.ToString();
+                if(listOfCalibarationsThree.Count > 0)
+                {
+                    var a = listOfCalibarationsThree.Max(x => x.NumberAThree);
+                    var agore = cfe.GetCalibrationOnes().Max(x => x.L) - cfe.GetCalibrationOnes().Min(x => x.L);
+                    var adole = cfe.GetCalibrationOnes().Max(x => x.P) - cfe.GetCalibrationOnes().Min(x => x.P);
+                    var deljenje = agore / adole;
+                    FinalA = a * deljenje;
+                    tbAsraz.Text = FinalA.ToString("0.####");
 
-                var a = cfe.GetCalibrationsThree().Max(x => x.NumberAThree);
-                var agore = cfe.GetCalibrationOnes().Max(x => x.L) - cfe.GetCalibrationOnes().Min(x => x.L);
-                var adole = cfe.GetCalibrationOnes().Max(x => x.P) - cfe.GetCalibrationOnes().Min(x => x.P);
-                var deljenje = agore / adole;
-                var konacno = a * deljenje;
-                tbAsraz.Text = konacno.ToString("0.####");
+                    var bgore = cfe.GetCalibrationOnes().Min(x => x.P) + listOfCalibarationsThree.Max(x => x.NumberBThree);
+                    var deljenjeb = bgore / a;
+                    var l1 = cfe.GetCalibrationOnes().Min(x => x.L);
+                    FinalB = FinalA * deljenjeb - l1;
+                    tbBsraz.Text = FinalB.ToString("0.####");
+                }
 
-                var bgore = cfe.GetCalibrationOnes().Min(x => x.P) + cfe.GetCalibrationsThree().Max(x => x.NumberBThree);
-                var deljenjeb = bgore / a;
-                var l1 = cfe.GetCalibrationOnes().Min(x => x.L);
-                var konacnob = konacno * deljenjeb - l1;
-                tbBsraz.Text = konacnob.ToString("0.####");
+              
             }
+            dgMeasures.Items.Refresh();
+            UpdateLayout();
         }
 
         private void Load_Click(object sender, RoutedEventArgs e)
@@ -173,6 +184,24 @@ namespace enelex3
                 db.SaveChanges();
             }
             Load();
+        }
+
+        //azuriraj
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        //obrisi
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            //dg....selecteditem == measureview
+            //var id = measureview.id;
+            //var izbaze = db.measures.find(id);
+            //db.measures.remove(izbaze);
+            //stavis u try db.measures.savechanges();
+            // listofmeasasdas.remove (selectovani);
+            //dg.items.update();
         }
     }
 }
