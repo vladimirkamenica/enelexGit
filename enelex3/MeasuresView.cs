@@ -1,14 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using enelex3.FrontEndMethods;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace enelex3
 {
+
     public class MeasuresView
     {
+        Model1 db = new Model1();
+
         public int Id { get; set; }
+
+        public int IdSort { get; set; }
 
         public int Number { get; set; }
 
@@ -33,6 +35,10 @@ namespace enelex3
                 return Ge * Ge;
             }
         }
+
+        public double P { get; set; }
+        
+
 
     }
 }

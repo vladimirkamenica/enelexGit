@@ -5,9 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:enelex3"
         mc:Ignorable="d"
-         Title="Dodavanje uzoraka" Height="170" Width="120" WindowStartupLocation="CenterScreen" Closing="Window_Closing">
+         Title="Dodavanje uzoraka" Height="220" Width="120" WindowStartupLocation="CenterScreen" Closing="Window_Closing">
     <Grid>
         <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Margin="6,8,5,0">
+            <Label>Broj</Label>
+            <TextBox Name="tbIndex"  Width="100"></TextBox>
 
             <Label>Pepeo [GE]</Label>
             <TextBox Text="{Binding Ge, Mode=TwoWay, StringFormat={}{0:F2}}"  Width="100"></TextBox>

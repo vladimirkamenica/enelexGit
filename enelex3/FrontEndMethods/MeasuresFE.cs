@@ -23,8 +23,10 @@ namespace enelex3.FrontEndMethods
                             Id = x.Id,
                             Lab = x.Lab,
                             Ge = x.Ge,
-                            
-
+                            Number = x.Id,
+                            IdSort = x.IdSort,
+                            P = x.P,
+                           
                         }).ToList();
 
             return list;

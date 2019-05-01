@@ -12,10 +12,16 @@ namespace enelex3
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
 
         public int Id { get; set; }
-     
+
+        public int IdSort { get; set; }
+
         public double Ge { get; set; }
 
         public double Lab { get; set; }
+
+        public double IndexId { get; set; }
+
+        public double P { get; set; }
 
 
     }

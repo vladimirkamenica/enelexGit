@@ -44,7 +44,7 @@ namespace enelex3.FrontEndMethods
                                Id = x.Id,
                                L = x.L,
                                P = x.P,
-
+                              
                            }).ToList();
             return listone;
 

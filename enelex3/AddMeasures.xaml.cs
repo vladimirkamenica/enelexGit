@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using enelex3.FrontEndMethods;
 
 namespace enelex3
 {
@@ -22,11 +23,18 @@ namespace enelex3
         private Model1 db = new Model1();
         public Measures res = new Measures();
         bool Save = false;
+        
         public AddMeasures()
         {
-            InitializeComponent();
+            InitializeComponent();           
             DataContext = res;
+           
+            Index();
+
         }
+       
+        private MeasuresFE mfe;
+        public double IndexId { get; set; }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
@@ -38,5 +46,33 @@ namespace enelex3
             Save = true;
             Close();
         }
+        
+        private void Index()
+        {
+            db = new Model1();
+            mfe = new MeasuresFE(db);
+            MeasuresView mv = new MeasuresView();
+            var ListOfMeasures = mfe.GetMeasures();
+
+
+            if (ListOfMeasures.Count > -1)
+            {          
+                var broj = 1;
+                IndexId = broj;
+                tbIndex.Text = IndexId.ToString();
+               
+            }
+            if (ListOfMeasures.Count > 0)
+            {
+                IndexId = 0;  
+                var index = ListOfMeasures.Max(x => x.IdSort);
+                var index2 = index + 1;             
+                IndexId = index2;
+                tbIndex.Text = IndexId.ToString();
+            }
+            
+
+        }
+
     }
 }

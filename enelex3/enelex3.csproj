@@ -35,15 +35,33 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ClosedXML, Version=0.94.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ClosedXML.0.94.2\lib\net46\ClosedXML.dll</HintPath>
+    </Reference>
+    <Reference Include="DocumentFormat.OpenXml, Version=2.7.2.0, Culture=neutral, PublicKeyToken=8fb06cb64d019a17, processorArchitecture=MSIL">
+      <HintPath>..\packages\DocumentFormat.OpenXml.2.7.2\lib\net46\DocumentFormat.OpenXml.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="ExcelNumberFormat, Version=1.0.3.0, Culture=neutral, PublicKeyToken=23c6f5d73be07eca, processorArchitecture=MSIL">
+      <HintPath>..\packages\ExcelNumberFormat.1.0.3\lib\net20\ExcelNumberFormat.dll</HintPath>
+    </Reference>
+    <Reference Include="FastMember, Version=1.3.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\FastMember.1.3.0\lib\net45\FastMember.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
+    <Reference Include="System.IO.FileSystem.Primitives, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.FileSystem.Primitives.4.0.1\lib\net46\System.IO.FileSystem.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.Packaging, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.Packaging.4.0.0\lib\net46\System.IO.Packaging.dll</HintPath>
+    </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Xml" />
@@ -82,6 +100,7 @@
     <Compile Include="AddMeasures.xaml.cs">
       <DependentUpon>AddMeasures.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Alati\Tools.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -130,6 +149,18 @@
     <Compile Include="Migrations\201904040731379_kalibracija_procenat_.Designer.cs">
       <DependentUpon>201904040731379_kalibracija_procenat_.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201904081150563__idsort_.cs" />
+    <Compile Include="Migrations\201904081150563__idsort_.Designer.cs">
+      <DependentUpon>201904081150563__idsort_.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201904150606324__indexid_.cs" />
+    <Compile Include="Migrations\201904150606324__indexid_.Designer.cs">
+      <DependentUpon>201904150606324__indexid_.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201904280007271__P_.cs" />
+    <Compile Include="Migrations\201904280007271__P_.Designer.cs">
+      <DependentUpon>201904280007271__P_.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model1.cs" />
     <Compile Include="Percentage.cs" />
@@ -164,6 +195,15 @@
     <EmbeddedResource Include="Migrations\201904040731379_kalibracija_procenat_.resx">
       <DependentUpon>201904040731379_kalibracija_procenat_.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904081150563__idsort_.resx">
+      <DependentUpon>201904081150563__idsort_.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904150606324__indexid_.resx">
+      <DependentUpon>201904150606324__indexid_.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904280007271__P_.resx">
+      <DependentUpon>201904280007271__P_.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -175,7 +215,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Pics\001-file.png" />
@@ -199,6 +241,43 @@
     <Resource Include="Pics\suma4.png" />
     <Resource Include="Pics\suma5.png" />
     <Resource Include="Pics\suma6.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pics\bar-chart.png" />
+    <Resource Include="Pics\graph.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pics\graph1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pics\graph2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pics\graph3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pics\graph4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pics\graph5.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pics\nuclear.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pics\excel.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pics\excel1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pics\add1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pics\add2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pics\add3.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
