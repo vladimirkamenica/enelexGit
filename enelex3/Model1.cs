@@ -16,7 +16,7 @@ namespace enelex3
             : base("name=Model1")
         {
         }
-        public virtual DbSet<Measures> Measures { get; set; }
+        public virtual DbSet<Measure> Measures { get; set; }
         public virtual DbSet<Calibration> Calibrations { get; set; }
         public virtual DbSet<CalibratonOne> CalibratonOnes { get; set; }
         public virtual DbSet<CalibrationTwo> CalibrationTwos { get; set; }

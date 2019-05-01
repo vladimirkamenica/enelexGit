@@ -7,13 +7,13 @@ namespace enelex3.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class _idsort_ : IMigrationMetadata
+    public sealed partial class sort : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(_idsort_));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(sort));
         
         string IMigrationMetadata.Id
         {
-            get { return "201904081150563__idsort_"; }
+            get { return "201905011208397_sort"; }
         }
         
         string IMigrationMetadata.Source

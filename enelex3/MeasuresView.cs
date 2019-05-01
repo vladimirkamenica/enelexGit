@@ -8,11 +8,11 @@ namespace enelex3
     {
         Model1 db = new Model1();
 
-        public int Id { get; set; }
+        public long ID { get; set; }
 
         public int IdSort { get; set; }
 
-        public int Number { get; set; }
+        public long Number { get; set; }
 
         public double Ge { get; set; }
 

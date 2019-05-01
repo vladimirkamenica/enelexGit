@@ -113,6 +113,8 @@
     <Compile Include="FrontEndMethods\CalibrationFE.cs" />
     <Compile Include="FrontEndMethods\MeasuresFE.cs" />
     <Compile Include="FrontEndMethods\PercentageFE.cs" />
+    <Compile Include="Interfaces\BasicData.cs" />
+    <Compile Include="Interfaces\IDates.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -125,10 +127,6 @@
   <ItemGroup>
     <Compile Include="Measures.cs" />
     <Compile Include="MeasuresView.cs" />
-    <Compile Include="Migrations\201904040716352__novi_tip_.cs" />
-    <Compile Include="Migrations\201904040716352__novi_tip_.Designer.cs">
-      <DependentUpon>201904040716352__novi_tip_.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\201904040720173__kalibracija_prva_.cs" />
     <Compile Include="Migrations\201904040720173__kalibracija_prva_.Designer.cs">
       <DependentUpon>201904040720173__kalibracija_prva_.cs</DependentUpon>
@@ -149,17 +147,17 @@
     <Compile Include="Migrations\201904040731379_kalibracija_procenat_.Designer.cs">
       <DependentUpon>201904040731379_kalibracija_procenat_.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201904081150563__idsort_.cs" />
-    <Compile Include="Migrations\201904081150563__idsort_.Designer.cs">
-      <DependentUpon>201904081150563__idsort_.cs</DependentUpon>
+    <Compile Include="Migrations\201905011149086_measureUpdated.cs" />
+    <Compile Include="Migrations\201905011149086_measureUpdated.Designer.cs">
+      <DependentUpon>201905011149086_measureUpdated.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201904150606324__indexid_.cs" />
-    <Compile Include="Migrations\201904150606324__indexid_.Designer.cs">
-      <DependentUpon>201904150606324__indexid_.cs</DependentUpon>
+    <Compile Include="Migrations\201905011202434_Test.cs" />
+    <Compile Include="Migrations\201905011202434_Test.Designer.cs">
+      <DependentUpon>201905011202434_Test.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201904280007271__P_.cs" />
-    <Compile Include="Migrations\201904280007271__P_.Designer.cs">
-      <DependentUpon>201904280007271__P_.cs</DependentUpon>
+    <Compile Include="Migrations\201905011208397_sort.cs" />
+    <Compile Include="Migrations\201905011208397_sort.Designer.cs">
+      <DependentUpon>201905011208397_sort.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model1.cs" />
@@ -177,9 +175,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <EmbeddedResource Include="Migrations\201904040716352__novi_tip_.resx">
-      <DependentUpon>201904040716352__novi_tip_.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201904040720173__kalibracija_prva_.resx">
       <DependentUpon>201904040720173__kalibracija_prva_.cs</DependentUpon>
     </EmbeddedResource>
@@ -195,14 +190,14 @@
     <EmbeddedResource Include="Migrations\201904040731379_kalibracija_procenat_.resx">
       <DependentUpon>201904040731379_kalibracija_procenat_.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201904081150563__idsort_.resx">
-      <DependentUpon>201904081150563__idsort_.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201905011149086_measureUpdated.resx">
+      <DependentUpon>201905011149086_measureUpdated.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201904150606324__indexid_.resx">
-      <DependentUpon>201904150606324__indexid_.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201905011202434_Test.resx">
+      <DependentUpon>201905011202434_Test.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201904280007271__P_.resx">
-      <DependentUpon>201904280007271__P_.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201905011208397_sort.resx">
+      <DependentUpon>201905011208397_sort.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

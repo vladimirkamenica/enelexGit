@@ -1,23 +1,11 @@
-﻿using System;
+﻿using enelex3.Alati;
+using enelex3.FrontEndMethods;
+using System;
 using System.Collections.Generic;
-using System.Data.Entity.Migrations;
+using System.Data;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using enelex3.FrontEndMethods;
-using ClosedXML.Excel;
-using System.Data;
-using Microsoft.Win32;
-using enelex3.Alati;
 
 namespace enelex3
 {
@@ -37,7 +25,7 @@ namespace enelex3
             ListOfCalibrationTwo = new List<CalibrationTwo>();
             ListOfCalibrationOne = new List<CalibrationOneView>();
             DataContext = this;
-           
+
 
         }
         private MeasuresFE mfe;
@@ -46,28 +34,32 @@ namespace enelex3
         public List<CalibrationThree> ListOfCalibarationsThree { get; set; }
         public List<Percentage> ListOfPercetange { get; set; }
         public List<CalibrationTwo> ListOfCalibrationTwo { get; set; }
-        public List<CalibrationOneView>  ListOfCalibrationOne { get; set; }
+        public List<CalibrationOneView> ListOfCalibrationOne { get; set; }
         private CalibrationFE cfe;
         private PercentageFE pct;
 
+        public double NewMeasureLAB { get; set; }
+
+        public double NewMeasureGE { get; set; }
+
         public double FinalA { get; set; }
-        
+
         public double FinalB { get; set; }
 
         private void Load()
         {
             db = new Model1();
             mfe = new MeasuresFE(db);
-            
+
             ListOfMeasures.Clear();
             ListOfMeasures.AddRange(mfe.GetMeasures());
-           
+
 
 
             if (ListOfMeasures.Count > 0)
             {
 
-                db = new Model1();                           
+                db = new Model1();
                 cfe = new CalibrationFE(db);
                 pct = new PercentageFE(db);
                 ListOfCalibrations.Clear();
@@ -78,20 +70,20 @@ namespace enelex3
                 ListOfCalibrationTwo.AddRange(cfe.GetCalibrationsTwo());
                 ListOfCalibrationOne.Clear();
                 ListOfCalibrationOne.AddRange(cfe.GetCalibrationOnes());
-               
-                      
+
+
                 if (ListOfCalibarationsThree.Count > -1)
                 {
                     ListOfCalibarationsThree.Clear();
                     ListOfCalibarationsThree.AddRange(cfe.GetCalibrationsThree());
                 }
 
-                
+
                 var maxId = ListOfMeasures.Max(x => x.IdSort);
                 tbn.Text = maxId.ToString();
                 tbn1.Text = maxId.ToString();
 
-               
+
 
 
                 var sum2 = ListOfMeasures.Sum(x => x.Ge);
@@ -114,7 +106,7 @@ namespace enelex3
 
                 var sumP = gorep / dolep;
                 tbP.Text = sumP.ToString("0.####");
-               
+
                 var sumQ1 = ListOfMeasures.Sum(x => x.Lab);
                 tbSumQ1.Text = sumQ1.ToString();
 
@@ -151,15 +143,15 @@ namespace enelex3
 
 
                 }
-                
 
-                if (ListOfCalibarationsThree.Count > 0  && ListOfCalibrationOne.Count > 1)
+
+                if (ListOfCalibarationsThree.Count > 0 && ListOfCalibrationOne.Count > 1)
                 {
                     var a = ListOfCalibarationsThree[0].NumberAThree;
                     var agore = ListOfCalibrationOne[1].L - ListOfCalibrationOne[0].L;
                     var adole = ListOfCalibrationOne[1].P - ListOfCalibrationOne[0].P;
                     var deljenje = agore / adole;
-                    FinalA = a * deljenje;                   
+                    FinalA = a * deljenje;
                     tbAsraz.Text = FinalA.ToString();
 
                     var bgore = ListOfCalibrationOne[0].P + ListOfCalibarationsThree[0].NumberBThree;
@@ -168,10 +160,10 @@ namespace enelex3
                     FinalB = FinalA * deljenjeb - l1;
                     tbBsraz.Text = FinalB.ToString("0.####");
 
-                    
+
                 }
 
-              
+
             }
             dgMeasures.Items.Refresh();
             dgTipAB.Items.Refresh();
@@ -189,21 +181,21 @@ namespace enelex3
 
         private void Add_Click_1(object sender, RoutedEventArgs e)
         {
-           
-                AddMeasures add = new AddMeasures();
-                add.ShowDialog();
-                var res = add.res;
 
-                if (res != null)
-                {
-                    db.Measures.Add(res);
-                    db.SaveChanges();
-                }             
-                Load();
-            
+            AddMeasures add = new AddMeasures();
+            add.ShowDialog();
+            var res = add.res;
+
+            if (res != null)
+            {
+                db.Measures.Add(res);
+                db.SaveChanges();
+            }
+            Load();
+
         }
 
-       
+
 
 
         private void Save_Click(object sender, RoutedEventArgs e)
@@ -230,19 +222,21 @@ namespace enelex3
             else
             {
                 MessageBox.Show("Maksimalan broj članova");
-            }                                                   
+            }
             Load();
         }
-        private Measures copylist(MeasuresView input)
-        {
-            Measures list = new Measures
+        private void CopyMeasureViewToBase(MeasuresView input, bool saveDB, Model1 db = null)
+        {       
+            db = db ?? new Model1();
+            var x = db.Measures.Find(input.ID);
+            x.ID = input.ID;
+            x.Ge = input.Ge;
+            x.Lab = input.Lab;
+            if (saveDB)
             {
-                Id = input.Id,
-                Ge = input.Ge,
-                Lab = input.Lab,
-
-            };
-            return list;
+                db.SaveChanges();
+            }
+            db.Dispose();
         }
 
 
@@ -252,9 +246,7 @@ namespace enelex3
             var selektovano = dgMeasures.SelectedItem as MeasuresView;
             if (selektovano != null)
             {
-                var id = selektovano.IdSort;
-                var izbaze = db.Measures.Find(id);
-                db.SaveChanges();
+                CopyMeasureViewToBase(selektovano, true);
             }
         }
 
@@ -269,10 +261,10 @@ namespace enelex3
             // listofmeasasdas.remove (selectovani);
             //dg.items.update();
 
-          var selektovano =  dgMeasures.SelectedItem as MeasuresView;
+            var selektovano = dgMeasures.SelectedItem as MeasuresView;
             if (selektovano != null)
             {
-                var id = selektovano.Id;
+                var id = selektovano.ID;
                 var izbaze = db.Measures.Find(id);
                 db.Measures.Remove(izbaze);
                 try
@@ -323,37 +315,58 @@ namespace enelex3
         {
             Load();
             DataTable dtMeasure = new DataTable();
-        
+
             if (dgMeasures.Items.Count > 0)
             {
-                
+
                 dtMeasure.Columns.Add(new DataColumn("Broj uzorka [n]", typeof(string)));
                 dtMeasure.Columns.Add(new DataColumn("Pepeo [GE]", typeof(string)));
                 dtMeasure.Columns.Add(new DataColumn("Pepeo [LAB]", typeof(string)));
-               
+
                 foreach (var z in dgMeasures.Items)
                 {
                     if (z.GetType() != typeof(MeasuresView)) continue;
                     MeasuresView x = (MeasuresView)z;
                     DataRow dr = dtMeasure.NewRow();
-                   
+
                     dr[0] = x.IdSort;
                     dr[1] = x.Ge;
                     dr[2] = x.Lab;
-                   
+
                     dtMeasure.Rows.Add(dr);
-                    
+
                 }
 
             }
             var listaSh2 = new Dictionary<DataTable, string>();
-            
+
             listaSh2.Add(dtMeasure, "Eneleks kalibracija");
 
             Tools.SaveExcelFile(listaSh2);
 
         }
 
-       
+        private void DgMeasures_LoadingRow(object sender, DataGridRowEventArgs e)
+        {
+            var x = e.Row.DataContext as MeasuresView;
+           x.IdSort = (e.Row.GetIndex()) + 1;           
+        }
+
+        private void Button_Click_3(object sender, RoutedEventArgs e)
+        {
+            if (NewMeasureGE > 0 && NewMeasureLAB > 0)
+            {
+                var res = new Measure();
+                res.Description = "Uneto na dugme";
+                res.Lab = NewMeasureLAB;
+                res.Ge = NewMeasureGE;
+                if (res != null)
+                {
+                    db.Measures.Add(res);
+                    db.SaveChanges();
+                }
+                Load();
+            }
+        }
     }
 }

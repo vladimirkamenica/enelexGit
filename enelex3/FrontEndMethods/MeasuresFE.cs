@@ -17,14 +17,13 @@ namespace enelex3.FrontEndMethods
         }
         public List<MeasuresView> GetMeasures()
         {
-            var list = (from x in db.Measures.Include(x => x.Id)
+            var list = (from x in db.Measures.Include(x => x.ID)
                         select new MeasuresView
                         {
-                            Id = x.Id,
+                            ID = x.ID,
                             Lab = x.Lab,
                             Ge = x.Ge,
-                            Number = x.Id,
-                            IdSort = x.IdSort,
+                            Number = x.ID,
                             P = x.P,
                            
                         }).ToList();

@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using enelex3.FrontEndMethods;
+using enelex3.Interfaces;
 
 namespace enelex3
 {
@@ -21,14 +22,14 @@ namespace enelex3
     public partial class AddMeasures : Window
     {
         private Model1 db = new Model1();
-        public Measures res = new Measures();
+        public Measure res = new Measure();
         bool Save = false;
         
         public AddMeasures()
         {
             InitializeComponent();           
             DataContext = res;
-           
+            //Test(new Measure());
             Index();
 
         }
@@ -54,7 +55,6 @@ namespace enelex3
             MeasuresView mv = new MeasuresView();
             var ListOfMeasures = mfe.GetMeasures();
 
-
             if (ListOfMeasures.Count > -1)
             {          
                 var broj = 1;
@@ -65,7 +65,7 @@ namespace enelex3
             if (ListOfMeasures.Count > 0)
             {
                 IndexId = 0;  
-                var index = ListOfMeasures.Max(x => x.IdSort);
+                var index = ListOfMeasures.Max(x => x.ID);
                 var index2 = index + 1;             
                 IndexId = index2;
                 tbIndex.Text = IndexId.ToString();
@@ -73,6 +73,14 @@ namespace enelex3
             
 
         }
+
+        //private void Test (IBasicData input)
+        //{
+        //    var a = input.ID;
+        //    var db = new Model1();
+        //    var x = db.Set (input.GetType());
+        //    var b = "";
+        //}
 
     }
 }
