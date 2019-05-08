@@ -53,6 +53,12 @@
     <Reference Include="FastMember, Version=1.3.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\FastMember.1.3.0\lib\net45\FastMember.dll</HintPath>
     </Reference>
+    <Reference Include="LiveCharts, Version=0.9.7.0, Culture=neutral, PublicKeyToken=0bc1f845d1ebb8df, processorArchitecture=MSIL">
+      <HintPath>..\packages\LiveCharts.0.9.7\lib\net45\LiveCharts.dll</HintPath>
+    </Reference>
+    <Reference Include="LiveCharts.Wpf, Version=0.9.7.0, Culture=neutral, PublicKeyToken=0bc1f845d1ebb8df, processorArchitecture=MSIL">
+      <HintPath>..\packages\LiveCharts.Wpf.0.9.7\lib\net45\LiveCharts.Wpf.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
@@ -90,6 +96,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Graph1.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -113,6 +123,9 @@
     <Compile Include="FrontEndMethods\CalibrationFE.cs" />
     <Compile Include="FrontEndMethods\MeasuresFE.cs" />
     <Compile Include="FrontEndMethods\PercentageFE.cs" />
+    <Compile Include="Graph1.xaml.cs">
+      <DependentUpon>Graph1.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Interfaces\BasicData.cs" />
     <Compile Include="Interfaces\IDates.cs" />
     <Compile Include="MainWindow.xaml.cs">
@@ -273,6 +286,15 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Pics\add3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pics\refresh.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pics\ref.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pics\ref1.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

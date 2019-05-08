@@ -29,7 +29,7 @@ namespace enelex3
         {
             InitializeComponent();           
             DataContext = res;
-            //Test(new Measure());
+            Test(new Measure());
             Index();
 
         }
@@ -74,13 +74,13 @@ namespace enelex3
 
         }
 
-        //private void Test (IBasicData input)
-        //{
-        //    var a = input.ID;
-        //    var db = new Model1();
-        //    var x = db.Set (input.GetType());
-        //    var b = "";
-        //}
+        private void Test (IBasicData input)
+        {
+            var a = input.ID;
+            var db = new Model1();
+            var x = db.Set (input.GetType());
+            var b = "";
+        }
 
     }
 }

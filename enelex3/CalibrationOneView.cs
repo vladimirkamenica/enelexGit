@@ -14,6 +14,8 @@ namespace enelex3
 
         public double P { get; set; }
 
+        public int ID { get; set; }
+
         public double SumLP
         {
 

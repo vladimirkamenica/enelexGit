@@ -25,7 +25,7 @@ namespace enelex3
             ListOfCalibrationTwo = new List<CalibrationTwo>();
             ListOfCalibrationOne = new List<CalibrationOneView>();
             DataContext = this;
-
+            
 
         }
         private MeasuresFE mfe;
@@ -49,11 +49,11 @@ namespace enelex3
         private void Load()
         {
             db = new Model1();
+
             mfe = new MeasuresFE(db);
 
             ListOfMeasures.Clear();
             ListOfMeasures.AddRange(mfe.GetMeasures());
-
 
 
             if (ListOfMeasures.Count > 0)
@@ -62,6 +62,7 @@ namespace enelex3
                 db = new Model1();
                 cfe = new CalibrationFE(db);
                 pct = new PercentageFE(db);
+
                 ListOfCalibrations.Clear();
                 ListOfCalibrations.AddRange(cfe.GetCalibrations());
                 ListOfPercetange.Clear();
@@ -70,7 +71,8 @@ namespace enelex3
                 ListOfCalibrationTwo.AddRange(cfe.GetCalibrationsTwo());
                 ListOfCalibrationOne.Clear();
                 ListOfCalibrationOne.AddRange(cfe.GetCalibrationOnes());
-
+                //  var ListOfCalibrations = cfe.GetCalibrations();
+                // dgTipAB.ItemsSource = ListOfCalibrations;
 
                 if (ListOfCalibarationsThree.Count > -1)
                 {
@@ -78,13 +80,12 @@ namespace enelex3
                     ListOfCalibarationsThree.AddRange(cfe.GetCalibrationsThree());
                 }
 
+                var maxId = ListOfMeasures.Count;
 
-                var maxId = ListOfMeasures.Max(x => x.IdSort);
                 tbn.Text = maxId.ToString();
                 tbn1.Text = maxId.ToString();
 
-
-
+              
 
                 var sum2 = ListOfMeasures.Sum(x => x.Ge);
                 tbSum2.Text = sum2.ToString();
@@ -131,17 +132,17 @@ namespace enelex3
                     var sumb = ListOfCalibrations[0].NumberB;
                     var sumbb = sumP * sumb + sumQ;
                     tbB.Text = sumbb.ToString("0.####");
-
+                }
+                if (ListOfCalibrationTwo.Count > 0)
+                {
                     var aprocenat = ListOfCalibrationTwo[0].NumberATwo;
-                    tbAprocenat.Text = aprocenat.ToString();
+                    tbAprocenat.Text = aprocenat.ToString("0.##");
 
                     var bprocenat = ListOfCalibrationTwo[0].NumberBTwo;
                     var pomeraj = ListOfPercetange[0].NumberP;
                     var ukupno = -bprocenat + pomeraj;
                     var pozitivno = -1 * ukupno;
-                    tbBprocenat.Text = pozitivno.ToString();
-
-
+                    tbBprocenat.Text = pozitivno.ToString("0.##");
                 }
 
 
@@ -172,11 +173,13 @@ namespace enelex3
             dgApsolutno.Items.Refresh();
             dgOne.Items.Refresh();
             UpdateLayout();
+
         }
 
         private void Load_Click(object sender, RoutedEventArgs e)
         {
             Load();
+
         }
 
         private void Add_Click_1(object sender, RoutedEventArgs e)
@@ -197,11 +200,34 @@ namespace enelex3
 
 
 
-
+        public double NumberAp { get; set; }
+        public double NumberBp { get; set; }
         private void Save_Click(object sender, RoutedEventArgs e)
         {
-            db.SaveChanges();
-            Load();
+            if (ListOfCalibrations.Count <= 0)
+            {
+
+                if (NumberAp > 0 && NumberBp > 0)
+                {
+                    var resP = new Calibration();
+                    resP.NumberA = NumberAp;
+                    resP.NumberB = NumberBp;
+                    if (resP != null)
+                    {
+
+                        db.Calibrations.Add(resP);
+                        db.SaveChanges();
+                    }
+                    Load();
+                }
+
+
+            }
+            else
+            {
+                MessageBox.Show("Makismalan broj clanova");
+            }
+
         }
 
         private void Add2_Click(object sender, RoutedEventArgs e)
@@ -226,7 +252,7 @@ namespace enelex3
             Load();
         }
         private void CopyMeasureViewToBase(MeasuresView input, bool saveDB, Model1 db = null)
-        {       
+        {
             db = db ?? new Model1();
             var x = db.Measures.Find(input.ID);
             x.ID = input.ID;
@@ -237,6 +263,7 @@ namespace enelex3
                 db.SaveChanges();
             }
             db.Dispose();
+
         }
 
 
@@ -248,6 +275,7 @@ namespace enelex3
             {
                 CopyMeasureViewToBase(selektovano, true);
             }
+            Load();
         }
 
         //obrisi
@@ -277,8 +305,10 @@ namespace enelex3
                 }
                 ListOfMeasures.Remove(selektovano);
 
-                Load();
+               
             }
+            Load();
+         
         }
 
         private void dgMeasures_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -320,8 +350,8 @@ namespace enelex3
             {
 
                 dtMeasure.Columns.Add(new DataColumn("Broj uzorka [n]", typeof(string)));
-                dtMeasure.Columns.Add(new DataColumn("Pepeo [GE]", typeof(string)));
-                dtMeasure.Columns.Add(new DataColumn("Pepeo [LAB]", typeof(string)));
+                dtMeasure.Columns.Add(new DataColumn("Pepeo x [GE]", typeof(string)));
+                dtMeasure.Columns.Add(new DataColumn("Pepeo y [LAB]", typeof(string)));
 
                 foreach (var z in dgMeasures.Items)
                 {
@@ -345,11 +375,17 @@ namespace enelex3
             Tools.SaveExcelFile(listaSh2);
 
         }
-
+       
         private void DgMeasures_LoadingRow(object sender, DataGridRowEventArgs e)
         {
-            var x = e.Row.DataContext as MeasuresView;
-           x.IdSort = (e.Row.GetIndex()) + 1;           
+            if (ListOfMeasures.Count > 0)
+            {
+                var x = e.Row.DataContext as MeasuresView;
+                var id = e.Row.GetIndex() + 1;
+                x.IdSort = id;
+               
+            }
+
         }
 
         private void Button_Click_3(object sender, RoutedEventArgs e)
@@ -367,6 +403,138 @@ namespace enelex3
                 }
                 Load();
             }
+            else
+            {
+                MessageBox.Show("Morate uneti podatke");
+            }           
+            NewMeasureGE = 0;
+            NewMeasureLAB = 0;
+            tbGE.Text = "0,00";
+            tbLAB.Text ="0,00";
+            Load();
+        }
+
+        private void DgOne_LoadingRow(object sender, DataGridRowEventArgs e)
+        {
+            var x = e.Row.DataContext as CalibrationOneView;
+            x.ID = (e.Row.GetIndex()) + 1;
+
+
+        }
+
+        private void Button_Click_4(object sender, RoutedEventArgs e)
+        {
+            db.SaveChanges();
+            Load();
+        }
+        public double NumberL { get; set; }
+        public double NumberP { get; set; }
+
+        private void Button_Click_5(object sender, RoutedEventArgs e)
+        {
+            if (ListOfCalibrationOne.Count <= 1)
+            {
+                if (NumberL > 0 && NumberP > 0)
+                {
+                    var resO = new CalibratonOne();
+                    resO.L = NumberL;
+                    resO.P = NumberP;
+                    if (resO != null)
+                    {
+                        db.CalibratonOnes.Add(resO);
+                        db.SaveChanges();
+                        Load();
+                        
+                    }
+                    
+                }
+            }
+            else
+            {
+                MessageBox.Show("maksimalan broj clanova");
+            }
+        }
+        public double NumberPr { get; set; }
+        private void Button_Click_6(object sender, RoutedEventArgs e)
+        {
+            if (ListOfPercetange.Count <= 0)
+            {
+
+                if (NumberPr > 0 )
+                {
+                    var resPr = new Percentage();
+                    resPr.NumberP = NumberPr;
+                    
+                    if (resPr != null)
+                    {
+
+                        db.Percentages.Add(resPr);
+                        db.SaveChanges();
+                    }
+                    Load();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Makismalan broj clanova");
+            }
+
+        }
+        public double NumberAa { get; set; }
+        public double NumberBa { get; set; }
+        private void Button_Click_7(object sender, RoutedEventArgs e)
+        {
+            if (ListOfCalibrationTwo.Count <= 0)
+            {
+                if (NumberAa > 0 && NumberBa > 0)
+                {
+                    var resA = new CalibrationTwo();
+                    resA.NumberATwo = NumberAa;
+                    resA.NumberBTwo = NumberBa;
+                    if (resA != null)
+                    {
+                        db.CalibrationTwos.Add(resA);
+                        db.SaveChanges();
+                        Load();
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("maksimalan broj clanova");
+            }
+        }
+        public double NumberAs { get; set; }
+        public double NumberBs { get; set; }
+        private void Button_Click_8(object sender, RoutedEventArgs e)
+        {
+            if (ListOfCalibarationsThree.Count <= 0)
+            {
+                if (NumberAs > 0 && NumberBs > 0)
+                {
+                    var resAs = new CalibrationThree();
+                    resAs.NumberAThree = NumberAs;
+                    resAs.NumberBThree = NumberBs;
+                    if (resAs != null)
+                    {
+                        db.CalibrationThrees.Add(resAs);
+                        db.SaveChanges();
+                        Load();
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("maksimalan broj clanova");
+            }
+        }
+
+        private void Graph1(object sender, RoutedEventArgs e)
+        {
+            Graph1 gr = new Graph1();
+            gr.ShowDialog();
+                
+
         }
     }
 }
