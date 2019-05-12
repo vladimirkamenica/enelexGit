@@ -25,6 +25,8 @@ namespace enelex3
             ListOfPercetange = new List<Percentage>();
             ListOfCalibrationTwo = new List<CalibrationTwo>();
             ListOfCalibrationOne = new List<CalibrationOneView>();
+            SumP = 0;
+            SumQ = 0;
             DataContext = this;
             
 
@@ -47,6 +49,10 @@ namespace enelex3
 
         public double FinalB { get; set; }
 
+        public double SumQ { get; set; }
+
+        public double SumP { get; set; }
+
         private void Load()
         {
             db = new Model1();
@@ -60,7 +66,7 @@ namespace enelex3
             if (ListOfMeasures.Count > 0)
             {
 
-                db = new Model1();
+                db = new Model1();              
                 cfe = new CalibrationFE(db);
                 pct = new PercentageFE(db);
 
@@ -106,8 +112,7 @@ namespace enelex3
                 var gorep = sum1 - sum2 * sum3;
                 var dolep = sum4 - sum5;
 
-                var sumP = gorep / dolep;
-                tbP.Text = sumP.ToString("0.####");
+                SumP = gorep / dolep;
 
                 var sumQ1 = ListOfMeasures.Sum(x => x.Lab);
                 tbSumQ1.Text = sumQ1.ToString();
@@ -115,23 +120,22 @@ namespace enelex3
                 var sumQ2 = ListOfMeasures.Sum(x => x.Ge);
 
 
-                var sumq2 = sumQ2 * sumP;
+                var sumq2 = sumQ2 * SumP;
                 tbSumQ2.Text = sumq2.ToString("0.####");
                 var goreq = sumQ1 - sumq2;
 
 
 
-                var sumQ = goreq / maxId;
-                tbQ.Text = sumQ.ToString("0.#####");
+                SumQ = goreq / maxId;
 
                 if (ListOfCalibrations.Count > 0)
                 {
                     var suma = ListOfCalibrations[0].NumberA;
-                    var sumaa = suma * sumP;
+                    var sumaa = suma * SumP;
                     tbA.Text = sumaa.ToString("0.####");
 
                     var sumb = ListOfCalibrations[0].NumberB;
-                    var sumbb = sumP * sumb + sumQ;
+                    var sumbb = SumP * sumb + SumQ;
                     tbB.Text = sumbb.ToString("0.####");
                 }
                 if (ListOfCalibrationTwo.Count > 0)
@@ -535,9 +539,8 @@ namespace enelex3
 
         private void Graph1(object sender, RoutedEventArgs e)
         {
-            Graph1 gr = new Graph1();
-            gr.ShowDialog();
-                
+            Graph1 gr = new Graph1(ListOfMeasures, SumP, SumQ);
+            gr.ShowDialog();               
 
         }
     }

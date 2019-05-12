@@ -79,7 +79,7 @@
                                 </Grid.ColumnDefinitions>
                                 <Image Grid.Column="1"  Source="Pics/p.png" Width="250"></Image>
                                 <Label Grid.Column="2" Margin="0,50,0,0">=</Label>
-                                <TextBox Name="tbP"  Grid.Column="3" Height="20"  Width="100" HorizontalAlignment="Left" Background="#ffffd8" VerticalContentAlignment="Center" Margin="0,55,0,57"></TextBox>
+                                <TextBox Name="tbP"  Grid.Column="3" Height="20"  Width="100" HorizontalAlignment="Left" Background="#ffffd8" VerticalContentAlignment="Center" Margin="0,55,0,57" Text="{Binding SumP, Mode=TwoWay, StringFormat=N4}"></TextBox>
                             </Grid>
                         </StackPanel>
                     </StackPanel>
@@ -103,7 +103,7 @@
                             </Grid.ColumnDefinitions>
                             <Image Grid.Column="1" Source="Pics/q.png" Width="155" Margin="0,5,0,0"></Image>
                             <Label Grid.Column="2" Margin="0,67,0,0">=</Label>
-                            <TextBox Name="tbQ" Grid.Column="3" Width="100" HorizontalAlignment="Left" Background="#ffffd8" VerticalContentAlignment="Center" Margin="0,72,0,37" ></TextBox>
+                            <TextBox Name="tbQ" Grid.Column="3" Width="100" HorizontalAlignment="Left" Background="#ffffd8" VerticalContentAlignment="Center" Margin="0,72,0,37" Text="{Binding SumQ, Mode=TwoWay, StringFormat=N4}"></TextBox>
                         </Grid>
                     </StackPanel>
                 </Grid>

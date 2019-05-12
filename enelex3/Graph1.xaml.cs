@@ -26,40 +26,11 @@ namespace enelex3
     /// </summary>
     public partial class Graph1 : Window
     {
-        Model1 db = new Model1();
-        private MeasuresFE mfe;
-
-        
-        public object Mapper { get; set; }
-        public Graph1()
+        public Graph1(List<MeasuresView> input, double p, double q)
         {
             InitializeComponent();
-            
-            
-            ValuesA = new ChartValues<ObservablePoint>();
-            ValuesB = new ChartValues<ObservablePoint>();
-            ValuesC = new ChartValues<ObservablePoint>();
-            mfe = new MeasuresFE(db);
-            var ListOfMeasures = mfe.GetMeasures();
-
-            if (ListOfMeasures.Count > 0)
-            {
-            
-                for ( var i = 0 ; i < ListOfMeasures.Count; i++)
-                {
-                    ValuesA.Add(new ObservablePoint(ListOfMeasures[i].Ge, ListOfMeasures[i].Lab));                 
-                }
-            }
-          
-
-            DataContext = this;
-        }
-      
-        public ChartValues<ObservablePoint> ValuesA { get; set; }
-        public ChartValues<ObservablePoint> ValuesB { get; set; }
-        public ChartValues<ObservablePoint> ValuesC { get; set; }
-
-        
+            Grafik.SetMeasureViewToGraph(input, p, q);          
+        }       
     }
 }
 

@@ -4,39 +4,10 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:enelex3"
-        xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+         xmlns:uc="clr-namespace:enelex3.UserControls"
         mc:Ignorable="d"
-        Title="Dijagram pepela" Icon="Pics/graph5.png" Height="450" Width="800" WindowStartupLocation="CenterScreen">
+        Title="Dijagram pepela" Icon="Pics/graph5.png" WindowStartupLocation="CenterScreen" SizeToContent="WidthAndHeight">
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="auto"></RowDefinition>
-        </Grid.RowDefinitions>
-        
-        
-        <lvc:CartesianChart Grid.Row="1"   >
-            
-            <lvc:CartesianChart.Series>
-                <lvc:ScatterSeries Title="Ge-x, Lab-y" Values="{Binding ValuesA}"  >
-                    <lvc:ScatterSeries.Fill>
-                        <SolidColorBrush Color="#FF4E8EFF" Opacity="0.7"/>
-                    </lvc:ScatterSeries.Fill>
-
-                </lvc:ScatterSeries>
-                
-                <lvc:ScatterSeries  Values="{Binding ValuesC}"
-                                   PointGeometry="{x:Static lvc:DefaultGeometries.None }" />
-                <lvc:ScatterSeries  Values="{Binding ValuesC}"
-                                   PointGeometry="{x:Static lvc:DefaultGeometries.None}"
-                                   StrokeThickness="2" Fill="Transparent"/>
-                
-            </lvc:CartesianChart.Series>
-            
-            <lvc:CartesianChart.AxisY>
-                <!--setting the axis unit improved the labels rounding rule-->
-                <lvc:Axis Unit="5"></lvc:Axis>
-            </lvc:CartesianChart.AxisY>
-        </lvc:CartesianChart>
+        <uc:ScatterLineGraph x:Name="Grafik"></uc:ScatterLineGraph>
     </Grid>
 </Window>
