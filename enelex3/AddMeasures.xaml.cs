@@ -59,8 +59,7 @@ namespace enelex3
             {          
                 var broj = 1;
                 IndexId = broj;
-                tbIndex.Text = IndexId.ToString();
-               
+                tbIndex.Text = IndexId.ToString();               
             }
             if (ListOfMeasures.Count > 0)
             {

@@ -63,7 +63,7 @@
                         </Trigger>
                         <Trigger Property="IsPressed" Value="true">
                             <Setter Property="Background" TargetName="border" Value="{DynamicResource Button.Pressed.Background}"/>
-                            <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource Button.Pressed.Border}"/>
+                            <Setter Property="BorderBrush" TargetName="border" Value="Transparent"/>
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="false">
                             <Setter Property="Background" TargetName="border" Value="{DynamicResource Button.Disabled.Background}"/>
@@ -102,7 +102,7 @@
                         </Trigger>
                         <Trigger Property="IsPressed" Value="true">
                             <Setter Property="Background" TargetName="border" Value="{DynamicResource Button.Pressed.Background}"/>
-                            <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource Button.Pressed.Border}"/>
+                            <Setter Property="BorderBrush" TargetName="border" Value="Transparent"/>
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="false">
                             <Setter Property="Background" TargetName="border" Value="{DynamicResource Button.Disabled.Background}"/>
@@ -141,7 +141,7 @@
                         </Trigger>
                         <Trigger Property="IsPressed" Value="true">
                             <Setter Property="Background" TargetName="border" Value="{DynamicResource Button.Pressed.Background}"/>
-                            <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource Button.Pressed.Border}"/>
+                            <Setter Property="BorderBrush" TargetName="border" Value="Transparent"/>
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="false">
                             <Setter Property="Background" TargetName="border" Value="{DynamicResource Button.Disabled.Background}"/>
@@ -205,7 +205,7 @@
                                 <RowDefinition></RowDefinition>
                                 <RowDefinition></RowDefinition>
                             </Grid.RowDefinitions>
-                            <Image Source="/Pics/001-file.png" Width="15"/>
+                            <Image Source="/Pics/001-file.png" Width="17"/>
                             <Label Grid.Row="1" Margin="0,-5,0,0" FontSize="11">Učitaj</Label>
                         </Grid>
                     </Border>
@@ -219,7 +219,7 @@
                         </Trigger>
                         <Trigger Property="IsPressed" Value="true">
                             <Setter Property="Background" TargetName="border" Value="{DynamicResource Button.Pressed.Background}"/>
-                            <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource Button.Pressed.Border}"/>
+                            <Setter Property="BorderBrush" TargetName="border" Value="Transparent"/>
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="false">
                             <Setter Property="Background" TargetName="border" Value="{DynamicResource Button.Disabled.Background}"/>
@@ -283,7 +283,7 @@
                                 <RowDefinition></RowDefinition>
                                 <RowDefinition></RowDefinition>
                             </Grid.RowDefinitions>
-                            <Image Source="/Pics/003-refresh.png" Width="15"/>
+                            <Image Source="/Pics/003-refresh.png" Width="17"/>
                             <Label Grid.Row="1" Margin="0,-5,0,0" FontSize="11">Ažuriraj</Label>
                         </Grid>
                     </Border>
@@ -297,7 +297,7 @@
                         </Trigger>
                         <Trigger Property="IsPressed" Value="true">
                             <Setter Property="Background" TargetName="border" Value="{DynamicResource Button.Pressed.Background}"/>
-                            <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource Button.Pressed.Border}"/>
+                            <Setter Property="BorderBrush" TargetName="border" Value="Transparent"/>
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="false">
                             <Setter Property="Background" TargetName="border" Value="{DynamicResource Button.Disabled.Background}"/>
@@ -322,7 +322,7 @@
                                 <RowDefinition></RowDefinition>
                                 <RowDefinition></RowDefinition>
                             </Grid.RowDefinitions>
-                            <Image Source="/Pics/006-trash.png" Width="15"/>
+                            <Image Source="/Pics/006-trash.png" Width="17"/>
                             <Label Grid.Row="1" Margin="0,-5,0,0" FontSize="11">Obriši</Label>
                         </Grid>
                     </Border>
@@ -336,7 +336,7 @@
                         </Trigger>
                         <Trigger Property="IsPressed" Value="true">
                             <Setter Property="Background" TargetName="border" Value="{DynamicResource Button.Pressed.Background}"/>
-                            <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource Button.Pressed.Border}"/>
+                            <Setter Property="BorderBrush" TargetName="border" Value="Transparent"/>
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="false">
                             <Setter Property="Background" TargetName="border" Value="{DynamicResource Button.Disabled.Background}"/>
@@ -416,7 +416,7 @@
                         </Trigger>
                         <Trigger Property="IsPressed" Value="true">
                             <Setter Property="Background" TargetName="border" Value="{DynamicResource Button.Pressed.Background}"/>
-                            <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource Button.Pressed.Border}"/>
+                            <Setter Property="BorderBrush" TargetName="border" Value="Transparent"/>
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="false">
                             <Setter Property="Background" TargetName="border" Value="{DynamicResource Button.Disabled.Background}"/>

@@ -33,7 +33,7 @@
             <TextBox Name="tbLAB" Width="42" Height="20"  Text="{Binding NewMeasureLAB, Mode=TwoWay, StringFormat={}{0:F2}}"></TextBox>
             <Button Click="Button_Click_3" Style="{DynamicResource Add2}"></Button>
         </StackPanel>
-        <DataGrid Name="dgMeasures" Grid.Row="2" Grid.RowSpan="3" Style="{StaticResource dgCustom}"  CanUserAddRows="False"  ItemsSource="{Binding ListOfMeasures}" SelectionChanged="dgMeasures_SelectionChanged" LoadingRow="DgMeasures_LoadingRow">
+        <DataGrid Name="dgMeasures"  Grid.Row="2" Grid.RowSpan="3" Style="{StaticResource dgCustom}"  CanUserAddRows="False"  ItemsSource="{Binding ListOfMeasures}" SelectionChanged="dgMeasures_SelectionChanged" LoadingRow="DgMeasures_LoadingRow">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Broj n [ j ] " Binding="{Binding IdSort}" ></DataGridTextColumn>
                 <DataGridTextColumn Header="Pepeo x [GE] " Binding="{Binding Ge,  StringFormat={}{0:F2}}" Width="100" ></DataGridTextColumn>

@@ -1,4 +1,5 @@
-﻿using enelex3.Alati;
+﻿using ClosedXML.Excel;
+using enelex3.Alati;
 using enelex3.FrontEndMethods;
 using System;
 using System.Collections.Generic;
@@ -323,6 +324,7 @@ namespace enelex3
             var selektovano = dgOne.SelectedItem as CalibrationOneView;
             if (selektovano != null)
             {
+                
                 var id = selektovano.Id;
                 var izbaze = db.CalibratonOnes.Find(id);
                 db.CalibratonOnes.Remove(izbaze);
@@ -344,11 +346,13 @@ namespace enelex3
         private void Excel_Button(object sender, RoutedEventArgs e)
         {
             Load();
+          XLWorkbook eksel = new XLWorkbook();
+          
             DataTable dtMeasure = new DataTable();
-
+           
             if (dgMeasures.Items.Count > 0)
             {
-
+               
                 dtMeasure.Columns.Add(new DataColumn("Broj uzorka [n]", typeof(string)));
                 dtMeasure.Columns.Add(new DataColumn("Pepeo x [GE]", typeof(string)));
                 dtMeasure.Columns.Add(new DataColumn("Pepeo y [LAB]", typeof(string)));
@@ -358,18 +362,18 @@ namespace enelex3
                     if (z.GetType() != typeof(MeasuresView)) continue;
                     MeasuresView x = (MeasuresView)z;
                     DataRow dr = dtMeasure.NewRow();
-
+                   
                     dr[0] = x.IdSort;
                     dr[1] = x.Ge;
                     dr[2] = x.Lab;
 
                     dtMeasure.Rows.Add(dr);
-
+                   
                 }
 
             }
             var listaSh2 = new Dictionary<DataTable, string>();
-
+           
             listaSh2.Add(dtMeasure, "Eneleks kalibracija");
 
             Tools.SaveExcelFile(listaSh2);

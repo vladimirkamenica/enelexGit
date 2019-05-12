@@ -15,20 +15,27 @@
         </Grid.RowDefinitions>
         
         
-        <lvc:CartesianChart Name="chart1" Grid.Row="1" LegendLocation="Bottom"   >
+        <lvc:CartesianChart Grid.Row="1"   >
             
             <lvc:CartesianChart.Series>
-                <lvc:ScatterSeries  Values="{Binding ValuesA}" ></lvc:ScatterSeries>
+                <lvc:ScatterSeries Title="Ge-x, Lab-y" Values="{Binding ValuesA}"  >
+                    <lvc:ScatterSeries.Fill>
+                        <SolidColorBrush Color="#FF4E8EFF" Opacity="0.7"/>
+                    </lvc:ScatterSeries.Fill>
+
+                </lvc:ScatterSeries>
                 
                 <lvc:ScatterSeries  Values="{Binding ValuesC}"
                                    PointGeometry="{x:Static lvc:DefaultGeometries.None }" />
                 <lvc:ScatterSeries  Values="{Binding ValuesC}"
                                    PointGeometry="{x:Static lvc:DefaultGeometries.None}"
                                    StrokeThickness="2" Fill="Transparent"/>
+                
             </lvc:CartesianChart.Series>
+            
             <lvc:CartesianChart.AxisY>
                 <!--setting the axis unit improved the labels rounding rule-->
-                <lvc:Axis Unit="1"></lvc:Axis>
+                <lvc:Axis Unit="5"></lvc:Axis>
             </lvc:CartesianChart.AxisY>
         </lvc:CartesianChart>
     </Grid>

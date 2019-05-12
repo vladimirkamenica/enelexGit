@@ -10,7 +10,7 @@ namespace enelex3.Interfaces
     {
         long CreationUserID { get; set; }
         DateTime CreationDate { get; set; }
-
+        
         long UpdateUserID { get; set; }
         DateTime UpdateDate { get; set; }
     }

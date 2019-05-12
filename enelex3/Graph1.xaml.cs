@@ -44,17 +44,17 @@ namespace enelex3
 
             if (ListOfMeasures.Count > 0)
             {
-                for (var i = 0; i < ListOfMeasures.Count; i++)
+            
+                for ( var i = 0 ; i < ListOfMeasures.Count; i++)
                 {
-                    ValuesA.Add(new ObservablePoint(ListOfMeasures[i].Ge, ListOfMeasures[i].Lab));
-
+                    ValuesA.Add(new ObservablePoint(ListOfMeasures[i].Ge, ListOfMeasures[i].Lab));                 
                 }
             }
-            
+          
 
             DataContext = this;
         }
-
+      
         public ChartValues<ObservablePoint> ValuesA { get; set; }
         public ChartValues<ObservablePoint> ValuesB { get; set; }
         public ChartValues<ObservablePoint> ValuesC { get; set; }
