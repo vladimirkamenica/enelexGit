@@ -25,6 +25,7 @@ namespace enelex3.FrontEndMethods
                             Ge = x.Ge,
                             Number = x.ID,
                             P = x.P,
+                            W = x.W,
                            
                         }).ToList();
 

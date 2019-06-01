@@ -32,6 +32,10 @@
         <Setter Property="BorderBrush" Value="#c6c6c6"></Setter>
         <Setter Property="Background" Value="White"></Setter>
         <Setter Property="RowHeaderWidth" Value="0"></Setter>
+        <Setter Property="CanUserAddRows" Value="False"></Setter>
+        <Setter Property="CanUserSortColumns" Value="False"></Setter>
+        <Setter Property="AllowDrop" Value="True"></Setter>
+        
     </Style>
 
     <Style x:Key="SaveButton" TargetType="Button">
@@ -49,8 +53,8 @@
                                 <RowDefinition></RowDefinition>
                                 <RowDefinition></RowDefinition>
                             </Grid.RowDefinitions>
-                            <Image Source="/Pics/save.png" Width="15"/>
-                            <Label Grid.Row="1" Margin="0,-5,0,0">Snimi</Label>
+                            <Image Source="/Pics/add1.png" Width="17"/>
+                            <Label Grid.Row="1" Margin="0,-8,0,0">Dodaj</Label>
                         </Grid>                      
                     </Border>
                     <ControlTemplate.Triggers>
@@ -88,7 +92,7 @@
                                 <RowDefinition></RowDefinition>
                                 <RowDefinition></RowDefinition>
                             </Grid.RowDefinitions>
-                            <Image Source="/Pics/006-trash.png" Width="15"/>
+                            <Image Source="/Pics/close.png" Width="15"/>
                             <Label Grid.Row="1" Margin="0,-5,0,0">Obriši</Label>
                         </Grid>
                     </Border>
@@ -205,7 +209,7 @@
                                 <RowDefinition></RowDefinition>
                                 <RowDefinition></RowDefinition>
                             </Grid.RowDefinitions>
-                            <Image Source="/Pics/001-file.png" Width="17"/>
+                            <Image Source="/Pics/down.png" Width="17"/>
                             <Label Grid.Row="1" Margin="0,-5,0,0" FontSize="11">Učitaj</Label>
                         </Grid>
                     </Border>
@@ -283,7 +287,7 @@
                                 <RowDefinition></RowDefinition>
                                 <RowDefinition></RowDefinition>
                             </Grid.RowDefinitions>
-                            <Image Source="/Pics/003-refresh.png" Width="17"/>
+                            <Image Source="/Pics/edit.png" Width="17"/>
                             <Label Grid.Row="1" Margin="0,-5,0,0" FontSize="11">Ažuriraj</Label>
                         </Grid>
                     </Border>
@@ -322,7 +326,7 @@
                                 <RowDefinition></RowDefinition>
                                 <RowDefinition></RowDefinition>
                             </Grid.RowDefinitions>
-                            <Image Source="/Pics/006-trash.png" Width="17"/>
+                            <Image Source="/Pics/close.png" Width="17"/>
                             <Label Grid.Row="1" Margin="0,-5,0,0" FontSize="11">Obriši</Label>
                         </Grid>
                     </Border>
@@ -442,7 +446,7 @@
                                 <RowDefinition></RowDefinition>
                                 <RowDefinition></RowDefinition>
                             </Grid.RowDefinitions>
-                            <Image Source="/Pics/003-refresh.png" Width="18"/>
+                            <Image Source="/Pics/edit.png" Width="18"/>
                             <Label Grid.Row="1" Margin="0,-5,0,0">Аžuriraj</Label>
                         </Grid>
                     </Border>

@@ -1,17 +1,17 @@
-﻿<Window x:Class="enelex3.MainWindow"
+﻿    <Window x:Class="enelex3.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:enelex3"
         mc:Ignorable="d"
-       Title="Enelex GE3030" Icon="Pics/nuclear.ico" Width="1390" Height="800" WindowStartupLocation="CenterScreen" WindowState="Maximized"  Background="WhiteSmoke">
+       Title="Enelex GE3030" Icon="Pics/nuclear.ico" Width="1455" Height="800" WindowStartupLocation="CenterScreen" WindowState="Maximized"  Background="WhiteSmoke">
 
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"></RowDefinition>
             <RowDefinition Height="auto"></RowDefinition>
-            <RowDefinition/>
+            <RowDefinition></RowDefinition>
             <RowDefinition Height="auto"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -27,17 +27,22 @@
             
         </StackPanel>
         <StackPanel Grid.Row="1" Background="White" Orientation="Horizontal" Margin="5,5,0,0">
-            <Label Margin="-3,0,0,0">Pepeo GE</Label>
+            <Label Margin="-3,0,0,0">Br</Label>
+            <TextBox Name="tbBr" Width="42"  Height="20" ></TextBox>
+            <Label Margin="-3,0,0,0">GE</Label>
             <TextBox Name="tbGE" Width="42"  Height="20" Text="{Binding NewMeasureGE, Mode=TwoWay, StringFormat={}{0:F2}}"></TextBox>
-            <Label Margin="-2,0,0,0">Pepeo LAB</Label>
+            <Label Margin="-2,0,0,0">LAB</Label>
             <TextBox Name="tbLAB" Width="42" Height="20"  Text="{Binding NewMeasureLAB, Mode=TwoWay, StringFormat={}{0:F2}}"></TextBox>
+            <Label Margin="-2,0,0,0">W</Label>
+            <TextBox Name="tbW" Width="42" Height="20"  Text="{Binding NewMeasureW, Mode=TwoWay, StringFormat={}{0:F2}}"></TextBox>
             <Button Click="Button_Click_3" Style="{DynamicResource Add2}"></Button>
         </StackPanel>
-        <DataGrid Name="dgMeasures"  Grid.Row="2" Grid.RowSpan="3" Style="{StaticResource dgCustom}"  CanUserAddRows="False"  ItemsSource="{Binding ListOfMeasures}" SelectionChanged="dgMeasures_SelectionChanged" LoadingRow="DgMeasures_LoadingRow">
+        <DataGrid Name="dgMeasures"    Grid.Row="2" Grid.RowSpan="3" Style="{StaticResource dgCustom}"    ItemsSource="{Binding ListOfMeasures}" SelectionChanged="dgMeasures_SelectionChanged" LoadingRow="DgMeasures_LoadingRow">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Broj n [ j ] " Binding="{Binding IdSort}" ></DataGridTextColumn>
-                <DataGridTextColumn Header="Pepeo x [GE] " Binding="{Binding Ge,  StringFormat={}{0:F2}}" Width="100" ></DataGridTextColumn>
-                <DataGridTextColumn Header="Pepeo y [Lab]" Binding="{Binding Lab, StringFormat={}{0:F2}}" Width="100" ></DataGridTextColumn>
+                <DataGridTextColumn Header="Broj n [ j ] " Binding="{Binding IdSort}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Pepeo x [GE] " Binding="{Binding Ge,  StringFormat={}{0:F2}}"  ></DataGridTextColumn>
+                <DataGridTextColumn Header="Pepeo y [Lab]" Binding="{Binding Lab, StringFormat={}{0:F2}}"  ></DataGridTextColumn>
+                <DataGridTextColumn Header="Vlaga [W]" Binding="{Binding W, StringFormat={}{0:F2}}" Width="87" ></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
         <StackPanel Grid.Row="1" Grid.Column="1" Grid.RowSpan="32" Background="White" Orientation="Vertical" Margin="0,5,0,0">
@@ -118,19 +123,23 @@
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="auto"></ColumnDefinition>
-                                <ColumnDefinition></ColumnDefinition>
-                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition Width="auto"></ColumnDefinition>
+                                <ColumnDefinition Width="auto"></ColumnDefinition>
+                                <ColumnDefinition ></ColumnDefinition>
+                                <ColumnDefinition Width="auto"></ColumnDefinition>
+                                
                             </Grid.ColumnDefinitions>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="auto"></RowDefinition>
                                 <RowDefinition Height="25"></RowDefinition>
                                 <RowDefinition></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
                             </Grid.RowDefinitions>
                             <StackPanel Orientation="Horizontal" Margin="0,5,0,12">
                                 <Button Style="{DynamicResource SaveButton}" Click="Save_Click"  Margin="5,0,0,0" ></Button>
                                 <Button Style="{DynamicResource UpdateButton}" Click="Button_Click_4"></Button>
                             </StackPanel >
-                            <StackPanel Grid.Column="2" Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right">
+                            <StackPanel Grid.Column="4" Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right">
                                 <Button  Style="{DynamicResource Graph}" Click="Graph1" Height="50" Margin="5,0,0,0" ></Button>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal" Grid.Row="1" Height="20">
@@ -143,7 +152,7 @@
                                     <DataGridTextColumn Header="Vrednost [b]" Binding="{Binding NumberB, Mode=TwoWay, StringFormat={}{0:F2}}" ></DataGridTextColumn>
                                 </DataGrid.Columns>
                             </DataGrid>
-                            <StackPanel Margin="5,0,0,0" Grid.Column="1" Grid.Row="1" >
+                            <StackPanel Margin="5,0,0,0" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" >
                                 <Grid>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="auto" ></ColumnDefinition>
@@ -153,11 +162,11 @@
                                         <RowDefinition ></RowDefinition>
                                         <RowDefinition ></RowDefinition>
                                     </Grid.RowDefinitions>
-                                    <Label>A = p * a =</Label>
-                                    <TextBox Name="tbA" Grid.Column="1" Width="70" HorizontalAlignment="Left" Background="#ffffd8" VerticalContentAlignment="Center" Height="20"></TextBox>
+                                    <Label Margin="-2,0,0,0">A = p * a =</Label>
+                                    <TextBox Name="tbA" Grid.Column="1" Width="70" HorizontalAlignment="Left" Background="#ffffd8" VerticalContentAlignment="Center" Height="20" ></TextBox>
                                 </Grid>
                             </StackPanel>
-                            <StackPanel Grid.Column="1" Grid.Row="2">
+                            <StackPanel Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2">
                                 <Grid>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="auto" ></ColumnDefinition>
@@ -166,6 +175,22 @@
                                     <Label Margin="3,0,0,0">B = (p * b) + q =</Label>
                                     <TextBox Name="tbB" Grid.Column="1" Width="70" HorizontalAlignment="Left" Background="#ffffd8" VerticalContentAlignment="Center" Height="20"></TextBox>
                                 </Grid>
+                            </StackPanel>
+                            <StackPanel Grid.Column="3" Grid.Row="1" Orientation="Horizontal">
+                                <Label>P=</Label>
+                                <TextBox Width="70" Background="#ffffd8" Height="20" Margin="0,0,0,0" ></TextBox>
+                            </StackPanel>
+                            <StackPanel Grid.Column="3" Grid.Row="2" Orientation="Horizontal">
+                                <Label>Q=</Label>
+                                <TextBox Width="70" Background="#ffffd8" Height="20" Margin="0,-25,0,0" ></TextBox>
+                            </StackPanel>
+                            <StackPanel Grid.Column="1" Grid.Row="3" Orientation="Horizontal">
+                                <Label Margin="3,-30,0,0">R=</Label>
+                                <TextBox Width="70" Background="#ffffd8" Margin="0,-30,0,0" Height="20" ></TextBox>
+                            </StackPanel>
+                            <StackPanel Grid.Column="3" Grid.Row="4" Orientation="Horizontal">
+                                <Label Margin="0,-28,0,0">W=</Label>
+                                <TextBox Name="tbV" Width="70" Background="#ffffd8" Height="20" Margin="0,-28,0,0"  ></TextBox>
                             </StackPanel>
                         </Grid>
                     </GroupBox>
@@ -193,7 +218,7 @@
                             <StackPanel  Grid.Row="2" Grid.Column="0" Margin="0,0,0,0">
                                 <DataGrid Name="dgApsolutno" Style="{StaticResource dgCustom}" ItemsSource="{Binding ListOfPercetange}" Height="45" CanUserAddRows="False"  >
                                     <DataGrid.Columns>
-                                        <DataGridTextColumn Header="Procenat pomeranja [%]" Binding="{Binding NumberP,  Mode=TwoWay, StringFormat={}{0:F2}}"></DataGridTextColumn>
+                                        <DataGridTextColumn Header="Procenat pomeranja [k]" Binding="{Binding NumberP,  Mode=TwoWay, StringFormat={}{0:F2}}"></DataGridTextColumn>
                                     </DataGrid.Columns>
                                 </DataGrid>
                             </StackPanel>
@@ -238,14 +263,14 @@
                             </StackPanel>
                             <StackPanel Orientation="Horizontal" Grid.Column="2" Grid.Row="0" Margin="10,40,0,0" Grid.RowSpan="2" >
                                 <Label Margin="0,-10,0,20">A =</Label>
-                                <TextBox Name="tbAprocenat" Width="100" Height="20" HorizontalAlignment="Left" Background="#ffffd8" VerticalContentAlignment="Center" Margin="0,-25,0,10"  ></TextBox>
+                                <TextBox Name="tbAprocenat" Width="70" Height="20" HorizontalAlignment="Left" Background="#ffffd8" VerticalContentAlignment="Center" Margin="0,-25,0,10"  ></TextBox>
                             </StackPanel>
                             <StackPanel Grid.Row="1" Grid.Column="2" Orientation="Horizontal" Margin="10,15,0,-20" >
                                 <Label Margin="0,5,0,0">B =</Label>
-                                <TextBox Name="tbBprocenat" Width="100" Height="20" HorizontalAlignment="Left" Background="#ffffd8" VerticalContentAlignment="Center" Margin="0,5,0,0" ></TextBox>
+                                <TextBox Name="tbBprocenat" Width="70" Height="20" HorizontalAlignment="Left" Background="#ffffd8" VerticalContentAlignment="Center" Margin="0,5,0,0" ></TextBox>
                             </StackPanel>
                             <StackPanel Grid.Column="4" Grid.Row="1" Grid.RowSpan="2" Orientation="Horizontal" HorizontalAlignment="Right">
-                                <Button  Style="{DynamicResource Graph}" Click="Save_Click" Height="50" Margin="5,0,0,0" ></Button>
+                                <Button  Style="{DynamicResource Graph}" Click="Graph2" Height="50" Margin="5,23,0,0" ></Button>
                             </StackPanel>
                         </Grid>
                     </GroupBox>
@@ -279,8 +304,8 @@
                             <StackPanel Orientation="Horizontal" Margin="0,3,0,10" Grid.Column="0">
                                 <Button Visibility="Collapsed" Style="{DynamicResource AddButton}" Click="Add2_Click"></Button>
                                 <Button Style="{DynamicResource SaveButton}" Click="Button_Click_5" Margin="5,1,0,0"></Button>
-                                <Button Style="{DynamicResource UpdateButton}" Margin="5,-1,0,0" Click="Button_Click_4"></Button>
-                                <Button Style="{DynamicResource DeleteButton}" Margin="5,2,0,0" Click="Button_Click_2"></Button>
+                                <Button Style="{DynamicResource UpdateButton}" Margin="5,-1,0,0" Click="Update_One"></Button>
+                                <Button Style="{DynamicResource DeleteButton}" Margin="5,2,0,0" Click="Del_One"></Button>
                             </StackPanel >
                             <StackPanel Orientation="Horizontal" Grid.Row="1" Height="20">
                                 <TextBox Name="tbL" Width="82" Height="20" Margin="21,0,5,0"  Text="{Binding NumberL, Mode=TwoWay, StringFormat={}{0:F2}}"  ></TextBox>
@@ -288,7 +313,7 @@
                             </StackPanel>
                             <DataGrid Name="dgOne" Style="{StaticResource dgCustom}" ItemsSource="{Binding ListOfCalibrationOne}" CanUserAddRows="False" Grid.Row="2" LoadingRow="DgOne_LoadingRow" Height="65" Margin="0,0,0,0" >
                                 <DataGrid.Columns>
-                                    <DataGridTextColumn Header="" Binding="{Binding ID}"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="Br." Binding="{Binding ID}"></DataGridTextColumn>
                                     <DataGridTextColumn Header="Laboratorija L [%] " Binding="{Binding L, Mode=TwoWay, StringFormat={}{0:F2}}"  ></DataGridTextColumn>
                                     <DataGridTextColumn Header="Sadrzaj pepela P [%] " Binding="{Binding P, Mode=TwoWay, StringFormat={}{0:F2}}"></DataGridTextColumn>
                                     <DataGridTextColumn Header="Korigovanje k=L-P [%]  " Binding="{Binding SumLP}"></DataGridTextColumn>
@@ -321,17 +346,17 @@
                                     <StackPanel Orientation="Horizontal"  Margin="10,0,0,0">
                                         <Image Source="Pics/As.png" Width="95"></Image>
                                         <Label Margin="0,5,0,0">=</Label>
-                                        <TextBox Name="tbAsraz" Width="100" Background="#ffffd8" VerticalContentAlignment="Center" Height="20" ></TextBox>
+                                        <TextBox Name="tbAsraz" Width="70" Background="#ffffd8" VerticalContentAlignment="Center" Height="20" ></TextBox>
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="13,0,0,0">
                                         <Image Source="Pics/Bs.png" Width="128"></Image>
                                         <Label Margin="0,5,0,0">=</Label>
-                                        <TextBox Name="tbBsraz" Width="100" Background="#ffffd8" VerticalContentAlignment="Center" Height="20" Margin="0,0,0,0" Text="{Binding FinalB}"></TextBox>
+                                        <TextBox Name="tbBsraz" Width="70" Background="#ffffd8" VerticalContentAlignment="Center" Height="20" Margin="0,0,0,0" Text="{Binding FinalB}"></TextBox>
                                     </StackPanel>
                                 </Grid>
                             </StackPanel>
                             <StackPanel Grid.Column="3" Grid.Row="1" Grid.RowSpan="2" Orientation="Horizontal" Margin="0,0,0,0" HorizontalAlignment="Right">
-                                <Button  Style="{DynamicResource Graph}" Click="Save_Click" Height="50" Margin="5,0,0,0" ></Button>
+                                <Button  Style="{DynamicResource Graph}" Click="Graph3"  Height="50" Margin="5,0,0,0" ></Button>
                             </StackPanel>
                         </Grid>
                     </GroupBox>

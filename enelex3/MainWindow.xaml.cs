@@ -27,9 +27,10 @@ namespace enelex3
             ListOfCalibrationOne = new List<CalibrationOneView>();
             SumP = 0;
             SumQ = 0;
+            NewMeasureB = 0;
             DataContext = this;
-            
-
+            var br = 0;
+            tbBr.Text = br.ToString();
         }
         private MeasuresFE mfe;
         public List<MeasuresView> ListOfMeasures { get; set; }
@@ -45,6 +46,10 @@ namespace enelex3
 
         public double NewMeasureGE { get; set; }
 
+        public double NewMeasureW { get; set; }
+
+        public double NewMeasureB { get; set; }
+
         public double FinalA { get; set; }
 
         public double FinalB { get; set; }
@@ -52,6 +57,12 @@ namespace enelex3
         public double SumQ { get; set; }
 
         public double SumP { get; set; }
+
+        public double NumP { get; set; }
+
+        public double Ps { get; set; }
+
+        public double Qs { get; set; }
 
         private void Load()
         {
@@ -86,13 +97,16 @@ namespace enelex3
                     ListOfCalibarationsThree.Clear();
                     ListOfCalibarationsThree.AddRange(cfe.GetCalibrationsThree());
                 }
-
+                
                 var maxId = ListOfMeasures.Count;
-
+                NewMeasureB = maxId + 1;
+                tbBr.Text = NewMeasureB.ToString();
                 tbn.Text = maxId.ToString();
                 tbn1.Text = maxId.ToString();
+             
 
-              
+                var vlaga = ListOfMeasures.Sum(x => x.W) / maxId;
+                tbV.Text = vlaga.ToString("N4");
 
                 var sum2 = ListOfMeasures.Sum(x => x.Ge);
                 tbSum2.Text = sum2.ToString();
@@ -113,7 +127,7 @@ namespace enelex3
                 var dolep = sum4 - sum5;
 
                 SumP = gorep / dolep;
-
+                tbP.Text = SumP.ToString("N4");
                 var sumQ1 = ListOfMeasures.Sum(x => x.Lab);
                 tbSumQ1.Text = sumQ1.ToString();
 
@@ -123,10 +137,8 @@ namespace enelex3
                 var sumq2 = sumQ2 * SumP;
                 tbSumQ2.Text = sumq2.ToString("0.####");
                 var goreq = sumQ1 - sumq2;
-
-
-
                 SumQ = goreq / maxId;
+                tbQ.Text = SumQ.ToString("N4");
 
                 if (ListOfCalibrations.Count > 0)
                 {
@@ -145,6 +157,7 @@ namespace enelex3
 
                     var bprocenat = ListOfCalibrationTwo[0].NumberBTwo;
                     var pomeraj = ListOfPercetange[0].NumberP;
+                    NumP = pomeraj;
                     var ukupno = -bprocenat + pomeraj;
                     var pozitivno = -1 * ukupno;
                     tbBprocenat.Text = pozitivno.ToString("0.##");
@@ -165,12 +178,16 @@ namespace enelex3
                     var l1 = ListOfCalibrationOne[0].L;
                     FinalB = FinalA * deljenjeb - l1;
                     tbBsraz.Text = FinalB.ToString("0.####");
-
+                   
+                    Ps = ListOfCalibrationOne[0].SumLP;
+                    Qs = ListOfCalibrationOne[1].SumLP;
 
                 }
 
-
+               
             }
+
+
             dgMeasures.Items.Refresh();
             dgTipAB.Items.Refresh();
             dgTipAB3.Items.Refresh();
@@ -258,17 +275,19 @@ namespace enelex3
         }
         private void CopyMeasureViewToBase(MeasuresView input, bool saveDB, Model1 db = null)
         {
-            db = db ?? new Model1();
-            var x = db.Measures.Find(input.ID);
-            x.ID = input.ID;
-            x.Ge = input.Ge;
-            x.Lab = input.Lab;
-            if (saveDB)
-            {
-                db.SaveChanges();
-            }
-            db.Dispose();
-
+           
+                db = db ?? new Model1();
+                var x = db.Measures.Find(input.ID);
+                x.ID = input.ID;
+                x.Ge = input.Ge;
+                x.Lab = input.Lab;
+                x.W = input.W;
+                if (saveDB)
+                {
+                    db.SaveChanges();
+                }
+                db.Dispose();                    
+              
         }
 
 
@@ -321,10 +340,10 @@ namespace enelex3
 
         }
 
-        private void Button_Click_2(object sender, RoutedEventArgs e)
+        private void Del_One(object sender, RoutedEventArgs e)
         {
 
-            var listofone = cfe.GetCalibrationOnes();
+            
             var selektovano = dgOne.SelectedItem as CalibrationOneView;
             if (selektovano != null)
             {
@@ -340,7 +359,7 @@ namespace enelex3
                 {
                     MessageBox.Show("gfhg");
                 }
-                listofone.Remove(selektovano);
+                ListOfCalibrationOne.Remove(selektovano);
 
                 Load();
 
@@ -360,6 +379,7 @@ namespace enelex3
                 dtMeasure.Columns.Add(new DataColumn("Broj uzorka [n]", typeof(string)));
                 dtMeasure.Columns.Add(new DataColumn("Pepeo x [GE]", typeof(string)));
                 dtMeasure.Columns.Add(new DataColumn("Pepeo y [LAB]", typeof(string)));
+                dtMeasure.Columns.Add(new DataColumn("Vlaga [W]", typeof(string)));
 
                 foreach (var z in dgMeasures.Items)
                 {
@@ -370,6 +390,7 @@ namespace enelex3
                     dr[0] = x.IdSort;
                     dr[1] = x.Ge;
                     dr[2] = x.Lab;
+                    dr[3] = x.W;
 
                     dtMeasure.Rows.Add(dr);
                    
@@ -388,22 +409,24 @@ namespace enelex3
         {
             if (ListOfMeasures.Count > 0)
             {
-                var x = e.Row.DataContext as MeasuresView;
-                var id = e.Row.GetIndex() + 1;
-                x.IdSort = id;
+                
+                var x = e.Row.DataContext as MeasuresView;              
+                var id = e.Row.GetIndex();
+                x.IdSort = id +1;
                
             }
 
         }
-
+       
         private void Button_Click_3(object sender, RoutedEventArgs e)
         {
-            if (NewMeasureGE > 0 && NewMeasureLAB > 0)
+            if (NewMeasureGE > 0 && NewMeasureLAB > 0 & NewMeasureW > 0 )
             {
                 var res = new Measure();
                 res.Description = "Uneto na dugme";
                 res.Lab = NewMeasureLAB;
                 res.Ge = NewMeasureGE;
+                res.W = NewMeasureW;
                 if (res != null)
                 {
                     db.Measures.Add(res);
@@ -417,8 +440,10 @@ namespace enelex3
             }           
             NewMeasureGE = 0;
             NewMeasureLAB = 0;
+            NewMeasureW = 0;
             tbGE.Text = "0,00";
             tbLAB.Text ="0,00";
+            tbW.Text = "0,00";
             Load();
         }
 
@@ -433,6 +458,31 @@ namespace enelex3
         private void Button_Click_4(object sender, RoutedEventArgs e)
         {
             db.SaveChanges();
+            Load();
+        }
+
+        private void CopyOneViewToBase(CalibrationOneView input, bool saveDB, Model1 db = null)
+        {
+
+            db = db ?? new Model1();
+            var x = db.CalibratonOnes.Find(input.Id);
+            x.Id = input.Id;
+            x.L = input.L;
+            x.P = input.P;           
+            if (saveDB)
+            {
+                db.SaveChanges();
+            }
+            db.Dispose();
+
+        }
+        private void Update_One(object sender, RoutedEventArgs e)
+        {
+            var sel = dgOne.SelectedItem as CalibrationOneView;
+            if(sel != null)
+            {
+                CopyOneViewToBase(sel, true);
+            }
             Load();
         }
         public double NumberL { get; set; }
@@ -543,5 +593,19 @@ namespace enelex3
             gr.ShowDialog();               
 
         }
+
+        private void Graph2(object sender, RoutedEventArgs e)
+        {
+            Graph2 gr = new Graph2(ListOfMeasures, SumP, SumQ, NumP);
+            gr.ShowDialog();
+        }    
+
+        private void Graph3(object sender, RoutedEventArgs e)
+        {
+            Graph3 gr = new Graph3(ListOfMeasures, SumP, SumQ, Ps, Qs);
+            gr.ShowDialog();
+        }
+
+      
     }
 }

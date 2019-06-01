@@ -18,6 +18,8 @@ namespace enelex3
 
         public double Lab { get; set; }
 
+        public double W { get; set; }
+
         public double SumMeasure
         {
 

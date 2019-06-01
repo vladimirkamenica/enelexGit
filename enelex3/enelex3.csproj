@@ -88,6 +88,16 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Graph2.xaml.cs">
+      <DependentUpon>Graph2.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Graph3.xaml.cs">
+      <DependentUpon>Graph3.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201905150556400_W.cs" />
+    <Compile Include="Migrations\201905150556400_W.Designer.cs">
+      <DependentUpon>201905150556400_W.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\ScatterLineGraph.xaml.cs">
       <DependentUpon>ScatterLineGraph.xaml</DependentUpon>
     </Compile>
@@ -100,6 +110,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Graph1.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Graph2.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Graph3.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -219,6 +237,9 @@
     <EmbeddedResource Include="Migrations\201905011208397_sort.resx">
       <DependentUpon>201905011208397_sort.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905150556400_W.resx">
+      <DependentUpon>201905150556400_W.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -302,6 +323,18 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Pics\ref1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pics\refresh3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pics\edit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pics\close.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pics\down.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -27,6 +27,8 @@ namespace enelex3
 
         public double P { get; set; }
 
+        public double W { get; set; }
+
         public string Description { get; set; }
         public string Comment { get; set; }
         public bool Active { get; set; }
