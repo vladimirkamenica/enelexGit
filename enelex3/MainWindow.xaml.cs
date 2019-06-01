@@ -65,136 +65,144 @@ namespace enelex3
         public double Qs { get; set; }
 
         private void Load()
-        {
-            db = new Model1();
+        {          
 
-            mfe = new MeasuresFE(db);
-
-            ListOfMeasures.Clear();
-            ListOfMeasures.AddRange(mfe.GetMeasures());
-
-
-            if (ListOfMeasures.Count > 0)
+            try
             {
+                db = new Model1();
 
-                db = new Model1();              
-                cfe = new CalibrationFE(db);
-                pct = new PercentageFE(db);
+                mfe = new MeasuresFE(db);
 
-                ListOfCalibrations.Clear();
-                ListOfCalibrations.AddRange(cfe.GetCalibrations());
-                ListOfPercetange.Clear();
-                ListOfPercetange.AddRange(pct.GetPercentages());
-                ListOfCalibrationTwo.Clear();
-                ListOfCalibrationTwo.AddRange(cfe.GetCalibrationsTwo());
-                ListOfCalibrationOne.Clear();
-                ListOfCalibrationOne.AddRange(cfe.GetCalibrationOnes());
-                //  var ListOfCalibrations = cfe.GetCalibrations();
-                // dgTipAB.ItemsSource = ListOfCalibrations;
+                ListOfMeasures.Clear();
+                ListOfMeasures.AddRange(mfe.GetMeasures());
 
-                if (ListOfCalibarationsThree.Count > -1)
+
+                if (ListOfMeasures.Count > 0)
                 {
-                    ListOfCalibarationsThree.Clear();
-                    ListOfCalibarationsThree.AddRange(cfe.GetCalibrationsThree());
+
+                    db = new Model1();
+                    cfe = new CalibrationFE(db);
+                    pct = new PercentageFE(db);
+
+                    ListOfCalibrations.Clear();
+                    ListOfCalibrations.AddRange(cfe.GetCalibrations());
+                    ListOfPercetange.Clear();
+                    ListOfPercetange.AddRange(pct.GetPercentages());
+                    ListOfCalibrationTwo.Clear();
+                    ListOfCalibrationTwo.AddRange(cfe.GetCalibrationsTwo());
+                    ListOfCalibrationOne.Clear();
+                    ListOfCalibrationOne.AddRange(cfe.GetCalibrationOnes());
+                    //  var ListOfCalibrations = cfe.GetCalibrations();
+                    // dgTipAB.ItemsSource = ListOfCalibrations;
+
+                    if (ListOfCalibarationsThree.Count > -1)
+                    {
+                        ListOfCalibarationsThree.Clear();
+                        ListOfCalibarationsThree.AddRange(cfe.GetCalibrationsThree());
+                    }
+
+                    var maxId = ListOfMeasures.Count;
+                    NewMeasureB = maxId + 1;
+                    tbBr.Text = NewMeasureB.ToString();
+                    tbn.Text = maxId.ToString();
+                    tbn1.Text = maxId.ToString();
+
+
+                    var vlaga = ListOfMeasures.Sum(x => x.W) / maxId;
+                    tbV.Text = vlaga.ToString("N4");
+
+                    var sum2 = ListOfMeasures.Sum(x => x.Ge);
+                    tbSum2.Text = sum2.ToString();
+
+                    var sum3 = ListOfMeasures.Sum(x => x.Lab);
+                    tbSum3.Text = sum3.ToString();
+
+                    var sum1 = maxId * ListOfMeasures.Sum(x => x.SumMeasure);
+                    tbSum1.Text = sum1.ToString();
+
+                    var sum4 = ListOfMeasures.Sum(x => x.SumGe) * maxId;
+                    tbSum4.Text = sum4.ToString();
+
+                    var sum5 = ListOfMeasures.Sum(x => x.Ge) * ListOfMeasures.Sum(x => x.Ge);
+                    tbSum5.Text = sum5.ToString();
+
+                    var gorep = sum1 - sum2 * sum3;
+                    var dolep = sum4 - sum5;
+
+                    SumP = gorep / dolep;
+                    tbP.Text = SumP.ToString("N4");
+                    var sumQ1 = ListOfMeasures.Sum(x => x.Lab);
+                    tbSumQ1.Text = sumQ1.ToString();
+
+                    var sumQ2 = ListOfMeasures.Sum(x => x.Ge);
+
+
+                    var sumq2 = sumQ2 * SumP;
+                    tbSumQ2.Text = sumq2.ToString("0.####");
+                    var goreq = sumQ1 - sumq2;
+                    SumQ = goreq / maxId;
+                    tbQ.Text = SumQ.ToString("N4");
+
+                    if (ListOfCalibrations.Count > 0)
+                    {
+                        var suma = ListOfCalibrations[0].NumberA;
+                        var sumaa = suma * SumP;
+                        tbA.Text = sumaa.ToString("0.####");
+
+                        var sumb = ListOfCalibrations[0].NumberB;
+                        var sumbb = SumP * sumb + SumQ;
+                        tbB.Text = sumbb.ToString("0.####");
+                    }
+                    if (ListOfCalibrationTwo.Count > 0)
+                    {
+                        var aprocenat = ListOfCalibrationTwo[0].NumberATwo;
+                        tbAprocenat.Text = aprocenat.ToString("0.##");
+
+                        var bprocenat = ListOfCalibrationTwo[0].NumberBTwo;
+                        var pomeraj = ListOfPercetange[0].NumberP;
+                        NumP = pomeraj;
+                        var ukupno = -bprocenat + pomeraj;
+                        var pozitivno = -1 * ukupno;
+                        tbBprocenat.Text = pozitivno.ToString("0.##");
+                    }
+
+
+                    if (ListOfCalibarationsThree.Count > 0 && ListOfCalibrationOne.Count > 1)
+                    {
+                        var a = ListOfCalibarationsThree[0].NumberAThree;
+                        var agore = ListOfCalibrationOne[1].L - ListOfCalibrationOne[0].L;
+                        var adole = ListOfCalibrationOne[1].P - ListOfCalibrationOne[0].P;
+                        var deljenje = agore / adole;
+                        FinalA = a * deljenje;
+                        tbAsraz.Text = FinalA.ToString();
+
+                        var bgore = ListOfCalibrationOne[0].P + ListOfCalibarationsThree[0].NumberBThree;
+                        var deljenjeb = bgore / a;
+                        var l1 = ListOfCalibrationOne[0].L;
+                        FinalB = FinalA * deljenjeb - l1;
+                        tbBsraz.Text = FinalB.ToString("0.####");
+
+                        Ps = ListOfCalibrationOne[0].SumLP;
+                        Qs = ListOfCalibrationOne[1].SumLP;
+
+                    }
+
+
                 }
-                
-                var maxId = ListOfMeasures.Count;
-                NewMeasureB = maxId + 1;
-                tbBr.Text = NewMeasureB.ToString();
-                tbn.Text = maxId.ToString();
-                tbn1.Text = maxId.ToString();
-             
-
-                var vlaga = ListOfMeasures.Sum(x => x.W) / maxId;
-                tbV.Text = vlaga.ToString("N4");
-
-                var sum2 = ListOfMeasures.Sum(x => x.Ge);
-                tbSum2.Text = sum2.ToString();
-
-                var sum3 = ListOfMeasures.Sum(x => x.Lab);
-                tbSum3.Text = sum3.ToString();
-
-                var sum1 = maxId * ListOfMeasures.Sum(x => x.SumMeasure);
-                tbSum1.Text = sum1.ToString();
-
-                var sum4 = ListOfMeasures.Sum(x => x.SumGe) * maxId;
-                tbSum4.Text = sum4.ToString();
-
-                var sum5 = ListOfMeasures.Sum(x => x.Ge) * ListOfMeasures.Sum(x => x.Ge);
-                tbSum5.Text = sum5.ToString();
-
-                var gorep = sum1 - sum2 * sum3;
-                var dolep = sum4 - sum5;
-
-                SumP = gorep / dolep;
-                tbP.Text = SumP.ToString("N4");
-                var sumQ1 = ListOfMeasures.Sum(x => x.Lab);
-                tbSumQ1.Text = sumQ1.ToString();
-
-                var sumQ2 = ListOfMeasures.Sum(x => x.Ge);
-
-
-                var sumq2 = sumQ2 * SumP;
-                tbSumQ2.Text = sumq2.ToString("0.####");
-                var goreq = sumQ1 - sumq2;
-                SumQ = goreq / maxId;
-                tbQ.Text = SumQ.ToString("N4");
-
-                if (ListOfCalibrations.Count > 0)
-                {
-                    var suma = ListOfCalibrations[0].NumberA;
-                    var sumaa = suma * SumP;
-                    tbA.Text = sumaa.ToString("0.####");
-
-                    var sumb = ListOfCalibrations[0].NumberB;
-                    var sumbb = SumP * sumb + SumQ;
-                    tbB.Text = sumbb.ToString("0.####");
-                }
-                if (ListOfCalibrationTwo.Count > 0)
-                {
-                    var aprocenat = ListOfCalibrationTwo[0].NumberATwo;
-                    tbAprocenat.Text = aprocenat.ToString("0.##");
-
-                    var bprocenat = ListOfCalibrationTwo[0].NumberBTwo;
-                    var pomeraj = ListOfPercetange[0].NumberP;
-                    NumP = pomeraj;
-                    var ukupno = -bprocenat + pomeraj;
-                    var pozitivno = -1 * ukupno;
-                    tbBprocenat.Text = pozitivno.ToString("0.##");
-                }
-
-
-                if (ListOfCalibarationsThree.Count > 0 && ListOfCalibrationOne.Count > 1)
-                {
-                    var a = ListOfCalibarationsThree[0].NumberAThree;
-                    var agore = ListOfCalibrationOne[1].L - ListOfCalibrationOne[0].L;
-                    var adole = ListOfCalibrationOne[1].P - ListOfCalibrationOne[0].P;
-                    var deljenje = agore / adole;
-                    FinalA = a * deljenje;
-                    tbAsraz.Text = FinalA.ToString();
-
-                    var bgore = ListOfCalibrationOne[0].P + ListOfCalibarationsThree[0].NumberBThree;
-                    var deljenjeb = bgore / a;
-                    var l1 = ListOfCalibrationOne[0].L;
-                    FinalB = FinalA * deljenjeb - l1;
-                    tbBsraz.Text = FinalB.ToString("0.####");
-                   
-                    Ps = ListOfCalibrationOne[0].SumLP;
-                    Qs = ListOfCalibrationOne[1].SumLP;
-
-                }
-
-               
+                dgMeasures.Items.Refresh();
+                dgTipAB.Items.Refresh();
+                dgTipAB3.Items.Refresh();
+                dgTipAB2.Items.Refresh();
+                dgApsolutno.Items.Refresh();
+                dgOne.Items.Refresh();
+                UpdateLayout();
             }
-
-
-            dgMeasures.Items.Refresh();
-            dgTipAB.Items.Refresh();
-            dgTipAB3.Items.Refresh();
-            dgTipAB2.Items.Refresh();
-            dgApsolutno.Items.Refresh();
-            dgOne.Items.Refresh();
-            UpdateLayout();
+            catch
+            {
+                MessageBox.Show("Грешка у подацима");
+            }
+           
+          
 
         }
 
