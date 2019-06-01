@@ -30,7 +30,19 @@ namespace enelex3
         {
             InitializeComponent();
             Grafik1.SetMeasureViewToGraph(input, p, q);          
-        }       
+        }
+
+        public Graph1(List<MeasuresView> input, double p, double q, double NumP)
+        {
+            InitializeComponent();
+            Grafik1.SetMeasureViewToGraph(input, p, q, NumP);
+        }
+
+        public Graph1(List<MeasuresView> input, double p, double q, double Ps, double Qs)
+        {
+            InitializeComponent();
+            Grafik1.SetMeasureViewToGraph(input, p, q, Ps, Qs);
+        }
     }
 }
 

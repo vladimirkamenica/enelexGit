@@ -37,12 +37,12 @@
             <TextBox Name="tbW" Width="42" Height="20"  Text="{Binding NewMeasureW, Mode=TwoWay, StringFormat={}{0:F2}}"></TextBox>
             <Button Click="Button_Click_3" Style="{DynamicResource Add2}"></Button>
         </StackPanel>
-        <DataGrid Name="dgMeasures"    Grid.Row="2" Grid.RowSpan="3" Style="{StaticResource dgCustom}"    ItemsSource="{Binding ListOfMeasures}" SelectionChanged="dgMeasures_SelectionChanged" LoadingRow="DgMeasures_LoadingRow">
+        <DataGrid Name="dgMeasures"    Grid.Row="2" Grid.RowSpan="3" Style="{StaticResource dgCustom}"    ItemsSource="{Binding ListOfMeasures}" SelectionChanged="dgMeasures_SelectionChanged" LoadingRow="DgMeasures_LoadingRow" CellEditEnding="DgMeasures_CellEditEnding">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Broj n [ j ] " Binding="{Binding IdSort}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Pepeo x [GE] " Binding="{Binding Ge,  StringFormat={}{0:F2}}"  ></DataGridTextColumn>
-                <DataGridTextColumn Header="Pepeo y [Lab]" Binding="{Binding Lab, StringFormat={}{0:F2}}"  ></DataGridTextColumn>
-                <DataGridTextColumn Header="Vlaga [W]" Binding="{Binding W, StringFormat={}{0:F2}}" Width="87" ></DataGridTextColumn>
+                <DataGridTextColumn Header="Pepeo x [GE] " Binding="{Binding Ge,  StringFormat= N2}"  ></DataGridTextColumn>
+                <DataGridTextColumn Header="Pepeo y [Lab]" Binding="{Binding Lab, StringFormat= N2}"  ></DataGridTextColumn>
+                <DataGridTextColumn Header="Vlaga [W]" Binding="{Binding W, StringFormat= N2}" Width="87" ></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
         <StackPanel Grid.Row="1" Grid.Column="1" Grid.RowSpan="32" Background="White" Orientation="Vertical" Margin="0,5,0,0">
@@ -316,7 +316,7 @@
                                     <DataGridTextColumn Header="Br." Binding="{Binding ID}"></DataGridTextColumn>
                                     <DataGridTextColumn Header="Laboratorija L [%] " Binding="{Binding L, Mode=TwoWay, StringFormat={}{0:F2}}"  ></DataGridTextColumn>
                                     <DataGridTextColumn Header="Sadrzaj pepela P [%] " Binding="{Binding P, Mode=TwoWay, StringFormat={}{0:F2}}"></DataGridTextColumn>
-                                    <DataGridTextColumn Header="Korigovanje k=L-P [%]  " Binding="{Binding SumLP}"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="Korigovanje k=L-P [%]  " Binding="{Binding SumLP}" IsReadOnly="True"></DataGridTextColumn>
                                 </DataGrid.Columns>
                             </DataGrid>
                             <StackPanel Orientation="Horizontal" Margin="0,3,0,10" Grid.Column="1">

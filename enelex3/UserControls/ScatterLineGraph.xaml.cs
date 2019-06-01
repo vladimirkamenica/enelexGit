@@ -31,7 +31,7 @@ namespace enelex3.UserControls
             InitializeComponent();
         }
 
-        public void SetMeasureViewToGraph(List<MeasuresView> input, double p, double q)
+        public void SetMeasureViewToGraph(List<MeasuresView> input, double p, double q, double NumP = 0, double Ps = 0, double Qs = 0)
         {            
             DataContext = this;  
             ValuesA.Clear();
@@ -52,62 +52,15 @@ namespace enelex3.UserControls
             {
                 var prva = ValuesA.Min(x => x.X);
                 var poslednja = ValuesA.Max(x => x.X);
-               
-               
-                ValuesB.Add(new ObservablePoint(prva, p * prva - q));
-                ValuesB.Add(new ObservablePoint(poslednja, p * poslednja - q));
+                var q1 = q - NumP - Qs;
+                var p1 = p + Ps;
+
+                ValuesB.Add(new ObservablePoint(prva, p1 * prva - q1));
+                ValuesB.Add(new ObservablePoint(poslednja, p * poslednja - q1));
             }
             
         }
-        public void SetMeasureViewToGraph2(List<MeasuresView> input, double p, double q, double NumP)
-        {
-            DataContext = this;
-            ValuesA.Clear();
-            if (input.Count > 0)
-            {
-
-                foreach (var x in input.OrderBy(z => z.Ge))
-                {
-                    ValuesA.Add(new ObservablePoint(x.Ge, x.Lab));
-                }
-            }
-            ValuesB.Clear();
-            if (ValuesA.Count > 1)
-            {
-                var prva = ValuesA.Min(x => x.X);
-                var poslednja = ValuesA.Max(x => x.X);
-                var q1 = q - NumP;
-
-                ValuesB.Add(new ObservablePoint(prva, p * prva - q1));
-                ValuesB.Add(new ObservablePoint(poslednja, p * poslednja - q1));
-                
-            }
-        }
-        public void SetMeasureViewToGraph3(List<MeasuresView> input, double p, double q, double Ps, double Qs)
-        {
-            DataContext = this;
-            ValuesA.Clear();
-            if (input.Count > 0)
-            {
-
-                foreach (var x in input.OrderBy(z => z.Ge))
-                {
-                    ValuesA.Add(new ObservablePoint(x.Ge, x.Lab));
-                 
-                }
-            }
-            ValuesB.Clear();
-            if (ValuesA.Count > 1)
-            {
-                var prva = ValuesA.Min(x => x.X);
-                var poslednja = ValuesA.Max(x => x.X);
-                var p1 = p + Ps;
-                var q1 = q - Qs;
-
-                ValuesB.Add(new ObservablePoint(prva, p1 * prva - q));
-                ValuesB.Add(new ObservablePoint(poslednja, p * poslednja - q1));
-            }
-        }
+     
 
         public ChartValues<ObservablePoint> ValuesA { get; set; } = new ChartValues<ObservablePoint>();
         public ChartValues<ObservablePoint> ValuesB { get; set; } = new ChartValues<ObservablePoint>();

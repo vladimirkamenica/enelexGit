@@ -596,16 +596,19 @@ namespace enelex3
 
         private void Graph2(object sender, RoutedEventArgs e)
         {
-            Graph2 gr = new Graph2(ListOfMeasures, SumP, SumQ, NumP);
+            Graph1 gr = new Graph1(ListOfMeasures, SumP, SumQ, NumP);
             gr.ShowDialog();
         }    
 
         private void Graph3(object sender, RoutedEventArgs e)
         {
-            Graph3 gr = new Graph3(ListOfMeasures, SumP, SumQ, Ps, Qs);
+            Graph1 gr = new Graph1(ListOfMeasures, SumP, SumQ, Ps, Qs);
             gr.ShowDialog();
         }
 
-      
+        private void DgMeasures_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
+        {
+            
+        }
     }
 }
