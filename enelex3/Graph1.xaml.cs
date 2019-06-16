@@ -18,6 +18,7 @@ using enelex3.FrontEndMethods;
 using LiveCharts.Configurations;
 using LiveCharts.Helpers;
 using DocumentFormat.OpenXml.Drawing.Charts;
+using System.Collections.ObjectModel;
 
 namespace enelex3
 {
@@ -26,19 +27,19 @@ namespace enelex3
     /// </summary>
     public partial class Graph1 : Window
     {
-        public Graph1(List<MeasuresView> input, double p, double q)
+        public Graph1(ObservableCollection<MeasuresView> input, double p, double q)
         {
             InitializeComponent();
             Grafik1.SetMeasureViewToGraph(input, p, q);          
         }
 
-        public Graph1(List<MeasuresView> input, double p, double q, double NumP)
+        public Graph1(ObservableCollection<MeasuresView> input, double p, double q, double NumP)
         {
             InitializeComponent();
             Grafik1.SetMeasureViewToGraph(input, p, q, NumP);
         }
 
-        public Graph1(List<MeasuresView> input, double p, double q, double Ps, double Qs)
+        public Graph1(ObservableCollection<MeasuresView> input, double p, double q, double Ps, double Qs)
         {
             InitializeComponent();
             Grafik1.SetMeasureViewToGraph1(input, p, q, Ps, Qs);

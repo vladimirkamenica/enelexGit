@@ -4,6 +4,7 @@ using LiveCharts.Defaults;
 using LiveCharts.Wpf;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -31,7 +32,7 @@ namespace enelex3.UserControls
             InitializeComponent();
         }
 
-        public void SetMeasureViewToGraph(List<MeasuresView> input, double p, double q, double NumP = 0, double Ps = 0, double Qs = 0)
+        public void SetMeasureViewToGraph(ObservableCollection<MeasuresView> input, double p, double q, double NumP = 0, double Ps = 0, double Qs = 0)
         {
             DataContext = this;
             ValuesA.Clear();
@@ -60,7 +61,7 @@ namespace enelex3.UserControls
             }
 
         }
-        public void SetMeasureViewToGraph1(List<MeasuresView> input, double p, double q, double Ps, double Qs)
+        public void SetMeasureViewToGraph1(ObservableCollection<MeasuresView> input, double p, double q, double Ps, double Qs)
         {
             DataContext = this;
             ValuesA.Clear();

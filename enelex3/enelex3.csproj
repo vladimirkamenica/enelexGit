@@ -88,6 +88,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Alati\SaveToColorConverter.cs" />
     <Compile Include="Migrations\201905150556400_W.cs" />
     <Compile Include="Migrations\201905150556400_W.Designer.cs">
       <DependentUpon>201905150556400_W.cs</DependentUpon>

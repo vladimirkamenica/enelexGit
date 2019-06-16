@@ -1,6 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:local="clr-namespace:enelex3">
+                    xmlns:local="clr-namespace:enelex3"
+                    xmlns:alati="clr-namespace:enelex3.Alati">
 
     <SolidColorBrush x:Key="Button.Static.Background" Color="#FFDDDDDD"/>
     <SolidColorBrush x:Key="Button.Static.Border" Color="#FF707070"/>
@@ -15,6 +16,7 @@
     <SolidColorBrush x:Key="TextColor">Black</SolidColorBrush>
     <SolidColorBrush x:Key="AltRowColor">#e8e8e8</SolidColorBrush>
     <SolidColorBrush x:Key="AltRowColorDetails">#d8d8d8</SolidColorBrush>
+    <alati:SaveToColorConverter x:Key="saveToColorConverter"/>
     <Thickness x:Key="CustMargin">10,5,5,5</Thickness>
     <Style x:Key="btCustom" TargetType="Button">
         <Setter Property="Margin" Value="{StaticResource CustMargin}"></Setter>
@@ -23,7 +25,9 @@
     <Style TargetType="TextBox">
         <Setter Property="IsReadOnly" Value="True"></Setter>
     </Style>
-  
+    <Style TargetType="{x:Type DataGridRow}" x:Key="SaveToColorRowStyle">
+        <Setter Property="Background" Value="{Binding Save, Converter={StaticResource saveToColorConverter}}"/>
+    </Style>
     <Style x:Key="dgCustom" TargetType="DataGrid">
         <Setter Property="AlternationCount" Value="2"></Setter>
         <Setter Property="AlternatingRowBackground" Value="{StaticResource AltRowColor}"></Setter>

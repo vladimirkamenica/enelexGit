@@ -3,6 +3,7 @@ using enelex3.Alati;
 using enelex3.FrontEndMethods;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data;
 using System.Linq;
 using System.Windows;
@@ -19,7 +20,7 @@ namespace enelex3
         public MainWindow()
         {
             InitializeComponent();
-            ListOfMeasures = new List<MeasuresView>();
+            ListOfMeasures = new ObservableCollection<MeasuresView>();
             ListOfCalibrations = new List<Calibration>();
             ListOfCalibarationsThree = new List<CalibrationThree>();
             ListOfPercetange = new List<Percentage>();
@@ -33,7 +34,7 @@ namespace enelex3
             tbBr.Text = br.ToString();
         }
         private MeasuresFE mfe;
-       public List<MeasuresView> ListOfMeasures { get; set; }
+       public ObservableCollection<MeasuresView> ListOfMeasures { get; set; }
         public List<Calibration> ListOfCalibrations { get; set; }
         public List<CalibrationThree> ListOfCalibarationsThree { get; set; }
         public List<Percentage> ListOfPercetange { get; set; }
@@ -74,9 +75,10 @@ namespace enelex3
                 mfe = new MeasuresFE(db);
 
                ListOfMeasures.Clear();
-               ListOfMeasures.AddRange(mfe.GetMeasures());
-               // var ListOfMeasures = mfe.GetMeasures();
-              //  dgMeasures.ItemsSource = ListOfMeasures;
+                foreach (var i in mfe.GetMeasures()) ListOfMeasures.Add(i);
+
+                // var ListOfMeasures = mfe.GetMeasures();
+                //  dgMeasures.ItemsSource = ListOfMeasures;
 
                 if (ListOfMeasures.Count > 0)
                 {
@@ -299,11 +301,19 @@ namespace enelex3
             //stavis u try db.measures.savechanges();
             // listofmeasasdas.remove (selectovani);
             //dg.items.update();
-
-            var selektovano = dgMeasures.SelectedItem as MeasuresView;
-            if (selektovano != null)
+            List<long> ids = new List<long>();
+            foreach (var x in dgMeasures.SelectedItems)
             {
-                var id = selektovano.ID;
+                var selektovano = x as MeasuresView;
+                if (selektovano != null)
+                {
+                    var id = selektovano.ID;
+                    ids.Add(id);
+                }
+            }
+
+            foreach (var id in ids)
+            {
                 var izbaze = db.Measures.Find(id);
                 db.Measures.Remove(izbaze);
                 try
@@ -314,10 +324,9 @@ namespace enelex3
                 {
                     MessageBox.Show("gfhg");
                 }
-                ListOfMeasures.Remove(selektovano);
-
-               
+                ListOfMeasures.Remove(ListOfMeasures.FirstOrDefault(x => x.ID == id));
             }
+         
             Load();
          
         }
@@ -327,7 +336,7 @@ namespace enelex3
             if (sel != null)
             {
                 sel.Save = true;
-            }
+            }           
         }
         private void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -339,6 +348,7 @@ namespace enelex3
                     {
                         {
                             CopyMeasureViewToBase(x, true);
+                            x.Save = false;
                         }
                     }
             }
@@ -363,8 +373,6 @@ namespace enelex3
         }
         private void Del_One(object sender, RoutedEventArgs e)
         {
-
-            
             var selektovano = dgOne.SelectedItem as CalibrationOneView;
             if (selektovano != null)
             {

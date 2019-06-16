@@ -4,9 +4,12 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:enelex3"
+        xmlns:alati="clr-namespace:enelex3.Alati"
         mc:Ignorable="d"
        Title="Enelex GE3030" Icon="Pics/nuclear.ico" Width="1455" Height="800" WindowStartupLocation="CenterScreen" WindowState="Maximized"  Background="WhiteSmoke">
-
+    <Window.Resources>
+        <alati:SaveToColorConverter x:Key="saveToColorConverter"/>
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"></RowDefinition>
@@ -37,13 +40,20 @@
             <TextBox Name="tbW" Width="42" IsReadOnly="False" Height="20"  Text="{Binding NewMeasureW, Mode=TwoWay, StringFormat={}{0:F2}}"></TextBox>
             <Button Click="Button_Click_3" Style="{DynamicResource Add2}"></Button>
         </StackPanel>
-        <DataGrid Name="dgMeasures"    Grid.Row="2" Grid.RowSpan="3" Style="{StaticResource dgCustom}"   ItemsSource="{Binding ListOfMeasures}"  SelectionChanged="dgMeasures_SelectionChanged" LoadingRow="DgMeasures_LoadingRow" CellEditEnding="DgMeasures_CellEditEnding">
+        
+        <DataGrid Name="dgMeasures"    Grid.Row="2" Grid.RowSpan="3" Style="{StaticResource dgCustom}" ItemsSource="{Binding ListOfMeasures, Mode=TwoWay}"  SelectionChanged="dgMeasures_SelectionChanged" LoadingRow="DgMeasures_LoadingRow" CellEditEnding="DgMeasures_CellEditEnding">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Broj n [ j ] " Binding="{Binding IdSort}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Pepeo x [GE] " Binding="{Binding Ge,  StringFormat= N2}"  ></DataGridTextColumn>
                 <DataGridTextColumn Header="Pepeo y [Lab]" Binding="{Binding Lab, StringFormat= N2}"  ></DataGridTextColumn>
                 <DataGridTextColumn Header="Vlaga [W]" Binding="{Binding W, StringFormat= N2}" Width="87" ></DataGridTextColumn>
+                <DataGridCheckBoxColumn Header="Save" Binding="{Binding Save}" Visibility="Collapsed"></DataGridCheckBoxColumn>
             </DataGrid.Columns>
+            <DataGrid.RowStyle>
+                <Style TargetType="{x:Type DataGridRow}">
+                    <Setter Property="Background" Value="{Binding Save, Converter={StaticResource saveToColorConverter}}"/>
+                </Style>
+            </DataGrid.RowStyle>
         </DataGrid>
         <StackPanel Grid.Row="1" Grid.Column="1" Grid.RowSpan="32" Background="White" Orientation="Vertical" Margin="0,5,0,0">
             <GroupBox Header="Izračunavanje p i q" Margin="5,5,5,0" BorderThickness="2">

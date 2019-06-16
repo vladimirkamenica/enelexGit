@@ -1,5 +1,6 @@
 ﻿using enelex3.FrontEndMethods;
 using System.Linq;
+using System.Windows.Media;
 
 namespace enelex3
 {
@@ -41,7 +42,6 @@ namespace enelex3
         public double P { get; set; }
         
         public bool Save { get; set; }
-
 
     }
 }
