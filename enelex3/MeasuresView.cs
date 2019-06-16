@@ -10,7 +10,7 @@ namespace enelex3
 
         public long ID { get; set; }
 
-        public int IdSort { get; set; }
+        public double IdSort { get; set; }
 
         public long Number { get; set; }
 
@@ -40,6 +40,7 @@ namespace enelex3
 
         public double P { get; set; }
         
+        public bool Save { get; set; }
 
 
     }

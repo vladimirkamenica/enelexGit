@@ -20,6 +20,9 @@
         <Setter Property="Margin" Value="{StaticResource CustMargin}"></Setter>
         <Setter Property="Background" Value="LightGray"></Setter>
     </Style>
+    <Style TargetType="TextBox">
+        <Setter Property="IsReadOnly" Value="True"></Setter>
+    </Style>
   
     <Style x:Key="dgCustom" TargetType="DataGrid">
         <Setter Property="AlternationCount" Value="2"></Setter>
@@ -326,7 +329,7 @@
                                 <RowDefinition></RowDefinition>
                                 <RowDefinition></RowDefinition>
                             </Grid.RowDefinitions>
-                            <Image Source="/Pics/close.png" Width="17"/>
+                            <Image Source="/Pics/close.png" Width="15"/>
                             <Label Grid.Row="1" Margin="0,-5,0,0" FontSize="11">Obriši</Label>
                         </Grid>
                     </Border>

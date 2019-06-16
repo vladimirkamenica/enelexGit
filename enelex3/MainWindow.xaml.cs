@@ -33,7 +33,7 @@ namespace enelex3
             tbBr.Text = br.ToString();
         }
         private MeasuresFE mfe;
-        public List<MeasuresView> ListOfMeasures { get; set; }
+       public List<MeasuresView> ListOfMeasures { get; set; }
         public List<Calibration> ListOfCalibrations { get; set; }
         public List<CalibrationThree> ListOfCalibarationsThree { get; set; }
         public List<Percentage> ListOfPercetange { get; set; }
@@ -63,7 +63,7 @@ namespace enelex3
         public double Ps { get; set; }
 
         public double Qs { get; set; }
-
+       
         private void Load()
         {          
 
@@ -73,9 +73,10 @@ namespace enelex3
 
                 mfe = new MeasuresFE(db);
 
-                ListOfMeasures.Clear();
-                ListOfMeasures.AddRange(mfe.GetMeasures());
-
+               ListOfMeasures.Clear();
+               ListOfMeasures.AddRange(mfe.GetMeasures());
+               // var ListOfMeasures = mfe.GetMeasures();
+              //  dgMeasures.ItemsSource = ListOfMeasures;
 
                 if (ListOfMeasures.Count > 0)
                 {
@@ -92,6 +93,7 @@ namespace enelex3
                     ListOfCalibrationTwo.AddRange(cfe.GetCalibrationsTwo());
                     ListOfCalibrationOne.Clear();
                     ListOfCalibrationOne.AddRange(cfe.GetCalibrationOnes());
+                 
                     //  var ListOfCalibrations = cfe.GetCalibrations();
                     // dgTipAB.ItemsSource = ListOfCalibrations;
 
@@ -196,10 +198,10 @@ namespace enelex3
                 dgApsolutno.Items.Refresh();
                 dgOne.Items.Refresh();
                 UpdateLayout();
-            }
-            catch
+           }
+           catch
             {
-                MessageBox.Show("Грешка у подацима");
+              MessageBox.Show("Greška u podacima");
             }
            
           
@@ -281,34 +283,11 @@ namespace enelex3
             }
             Load();
         }
-        private void CopyMeasureViewToBase(MeasuresView input, bool saveDB, Model1 db = null)
-        {
-           
-                db = db ?? new Model1();
-                var x = db.Measures.Find(input.ID);
-                x.ID = input.ID;
-                x.Ge = input.Ge;
-                x.Lab = input.Lab;
-                x.W = input.W;
-                if (saveDB)
-                {
-                    db.SaveChanges();
-                }
-                db.Dispose();                    
-              
-        }
+      
 
 
         //azuriraj
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            var selektovano = dgMeasures.SelectedItem as MeasuresView;
-            if (selektovano != null)
-            {
-                CopyMeasureViewToBase(selektovano, true);
-            }
-            Load();
-        }
+       
 
         //obrisi
         private void Button_Click_1(object sender, RoutedEventArgs e)
@@ -342,12 +321,46 @@ namespace enelex3
             Load();
          
         }
-
         private void dgMeasures_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            var sel = dgMeasures.SelectedItem as MeasuresView;
+            if (sel != null)
+            {
+                sel.Save = true;
+            }
+        }
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            var selektovano = ListOfMeasures.Where(x => x.Save);
+            if (selektovano != null)
+            {
+                foreach (var x in selektovano)
+                    if (x != null)
+                    {
+                        {
+                            CopyMeasureViewToBase(x, true);
+                        }
+                    }
+            }
+            Load();
+        }
+       
+        private void CopyMeasureViewToBase(MeasuresView input, bool saveDB, Model1 db = null)
+        {
+
+            db = db ?? new Model1();
+            var x = db.Measures.Find(input.ID);
+            x.ID = input.ID;
+            x.Ge = input.Ge;
+            x.Lab = input.Lab;
+            x.W = input.W;
+            if (saveDB)
+            {
+                db.SaveChanges();
+            }
+            db.Dispose();
 
         }
-
         private void Del_One(object sender, RoutedEventArgs e)
         {
 

@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.28010.2046
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "enelex3", "enelex3\enelex3.csproj", "{C2FB1F5D-8862-4DC7-A7B8-E6F7B6994797}"
 EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup15", "Setup15\Setup15.vdproj", "{896253B3-4324-45E0-BA6C-916681549473}"
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup2", "Setup2\Setup2.vdproj", "{38AFA69D-E581-463E-8DB0-341F130196C8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,8 +17,9 @@ Global
 		{C2FB1F5D-8862-4DC7-A7B8-E6F7B6994797}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C2FB1F5D-8862-4DC7-A7B8-E6F7B6994797}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C2FB1F5D-8862-4DC7-A7B8-E6F7B6994797}.Release|Any CPU.Build.0 = Release|Any CPU
-		{896253B3-4324-45E0-BA6C-916681549473}.Debug|Any CPU.ActiveCfg = Debug
-		{896253B3-4324-45E0-BA6C-916681549473}.Release|Any CPU.ActiveCfg = Release
+		{38AFA69D-E581-463E-8DB0-341F130196C8}.Debug|Any CPU.ActiveCfg = Debug
+		{38AFA69D-E581-463E-8DB0-341F130196C8}.Debug|Any CPU.Build.0 = Debug
+		{38AFA69D-E581-463E-8DB0-341F130196C8}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

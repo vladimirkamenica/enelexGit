@@ -23,29 +23,29 @@ namespace enelex3.UserControls
     /// Interaction logic for ScatterLineGraph.xaml
     /// </summary>
     public partial class ScatterLineGraph : UserControl
-    {     
-        public object Mapper { get; set; }   
-        
+    {
+        public object Mapper { get; set; }
+
         public ScatterLineGraph()
         {
             InitializeComponent();
         }
 
         public void SetMeasureViewToGraph(List<MeasuresView> input, double p, double q, double NumP = 0, double Ps = 0, double Qs = 0)
-        {            
-            DataContext = this;  
+        {
+            DataContext = this;
             ValuesA.Clear();
-           
+
             if (input.Count > 0)
             {
 
                 foreach (var x in input.OrderBy(z => z.Ge))
                 {
                     ValuesA.Add(new ObservablePoint(x.Ge, x.Lab));
-                    
-                   
+
+
                 }
-                
+
             }
             ValuesB.Clear();
             if (ValuesA.Count > 1)
@@ -58,9 +58,40 @@ namespace enelex3.UserControls
                 ValuesB.Add(new ObservablePoint(prva, p1 * prva - q1));
                 ValuesB.Add(new ObservablePoint(poslednja, p * poslednja - q1));
             }
-            
+
         }
-     
+        public void SetMeasureViewToGraph1(List<MeasuresView> input, double p, double q, double Ps, double Qs)
+        {
+            DataContext = this;
+            ValuesA.Clear();
+
+            if (input.Count > 0)
+            {
+
+                foreach (var x in input.OrderBy(z => z.Ge))
+                {
+                    ValuesA.Add(new ObservablePoint(x.Ge, x.Lab));
+
+
+                }
+
+            }
+            ValuesB.Clear();
+            if (ValuesA.Count > 1)
+            {
+                var prva = ValuesA.Min(x => x.X);
+                var poslednja = ValuesA.Max(x => x.X);
+                var q1 = q - Qs;
+                var p1 = p + Ps;
+
+                ValuesB.Add(new ObservablePoint(prva, p1 * prva - q));
+                ValuesB.Add(new ObservablePoint(poslednja, p * poslednja - q1));
+            }
+
+        }
+    
+
+
 
         public ChartValues<ObservablePoint> ValuesA { get; set; } = new ChartValues<ObservablePoint>();
         public ChartValues<ObservablePoint> ValuesB { get; set; } = new ChartValues<ObservablePoint>();
