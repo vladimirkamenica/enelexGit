@@ -8,6 +8,7 @@ using System.Data;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace enelex3
 {
@@ -43,6 +44,7 @@ namespace enelex3
         private CalibrationFE cfe;
         private PercentageFE pct;
 
+
         public double NewMeasureLAB { get; set; }
 
         public double NewMeasureGE { get; set; }
@@ -64,7 +66,41 @@ namespace enelex3
         public double Ps { get; set; }
 
         public double Qs { get; set; }
-       
+
+        public double PrintP { get; set; }
+
+        public double PrintQ { get; set; }
+
+        public double PrintA { get; set; }
+
+        public double PrintB { get; set; }
+
+        public double PrintA1 { get; set; }
+
+        public double PrintB1 { get; set; }
+
+        public double PrintAa1 { get; set; }
+
+        public double PrintBa1 { get; set; }
+
+        public double PrintBa { get; set; }
+
+        public int CountOne { get; set; }
+
+        public double PrintAs { get; set; }
+
+        public double PrintBs { get; set; }
+
+        public double PrintAs1 { get; set; }
+
+        public double PrintBs1 { get; set; }
+
+
+        public double PrintW { get; set; }
+
+
+        public double PrintAPr { get; set; }
+
         private void Load()
         {          
 
@@ -82,7 +118,8 @@ namespace enelex3
 
                 if (ListOfMeasures.Count > 0)
                 {
-
+                    Measure mes = new Measure();
+                    
                     db = new Model1();
                     cfe = new CalibrationFE(db);
                     pct = new PercentageFE(db);
@@ -114,6 +151,7 @@ namespace enelex3
 
                     var vlaga = ListOfMeasures.Sum(x => x.W) / maxId;
                     tbV.Text = vlaga.ToString("N4");
+                    PrintW = vlaga;
 
                     var sum2 = ListOfMeasures.Sum(x => x.Ge);
                     tbSum2.Text = sum2.ToString();
@@ -135,6 +173,9 @@ namespace enelex3
 
                     SumP = gorep / dolep;
                     tbP.Text = SumP.ToString("N4");
+
+                    PrintP = SumP;
+
                     var sumQ1 = ListOfMeasures.Sum(x => x.Lab);
                     tbSumQ1.Text = sumQ1.ToString();
 
@@ -147,27 +188,37 @@ namespace enelex3
                     SumQ = goreq / maxId;
                     tbQ.Text = SumQ.ToString("N4");
 
+                    PrintQ = SumQ;
+
                     if (ListOfCalibrations.Count > 0)
                     {
                         var suma = ListOfCalibrations[0].NumberA;
                         var sumaa = suma * SumP;
                         tbA.Text = sumaa.ToString("0.####");
-
+                        PrintA = sumaa;
+                        PrintA1 = suma;
                         var sumb = ListOfCalibrations[0].NumberB;
                         var sumbb = SumP * sumb + SumQ;
                         tbB.Text = sumbb.ToString("0.####");
+                        PrintB = sumbb;
+                        PrintB1 = sumb;
                     }
                     if (ListOfCalibrationTwo.Count > 0)
                     {
                         var aprocenat = ListOfCalibrationTwo[0].NumberATwo;
                         tbAprocenat.Text = aprocenat.ToString("0.##");
+                        PrintAa1 = aprocenat;
 
                         var bprocenat = ListOfCalibrationTwo[0].NumberBTwo;
                         var pomeraj = ListOfPercetange[0].NumberP;
                         NumP = pomeraj;
+                        PrintAPr = pomeraj;
+                        PrintBa = bprocenat;
+
                         var ukupno = -bprocenat + pomeraj;
                         var pozitivno = -1 * ukupno;
                         tbBprocenat.Text = pozitivno.ToString("0.##");
+                        PrintBa1 = pozitivno;
                     }
 
 
@@ -188,10 +239,14 @@ namespace enelex3
 
                         Ps = ListOfCalibrationOne[0].SumLP;
                         Qs = ListOfCalibrationOne[1].SumLP;
+                        PrintAs = FinalA;
+                        PrintBs = FinalB;
+                        PrintAs1 = a;
+                        PrintBs1 = ListOfCalibarationsThree[0].NumberBThree;
 
                     }
 
-
+                    CountOne = ListOfCalibrationOne.Count;
                 }
                 dgMeasures.Items.Refresh();
                 dgTipAB.Items.Refresh();
@@ -294,41 +349,51 @@ namespace enelex3
         //obrisi
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            //dg....selecteditem == measureview
-            //var id = measureview.id;
-            //var izbaze = db.measures.find(id);
-            //db.measures.remove(izbaze); 
-            //stavis u try db.measures.savechanges();
-            // listofmeasasdas.remove (selectovani);
-            //dg.items.update();
-            List<long> ids = new List<long>();
-            foreach (var x in dgMeasures.SelectedItems)
-            {
-                var selektovano = x as MeasuresView;
-                if (selektovano != null)
-                {
-                    var id = selektovano.ID;
-                    ids.Add(id);
-                }
-            }
+            
+           
+      
+            
 
-            foreach (var id in ids)
+            if (MessageBox.Show("Da li ste sigurni?", "Eneleks 1.0", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
             {
-                var izbaze = db.Measures.Find(id);
-                db.Measures.Remove(izbaze);
-                try
-                {
-                    db.SaveChanges();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("gfhg");
-                }
-                ListOfMeasures.Remove(ListOfMeasures.FirstOrDefault(x => x.ID == id));
+
             }
-         
-            Load();
-         
+            else
+            {
+                List<long> ids = new List<long>();
+
+                foreach (var x in dgMeasures.SelectedItems)
+                {
+                    var selektovano = x as MeasuresView;
+                    if (selektovano != null)
+                    {
+                        var id = selektovano.ID;
+                        ids.Add(id);
+
+                    }
+
+                }
+
+
+                foreach (var id in ids)
+                {
+                    var izbaze = db.Measures.Find(id);
+                    db.Measures.Remove(izbaze);
+                    try
+                    {
+
+
+                        db.SaveChanges();
+
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Greska u podacima");
+                    }
+                    ListOfMeasures.Remove(ListOfMeasures.FirstOrDefault(x => x.ID == id));
+                }
+                Load();
+            }
         }
         private void dgMeasures_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -364,6 +429,7 @@ namespace enelex3
             x.Ge = input.Ge;
             x.Lab = input.Lab;
             x.W = input.W;
+            x.Save = input.Save;
             if (saveDB)
             {
                 db.SaveChanges();
@@ -382,7 +448,15 @@ namespace enelex3
                 db.CalibratonOnes.Remove(izbaze);
                 try
                 {
-                    db.SaveChanges();
+                    if (MessageBox.Show("Da li ste sigurni?", "Brisanje!", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
+                    {
+
+                    }
+                    else
+                    {
+                        db.SaveChanges();
+                    }
+                        
                 }
                 catch (Exception ex)
                 {
@@ -638,6 +712,66 @@ namespace enelex3
         private void DgMeasures_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
         {
             
+        }
+
+        private void DgMeasures_PreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if(e.Key == Key.End )
+            {
+               
+            }
+        }
+
+        private void Button_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+           
+        }
+
+        private void TbGE_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.Key == Key.Enter)
+            {
+               
+            }
+        }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                this.IsEnabled = false;
+                PrintDialog printDialog = new PrintDialog();
+
+                if (printDialog.ShowDialog() == true)
+                {
+                  
+                }
+            }
+            finally
+            {
+                this.IsEnabled = true;
+            }
+        }
+
+        private void TbBr_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void Button_Click_9(object sender, RoutedEventArgs e)
+        {
+            PrintSheet printSheet = new PrintSheet(PrintP, PrintQ, PrintA, PrintAPr, PrintB, PrintW, PrintA1, PrintB1, PrintAa1, PrintBa1, PrintBa, CountOne, PrintAs, PrintAs1, PrintBs, PrintBs1);
+            printSheet.ShowDialog();
+        }
+
+        private void DgTipAB2_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void TbL_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
         }
     }
 }

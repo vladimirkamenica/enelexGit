@@ -59,6 +59,12 @@
     <Reference Include="LiveCharts.Wpf, Version=0.9.7.0, Culture=neutral, PublicKeyToken=0bc1f845d1ebb8df, processorArchitecture=MSIL">
       <HintPath>..\packages\LiveCharts.Wpf.0.9.7\lib\net45\LiveCharts.Wpf.dll</HintPath>
     </Reference>
+    <Reference Include="MaterialDesignColors, Version=1.1.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MaterialDesignColors.1.1.2\lib\net45\MaterialDesignColors.dll</HintPath>
+    </Reference>
+    <Reference Include="MaterialDesignThemes.Wpf, Version=2.5.1.1345, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MaterialDesignThemes.2.5.1\lib\net45\MaterialDesignThemes.Wpf.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
@@ -92,6 +98,13 @@
     <Compile Include="Migrations\201905150556400_W.cs" />
     <Compile Include="Migrations\201905150556400_W.Designer.cs">
       <DependentUpon>201905150556400_W.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201906161344231_save.cs" />
+    <Compile Include="Migrations\201906161344231_save.Designer.cs">
+      <DependentUpon>201906161344231_save.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PrintSheet.xaml.cs">
+      <DependentUpon>PrintSheet.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\ScatterLineGraph.xaml.cs">
       <DependentUpon>ScatterLineGraph.xaml</DependentUpon>
@@ -140,6 +153,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="PrintSheet.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Styles.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -226,6 +243,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201905150556400_W.resx">
       <DependentUpon>201905150556400_W.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906161344231_save.resx">
+      <DependentUpon>201906161344231_save.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -322,6 +342,34 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Pics\down.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pics\print.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pics\print1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pics\del9.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pics\print5.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pics\print2.png" />
+    <Resource Include="Pics\print3.png" />
+    <Resource Include="Pics\print4.png" />
+    <Resource Include="Pics\print6.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pics\print8.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pics\proba.txt" />
+    <Resource Include="Pics\search3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pics\print11.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

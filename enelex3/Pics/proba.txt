@@ -1,0 +1,58 @@
+<ComboBox Name="cbPaymentRate" SelectedValuePath="ID" SelectedValue="{Binding PaymentRateId}"  ItemTemplate="{StaticResource tempCBpayment}"></ComboBox>
+<TextBox  Background="#ffffbf" Text="{Binding Comment}" HorizontalAlignment="Left"  Width="200" Margin="0,8,0,0"></TextBox>
+
+            var listofpayment = dgPaymentRates.SelectedItem;
+            if (listofpayment != null)
+            {
+                wr = new WorkersAndRatesFE(db);
+                var listofpaymentrates = wr.GetPaymentRates();
+                if (listofpaymentrates.Count > 1)
+                {
+                    if (dgPaymentRates.SelectedIndex > -1)
+                    {
+                        var listDel = new List<PaymentRate>();
+                        foreach (var x in dgPaymentRates.SelectedItems)
+                        {
+                            listDel.Add((PaymentRate)x);
+                        }
+                        db.PaymentRates.RemoveRange(listDel);
+                    }
+                    db.SaveChanges();
+                    Load();
+                }
+                else
+                {
+                    MessageBox.Show("Morate imati cenu radnog sata");
+                }
+                Load();
+            }            
+
+
+ var selektovanop = dgPaymentRates.SelectedItem as PaymentRate;
+            if (selektovanop != null)
+                {
+                var id = selektovanop.ID;
+                var pronadjeno = db.Workers.Find(id);
+                var nadjeno = pronadjeno;
+                if (nadjeno != null)
+                {
+
+                    MessageBox.Show("Cena sata je povezana sa radnikom");
+                }
+                else
+                {
+                    if (dgPaymentRates.SelectedIndex > -1)
+                    {
+                        var listDel = new List<PaymentRate>();
+                        foreach (var x in dgPaymentRates.SelectedItems)
+                        {
+                            listDel.Add((PaymentRate)x);
+                        }
+                        db.PaymentRates.RemoveRange(listDel);
+                    }
+                    db.SaveChanges();
+                    Load();
+
+
+                }
+            }            

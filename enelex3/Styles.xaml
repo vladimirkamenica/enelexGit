@@ -12,7 +12,6 @@
     <SolidColorBrush x:Key="Button.Disabled.Background" Color="#FFF4F4F4"/>
     <SolidColorBrush x:Key="Button.Disabled.Border" Color="#FFADB2B5"/>
     <SolidColorBrush x:Key="Button.Disabled.Foreground" Color="#FF838383"/>
-    
     <SolidColorBrush x:Key="TextColor">Black</SolidColorBrush>
     <SolidColorBrush x:Key="AltRowColor">#e8e8e8</SolidColorBrush>
     <SolidColorBrush x:Key="AltRowColorDetails">#d8d8d8</SolidColorBrush>
@@ -25,9 +24,11 @@
     <Style TargetType="TextBox">
         <Setter Property="IsReadOnly" Value="True"></Setter>
     </Style>
-    <Style TargetType="{x:Type DataGridRow}" x:Key="SaveToColorRowStyle">
-        <Setter Property="Background" Value="{Binding Save, Converter={StaticResource saveToColorConverter}}"/>
+    
+    <Style x:Key="SaveToColorRowStyle" TargetType="DataGridRow">
+        <Setter Property="Foreground" Value="{Binding Save, Converter={StaticResource saveToColorConverter}}"/>
     </Style>
+    
     <Style x:Key="dgCustom" TargetType="DataGrid">
         <Setter Property="AlternationCount" Value="2"></Setter>
         <Setter Property="AlternatingRowBackground" Value="{StaticResource AltRowColor}"></Setter>
@@ -42,6 +43,7 @@
         <Setter Property="CanUserAddRows" Value="False"></Setter>
         <Setter Property="CanUserSortColumns" Value="False"></Setter>
         <Setter Property="AllowDrop" Value="True"></Setter>
+        <Setter Property="RowStyle" Value="{StaticResource SaveToColorRowStyle}"></Setter>       
         
     </Style>
 
@@ -99,7 +101,7 @@
                                 <RowDefinition></RowDefinition>
                                 <RowDefinition></RowDefinition>
                             </Grid.RowDefinitions>
-                            <Image Source="/Pics/close.png" Width="15"/>
+                            <Image Source="/Pics/del9.png" Width="17"/>
                             <Label Grid.Row="1" Margin="0,-5,0,0">Obriši</Label>
                         </Grid>
                     </Border>
@@ -333,7 +335,7 @@
                                 <RowDefinition></RowDefinition>
                                 <RowDefinition></RowDefinition>
                             </Grid.RowDefinitions>
-                            <Image Source="/Pics/close.png" Width="15"/>
+                            <Image Source="/Pics/del9.png" Width="17"/>
                             <Label Grid.Row="1" Margin="0,-5,0,0" FontSize="11">Obriši</Label>
                         </Grid>
                     </Border>
@@ -438,6 +440,45 @@
             </Setter.Value>
         </Setter>
     </Style>
+    <Style x:Key="PrintExcel" TargetType="Button">
+        <Setter Property="FocusVisualStyle" Value="{DynamicResource FocusVisual}"/>
+        <Setter Property="Margin" Value = "10,0,0,0"></Setter>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Padding" Value="1"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border x:Name="border" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="true">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition></RowDefinition>
+
+                            </Grid.RowDefinitions>
+                            <Image Source="/Pics/print.png" Width="25"/>
+
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsDefaulted" Value="true">
+                            <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter Property="Background" TargetName="border" Value="White"/>
+                            <Setter Property="BorderBrush" TargetName="border" Value="Transparent"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="true">
+                            <Setter Property="Background" TargetName="border" Value="{DynamicResource Button.Pressed.Background}"/>
+                            <Setter Property="BorderBrush" TargetName="border" Value="Transparent"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="false">
+                            <Setter Property="Background" TargetName="border" Value="{DynamicResource Button.Disabled.Background}"/>
+                            <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource Button.Disabled.Border}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
     <Style x:Key="UpdateButton" TargetType="Button">
         <Setter Property="FocusVisualStyle" Value="{DynamicResource FocusVisual}"/>
         <Setter Property="Margin" Value = "5,0,0,0"></Setter>
@@ -477,5 +518,84 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
+    </Style>
+    <Style x:Key="Print" TargetType="Button">
+        <Setter Property="FocusVisualStyle" Value="{DynamicResource FocusVisual}"/>
+        <Setter Property="Margin" Value = "10,0,0,0"></Setter>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Padding" Value="1"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border x:Name="border" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="true">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition></RowDefinition>
+
+                            </Grid.RowDefinitions>
+                            <Image Source="/Pics/print11.png" Width="35"/>
+
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsDefaulted" Value="true">
+                            <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter Property="Background" TargetName="border" Value="{DynamicResource Button.Pressed.Background}"/>
+                            <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource Button.Pressed.Border}"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="true">
+                            <Setter Property="Background" TargetName="border" Value="{DynamicResource Button.Pressed.Background}"/>
+                            <Setter Property="BorderBrush" TargetName="border" Value="Transparent"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="false">
+                            <Setter Property="Background" TargetName="border" Value="{DynamicResource Button.Disabled.Background}"/>
+                            <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource Button.Disabled.Border}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+   <Style x:Key="PrintSheet" TargetType="Button">
+    <Setter Property="FocusVisualStyle" Value="{DynamicResource FocusVisual}"/>
+    <Setter Property="Margin" Value = "10,0,0,0"></Setter>
+    <Setter Property="BorderThickness" Value="1"/>
+    <Setter Property="Padding" Value="1"/>
+    <Setter Property="Template">
+        <Setter.Value>
+            <ControlTemplate TargetType="{x:Type Button}">
+                <Border x:Name="border" BorderThickness="{TemplateBinding BorderThickness}"  Width="140" Height="30">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="20"></ColumnDefinition>
+                                <ColumnDefinition Width="auto "></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Image Source="/Pics/search3.png" Width="20" Margin="-5" />
+                            <Label Grid.Column="1" HorizontalAlignment="Left">Stranica za štampu</Label>
+
+                    </Grid>
+                </Border>
+                <ControlTemplate.Triggers>
+                    <Trigger Property="IsDefaulted" Value="true">
+                        <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                    </Trigger>
+                    <Trigger Property="IsMouseOver" Value="true">
+                            <Setter Property="Background" TargetName="border" Value="{DynamicResource Button.Pressed.Background}"/>
+                            <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource Button.Pressed.Border}"/>
+                        </Trigger>
+                    <Trigger Property="IsPressed" Value="true">
+                        <Setter Property="Background" TargetName="border" Value="{DynamicResource Button.Pressed.Background}"/>
+                            <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource Button.MouseOver.Border}"/>
+                        </Trigger>
+                    <Trigger Property="IsEnabled" Value="false">
+                        <Setter Property="Background" TargetName="border" Value="{DynamicResource Button.Disabled.Background}"/>
+                        <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource Button.Disabled.Border}"/>
+                    </Trigger>
+                </ControlTemplate.Triggers>
+            </ControlTemplate>
+        </Setter.Value>
+    </Setter>
     </Style>
 </ResourceDictionary>

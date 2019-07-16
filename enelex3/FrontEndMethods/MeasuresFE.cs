@@ -27,6 +27,7 @@ namespace enelex3.FrontEndMethods
                             P = x.P,
                             W = x.W,
                             IdSort = x.IndexId,
+                           
                         }).ToList();
 
             return list;
