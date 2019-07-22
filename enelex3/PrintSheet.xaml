@@ -6,309 +6,320 @@
         xmlns:local="clr-namespace:enelex3"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="Stranica za štampu" Height="755" Width="800" WindowStartupLocation="CenterScreen" Icon="Pics/nuclear.ico">
-    <Grid x:Name="printGrid">
+        Title="Stranica za štampu" Height="755" Width="800" WindowStartupLocation="CenterScreen" Icon="Pics/nuclear.ico" ResizeMode="NoResize">
+    <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="auto"></RowDefinition>
-            <RowDefinition Height="auto"></RowDefinition>
-            <RowDefinition Height="auto"></RowDefinition>
-            <RowDefinition Height="auto"></RowDefinition>
-            <RowDefinition Height="auto"></RowDefinition>
-            <RowDefinition Height="auto"></RowDefinition>
-            <RowDefinition Height="auto"></RowDefinition>
-            <RowDefinition Height="auto"></RowDefinition>
             <RowDefinition Height="auto"></RowDefinition>
             <RowDefinition Height="auto"></RowDefinition>
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="10,10,20,10">
             <Button  Click="Button_Click" Style="{DynamicResource Print}"></Button>
         </StackPanel>
-        <StackPanel Grid.Row="1">
+        <StackPanel Grid.Row="1"  x:Name="printGrid">
             <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="auto"></ColumnDefinition>
-                    <ColumnDefinition></ColumnDefinition>
-                </Grid.ColumnDefinitions>
-                <Label FontWeight="Bold">Izračunavanje p i q</Label>
-                <Separator Grid.Column="1" Margin="0,0,10,0"></Separator>
-            </Grid>
-        </StackPanel>
-        <StackPanel Margin="20,0,0,0" Grid.Row="2"  HorizontalAlignment="Left">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="auto" ></ColumnDefinition>
-                    <ColumnDefinition ></ColumnDefinition>
-                    <ColumnDefinition ></ColumnDefinition>
-                    <ColumnDefinition ></ColumnDefinition>
-                </Grid.ColumnDefinitions>
-                <Image Grid.Column="1"  Source="Pics/p.png" Width="250"></Image>
-                <Label Grid.Column="2" Margin="0,50,0,0">=</Label>
-                <TextBox Name="tbP"  Grid.Column="3" Height="20"  Width="100" HorizontalAlignment="Left" Background="#ffffd8" VerticalContentAlignment="Center" Margin="0,55,0,57" ></TextBox>
-            </Grid>
-        </StackPanel >
-        <StackPanel Margin="20,0,0,0" Grid.Row="3" Orientation="Horizontal">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="auto" ></ColumnDefinition>
-                    <ColumnDefinition  ></ColumnDefinition>
-                    <ColumnDefinition ></ColumnDefinition>
-                    <ColumnDefinition></ColumnDefinition>
-                </Grid.ColumnDefinitions>
-                <Image Grid.Column="1" Source="Pics/q.png" Width="155" Margin="0,5,0,0"></Image>
-                <Label Grid.Column="2" Margin="0,67,0,0">=</Label>
-                <TextBox Name="tbQ" Grid.Column="3" Width="100" HorizontalAlignment="Left" Background="#ffffd8" VerticalContentAlignment="Center" Margin="0,72,0,37" ></TextBox>
-            </Grid>
-        </StackPanel>
-        <StackPanel Grid.Row="4">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="auto"></ColumnDefinition>
-                    <ColumnDefinition></ColumnDefinition>
-                </Grid.ColumnDefinitions>
-                <Label FontWeight="Bold">Novi tip kalibracije</Label>
-                <Separator Grid.Column="1" Margin="0,0,10,0"></Separator>
-            </Grid>
-        </StackPanel>
-        <StackPanel Grid.Row="5" >
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition></ColumnDefinition>
-                    <ColumnDefinition></ColumnDefinition>
-                </Grid.ColumnDefinitions>
-                <StackPanel Orientation="Horizontal" Margin="20,0,0,0" Grid.ColumnSpan="2">
-                    <StackPanel>
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition ></RowDefinition>
-                                <RowDefinition></RowDefinition>
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition></ColumnDefinition>
-                                <ColumnDefinition></ColumnDefinition>
-                                <ColumnDefinition></ColumnDefinition>
-                                <ColumnDefinition></ColumnDefinition>
-                                <ColumnDefinition></ColumnDefinition>
-                                <ColumnDefinition></ColumnDefinition>
-                                <ColumnDefinition></ColumnDefinition>
-                                <ColumnDefinition></ColumnDefinition>
-                            </Grid.ColumnDefinitions>
-                            <StackPanel Grid.Column="0" Orientation="Horizontal">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+            </Grid.RowDefinitions>
+               
+                <StackPanel Grid.Row="1">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Label FontWeight="Bold">Izračunavanje p i q</Label>
+                        <Separator Grid.Column="1" Margin="0,0,10,0"></Separator>
+                    </Grid>
+                </StackPanel>
+                <StackPanel Margin="20,0,0,0" Grid.Row="2"  HorizontalAlignment="Left">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto" ></ColumnDefinition>
+                            <ColumnDefinition ></ColumnDefinition>
+                            <ColumnDefinition ></ColumnDefinition>
+                            <ColumnDefinition ></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Image Grid.Column="1"  Source="Pics/p.png" Width="250"></Image>
+                        <Label Grid.Column="2" Margin="0,50,0,0">=</Label>
+                        <TextBox Name="tbP"  Grid.Column="3" Height="20"  Width="100" HorizontalAlignment="Left" Background="#ffffd8" VerticalContentAlignment="Center" Margin="0,55,0,57" ></TextBox>
+                    </Grid>
+                </StackPanel >
+                <StackPanel Margin="20,0,0,0" Grid.Row="3" Orientation="Horizontal">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto" ></ColumnDefinition>
+                            <ColumnDefinition  ></ColumnDefinition>
+                            <ColumnDefinition ></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Image Grid.Column="1" Source="Pics/q.png" Width="155" Margin="0,5,0,0"></Image>
+                        <Label Grid.Column="2" Margin="0,67,0,0">=</Label>
+                        <TextBox Name="tbQ" Grid.Column="3" Width="100" HorizontalAlignment="Left" Background="#ffffd8" VerticalContentAlignment="Center" Margin="0,72,0,37" ></TextBox>
+                    </Grid>
+                </StackPanel>
+                <StackPanel Grid.Row="4">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Label FontWeight="Bold">Novi tip kalibracije</Label>
+                        <Separator Grid.Column="1" Margin="0,0,10,0"></Separator>
+                    </Grid>
+                </StackPanel>
+                <StackPanel Grid.Row="5" >
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Orientation="Horizontal" Margin="20,0,0,0" Grid.ColumnSpan="2">
+                            <StackPanel>
                                 <Grid>
                                     <Grid.RowDefinitions>
-                                        <RowDefinition Height="auto"></RowDefinition>
-                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition ></RowDefinition>
+                                        <RowDefinition></RowDefinition>
                                     </Grid.RowDefinitions>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition></ColumnDefinition>
                                         <ColumnDefinition></ColumnDefinition>
+                                        <ColumnDefinition></ColumnDefinition>
+                                        <ColumnDefinition></ColumnDefinition>
+                                        <ColumnDefinition></ColumnDefinition>
+                                        <ColumnDefinition></ColumnDefinition>
+                                        <ColumnDefinition></ColumnDefinition>
+                                        <ColumnDefinition></ColumnDefinition>
                                     </Grid.ColumnDefinitions>
-                                    <Label>Vrednost [a]</Label>
-                                    <Label Grid.Column="1">Vrednost b]</Label>
-                                    <TextBox Name="tbA1" Grid.Row="1"  Width="80" Height="20" Margin="0,0,5,5"></TextBox>
-                                    <TextBox Name="tbB1" Grid.Row="1" Grid.Column="1" Margin="0,0,5,5" Height="20" Width="80"></TextBox>
+                                    <StackPanel Grid.Column="0" Orientation="Horizontal">
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="auto"></RowDefinition>
+                                                <RowDefinition Height="auto"></RowDefinition>
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition></ColumnDefinition>
+                                                <ColumnDefinition></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+                                            <Label>Vrednost [a]</Label>
+                                            <Label Grid.Column="1">Vrednost b]</Label>
+                                            <TextBox Name="tbA1" Grid.Row="1"  Width="80" Height="20" Margin="0,0,5,5"></TextBox>
+                                            <TextBox Name="tbB1" Grid.Row="1" Grid.Column="1" Margin="0,0,5,5" Height="20" Width="80"></TextBox>
+                                        </Grid>
+
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="0" Orientation="Horizontal" Grid.Row="1">
+
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="1" Orientation="Vertical">
+                                        <Label>A = p * q =</Label>
+                                        <Label>B= (p * b) + q =</Label>
+                                        <Label>R =</Label>
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="2">
+                                        <TextBox Name="tbA" Margin="0,5,0,0" Width="100"></TextBox>
+                                        <TextBox Name="tbB" Margin="0,7,0,0" Width="100"></TextBox>
+                                        <TextBox Name="tbR" Margin="-135,8,0,0" Width="100"></TextBox>
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="3" Orientation="Vertical">
+                                        <Label>P =</Label>
+                                        <Label>Q =</Label>
+                                        <Label>W =</Label>
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="4" >
+                                        <TextBox Name="tbP1" Margin="0,5,0,0" Width="100"></TextBox>
+                                        <TextBox Name="tbQ1" Margin="0,7,0,0" Width="100"></TextBox>
+                                        <TextBox Name="tbW" Margin="0,8,0,0" Width="100"></TextBox>
+                                    </StackPanel>
                                 </Grid>
-                                
                             </StackPanel>
-                            <StackPanel Grid.Column="0" Orientation="Horizontal" Grid.Row="1">
-                               
-                            </StackPanel>
-                            <StackPanel Grid.Column="1" Orientation="Vertical">
-                                <Label>A = p * q =</Label>
-                                <Label>B= (p * b) + q =</Label>
-                                <Label>R =</Label>
-                            </StackPanel>
-                            <StackPanel Grid.Column="2">
-                                <TextBox Name="tbA" Margin="0,5,0,0" Width="100"></TextBox>
-                                <TextBox Name="tbB" Margin="0,7,0,0" Width="100"></TextBox>
-                                <TextBox Name="tbR" Margin="-135,8,0,0" Width="100"></TextBox>
-                            </StackPanel>
-                            <StackPanel Grid.Column="3" Orientation="Vertical">
-                                <Label>P = </Label>
-                                <Label>Q = </Label>
-                                <Label>W = </Label>
-                            </StackPanel>
-                            <StackPanel Grid.Column="4" >
-                                <TextBox Name="tbP1" Margin="0,5,0,0" Width="100"></TextBox>
-                            <TextBox Name="tbQ1" Margin="0,7,0,0" Width="100"></TextBox>
-                            <TextBox Name="tbW" Margin="0,8,0,0" Width="100"></TextBox>
-                    </StackPanel>
-            </Grid>
-                    </StackPanel>
+                        </StackPanel>
+                    </Grid>
                 </StackPanel>
-            </Grid>
-        </StackPanel>
-        <StackPanel Grid.Row="6">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="auto"></ColumnDefinition>
-                    <ColumnDefinition></ColumnDefinition>
-                </Grid.ColumnDefinitions>
-                <Label FontWeight="Bold">Apsolutno pomeranje</Label>
-                <Separator Grid.Column="1" Margin="0,0,10,0"></Separator>
-            </Grid>
-        </StackPanel>
-        <StackPanel Grid.Row="7" >
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition></ColumnDefinition>
-                    <ColumnDefinition></ColumnDefinition>
-                </Grid.ColumnDefinitions>
-                <StackPanel Orientation="Horizontal" Margin="20,0,0,0" Grid.ColumnSpan="2">
-                    <StackPanel>
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition ></RowDefinition>
-                                 <RowDefinition></RowDefinition>
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition></ColumnDefinition>
-                                <ColumnDefinition></ColumnDefinition>
-                                <ColumnDefinition></ColumnDefinition>
-                                <ColumnDefinition></ColumnDefinition>
-                                <ColumnDefinition></ColumnDefinition>
-                                <ColumnDefinition></ColumnDefinition>
-                                <ColumnDefinition></ColumnDefinition>
-                                <ColumnDefinition></ColumnDefinition>
-                            </Grid.ColumnDefinitions>
-                            <StackPanel x:Name="sp1" Grid.Column="1" Orientation="Horizontal">
+                <StackPanel Grid.Row="6">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Label FontWeight="Bold">Apsolutno pomeranje</Label>
+                        <Separator Grid.Column="1" Margin="0,0,10,0"></Separator>
+                    </Grid>
+                </StackPanel>
+                <StackPanel Grid.Row="7" >
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Orientation="Horizontal" Margin="20,0,0,0" Grid.ColumnSpan="2">
+                            <StackPanel>
                                 <Grid>
                                     <Grid.RowDefinitions>
-                                        <RowDefinition Height="auto"></RowDefinition>
-                                        <RowDefinition Height="auto"></RowDefinition>
-                                        <RowDefinition Height="auto"></RowDefinition>
-                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition ></RowDefinition>
+                                        <RowDefinition></RowDefinition>
                                     </Grid.RowDefinitions>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition></ColumnDefinition>
                                         <ColumnDefinition></ColumnDefinition>
+                                        <ColumnDefinition></ColumnDefinition>
+                                        <ColumnDefinition></ColumnDefinition>
+                                        <ColumnDefinition></ColumnDefinition>
+                                        <ColumnDefinition></ColumnDefinition>
+                                        <ColumnDefinition></ColumnDefinition>
+                                        <ColumnDefinition></ColumnDefinition>
                                     </Grid.ColumnDefinitions>
-                                    <Label>Vrednost [a]</Label>
-                                    <Label Grid.Column="1">Vrednost b]</Label>
-                                    <TextBox Name="tbAa" Grid.Row="1"  Width="80" Height="20" Margin="0,0,5,5"></TextBox>
-                                    <TextBox Name="tbBa" Grid.Row="1" Grid.Column="1" Margin="0,0,5,5" Height="20" Width="80"></TextBox>
-                                    <Label Grid.Row="2" Grid.ColumnSpan="2">Procenat pomeranja [k]</Label>
-                                    <TextBox Name="tbK" Grid.Row="3" Grid.ColumnSpan="2" Width="80" Height="20" HorizontalAlignment="Left"></TextBox>
+                                    <StackPanel x:Name="sp1" Grid.Column="1" Orientation="Horizontal">
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="auto"></RowDefinition>
+                                                <RowDefinition Height="auto"></RowDefinition>
+                                                <RowDefinition Height="auto"></RowDefinition>
+                                                <RowDefinition Height="auto"></RowDefinition>
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition></ColumnDefinition>
+                                                <ColumnDefinition></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+                                            <Label>Vrednost [a]</Label>
+                                            <Label Grid.Column="1">Vrednost b]</Label>
+                                            <TextBox Name="tbAa" Grid.Row="1"  Width="80" Height="20" Margin="0,0,5,5"></TextBox>
+                                            <TextBox Name="tbBa" Grid.Row="1" Grid.Column="1" Margin="0,0,5,5" Height="20" Width="80"></TextBox>
+                                            <Label Grid.Row="2" Grid.ColumnSpan="2">Procenat pomeranja [k]</Label>
+                                            <TextBox Name="tbK" Grid.Row="3" Grid.ColumnSpan="2" Width="80" Height="20" HorizontalAlignment="Left"></TextBox>
+                                        </Grid>
+
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="0"  x:Name="sp0" Orientation="Horizontal" >
+                                        <TextBlock Name="tb0" VerticalAlignment="Center"></TextBlock>
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="2" x:Name="sp2" Orientation="Vertical">
+
+                                        <Label>A =</Label>
+                                        <Label>B =</Label>
+                                        <Label>R =</Label>
+
+
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="3"  x:Name="sp3">
+                                        <TextBox Name="tbAa1" Margin="0,5,0,0" Width="100"></TextBox>
+                                        <TextBox Name="tbBa1" Margin="0,7,0,0" Width="100"></TextBox>
+                                        <TextBox Name="tbRa" Margin="0,8,0,0" Width="100" TextChanged="TbR111_TextChanged"></TextBox>
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="4"  x:Name="sp4" Orientation="Vertical">
+                                        <Label>P =</Label>
+                                        <Label>Q =</Label>
+                                        <Label>W =</Label>
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="5"  x:Name="sp5" >
+                                        <TextBox Name="tbPa" Margin="0,5,0,0" Width="100"></TextBox>
+                                        <TextBox Name="tbQa" Margin="0,7,0,0" Width="100"></TextBox>
+                                        <TextBox Name="tbWa" Margin="0,8,0,0" Width="100"></TextBox>
+                                    </StackPanel>
+                                    <Image  x:Name="sp6" Grid.Column="6" Source="Pics/A2.png"  Width="190" Margin="50,0,0,0" VerticalAlignment="Top" ></Image>
                                 </Grid>
-
                             </StackPanel>
-                            <StackPanel Grid.Column="0"  x:Name="sp0" Orientation="Horizontal" >
-                                <TextBlock Name="tb0" VerticalAlignment="Center"></TextBlock>
-                            </StackPanel>
-                            <StackPanel Grid.Column="2" x:Name="sp2" Orientation="Vertical">
-                               
-                                <Label>A =</Label>
-                                <Label>B = </Label>
-                                <Label>R =</Label>
-                                
-
-                            </StackPanel>
-                            <StackPanel Grid.Column="3"  x:Name="sp3">
-                                <TextBox Name="tbAa1" Margin="0,5,0,0" Width="100"></TextBox>
-                                <TextBox Name="tbBa1" Margin="0,7,0,0" Width="100"></TextBox>
-                                <TextBox Name="tbRa" Margin="0,8,0,0" Width="100" TextChanged="TbR111_TextChanged"></TextBox>
-                            </StackPanel>
-                            <StackPanel Grid.Column="4"  x:Name="sp4" Orientation="Vertical">
-                                <Label>P =</Label>
-                                <Label>Q =</Label>
-                                <Label>W =</Label>
-                            </StackPanel>
-                            <StackPanel Grid.Column="5"  x:Name="sp5" >
-                                <TextBox Name="tbPa" Margin="0,5,0,0" Width="100"></TextBox>
-                                <TextBox Name="tbQa" Margin="0,7,0,0" Width="100"></TextBox>
-                                <TextBox Name="tbWa" Margin="0,8,0,0" Width="100"></TextBox>
-                            </StackPanel>
-                            <Image  x:Name="sp6" Grid.Column="6" Source="Pics/A2.png"  Width="180" Margin="50,0,0,0" VerticalAlignment="Top" ></Image>
-                        </Grid>
-                    </StackPanel>
+                        </StackPanel>
+                    </Grid>
                 </StackPanel>
-            </Grid>
-        </StackPanel>
-        <StackPanel Grid.Row="8">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="auto"></ColumnDefinition>
-                    <ColumnDefinition></ColumnDefinition>
-                </Grid.ColumnDefinitions>
-                <Label FontWeight="Bold">Srazmerno pomeranje</Label>
-                <Separator Grid.Column="1" VerticalAlignment="Center" Margin="0,0,10,0"></Separator>
-            </Grid>
-        </StackPanel>
-        <StackPanel Grid.Row="9" >
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition></ColumnDefinition>
-                    <ColumnDefinition></ColumnDefinition>
-                </Grid.ColumnDefinitions>
-                <StackPanel Orientation="Horizontal" Margin="20,0,0,0" Grid.ColumnSpan="2">
-                    <StackPanel>
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition ></RowDefinition>
-                                <RowDefinition></RowDefinition>
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition></ColumnDefinition>
-                                <ColumnDefinition></ColumnDefinition>
-                                <ColumnDefinition></ColumnDefinition>
-                                <ColumnDefinition></ColumnDefinition>
-                                <ColumnDefinition></ColumnDefinition>
-                                <ColumnDefinition></ColumnDefinition>
-                                <ColumnDefinition></ColumnDefinition>
-                                <ColumnDefinition></ColumnDefinition>
-                            </Grid.ColumnDefinitions>
-                            <StackPanel x:Name="sp1s" Grid.Column="1" Orientation="Horizontal">
+                <StackPanel Grid.Row="8">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Label FontWeight="Bold">Srazmerno pomeranje</Label>
+                        <Separator Grid.Column="1" VerticalAlignment="Center" Margin="0,0,10,0"></Separator>
+                    </Grid>
+                </StackPanel>
+                <StackPanel Grid.Row="9" >
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Orientation="Horizontal" Margin="20,0,0,0" Grid.ColumnSpan="2">
+                            <StackPanel>
                                 <Grid>
                                     <Grid.RowDefinitions>
-                                        <RowDefinition Height="auto"></RowDefinition>
-                                        <RowDefinition Height="auto"></RowDefinition>
-                                        <RowDefinition Height="auto"></RowDefinition>
-                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition ></RowDefinition>
+                                        <RowDefinition></RowDefinition>
                                     </Grid.RowDefinitions>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition></ColumnDefinition>
                                         <ColumnDefinition></ColumnDefinition>
+                                        <ColumnDefinition></ColumnDefinition>
+                                        <ColumnDefinition></ColumnDefinition>
+                                        <ColumnDefinition></ColumnDefinition>
+                                        <ColumnDefinition></ColumnDefinition>
+                                        <ColumnDefinition></ColumnDefinition>
+                                        <ColumnDefinition></ColumnDefinition>
                                     </Grid.ColumnDefinitions>
-                                    <Label>Vrednost [a]</Label>
-                                    <Label Grid.Column="1">Vrednost b]</Label>
-                                    <TextBox Name="tbAs" Grid.Row="1"  Width="80" Height="20" Margin="0,0,5,5"></TextBox>
-                                    <TextBox Name="tbBs" Grid.Row="1" Grid.Column="1" Margin="0,0,5,5" Height="20" Width="80"></TextBox>
-                                   
+                                    <StackPanel x:Name="sp1s" Grid.Column="1" Orientation="Horizontal">
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="auto"></RowDefinition>
+                                                <RowDefinition Height="auto"></RowDefinition>
+                                                <RowDefinition Height="auto"></RowDefinition>
+                                                <RowDefinition Height="auto"></RowDefinition>
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition></ColumnDefinition>
+                                                <ColumnDefinition></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+                                            <Label>Vrednost [a]</Label>
+                                            <Label Grid.Column="1">Vrednost b]</Label>
+                                            <TextBox Name="tbAs" Grid.Row="1"  Width="80" Height="20" Margin="0,0,5,5"></TextBox>
+                                            <TextBox Name="tbBs" Grid.Row="1" Grid.Column="1" Margin="0,0,5,5" Height="20" Width="80"></TextBox>
+
+                                        </Grid>
+
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="0"  x:Name="sp0s" Orientation="Horizontal" >
+                                        <TextBlock Name="tbs"  VerticalAlignment="Center"></TextBlock>
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="2" x:Name="sp2s" Orientation="Vertical">
+
+                                        <Label>A =</Label>
+                                        <Label>B =</Label>
+                                        <Label>R =</Label>
+
+
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="3"  x:Name="sp3s">
+                                        <TextBox Name="tbAs1" Margin="0,5,0,0" Width="100"></TextBox>
+                                        <TextBox Name="tbBs1" Margin="0,7,0,0" Width="100"></TextBox>
+                                        <TextBox Name="tbRs1" Margin="0,8,0,0" Width="100" TextChanged="TbR111_TextChanged"></TextBox>
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="4"  x:Name="sp4s" Orientation="Vertical">
+                                        <Label>P =</Label>
+                                        <Label>Q =</Label>
+                                        <Label>W =</Label>
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="5"  x:Name="sp5s" >
+                                        <TextBox Name="tbPs" Margin="0,5,0,0" Width="100"></TextBox>
+                                        <TextBox Name="tbQs" Margin="0,7,0,0" Width="100"></TextBox>
+                                        <TextBox Name="tbWs" Margin="0,8,0,0" Width="100"></TextBox>
+                                    </StackPanel>
+                                    <Image  x:Name="sp6s" Grid.Column="6" Source="Pics/AS.png"  Width="100" Margin="20,0,0,0" VerticalAlignment="Top" ></Image>
+                                    <Image  x:Name="sp7s" Grid.Column="6" Grid.Row="1" Source="Pics/BS.png"  Width="135" Margin="60,-30,0,0" VerticalAlignment="Top" ></Image>
                                 </Grid>
-
                             </StackPanel>
-                            <StackPanel Grid.Column="0"  x:Name="sp0s" Orientation="Horizontal" >
-                                <TextBlock Name="tbs"  VerticalAlignment="Center"></TextBlock>
-                            </StackPanel>
-                            <StackPanel Grid.Column="2" x:Name="sp2s" Orientation="Vertical">
-
-                                <Label>A =</Label>
-                                <Label>B =</Label>
-                                <Label>R =</Label>
-
-
-                            </StackPanel>
-                            <StackPanel Grid.Column="3"  x:Name="sp3s">
-                                <TextBox Name="tbAs1" Margin="0,5,0,0" Width="100"></TextBox>
-                                <TextBox Name="tbBs1" Margin="0,7,0,0" Width="100"></TextBox>
-                                <TextBox Name="tbRs1" Margin="0,8,0,0" Width="100" TextChanged="TbR111_TextChanged"></TextBox>
-                            </StackPanel>
-                            <StackPanel Grid.Column="4"  x:Name="sp4s" Orientation="Vertical">
-                                <Label>P =</Label>
-                                <Label>Q =</Label>
-                                <Label>W =</Label>
-                            </StackPanel>
-                            <StackPanel Grid.Column="5"  x:Name="sp5s" >
-                                <TextBox Name="tbPs" Margin="0,5,0,0" Width="100"></TextBox>
-                                <TextBox Name="tbQs" Margin="0,7,0,0" Width="100"></TextBox>
-                                <TextBox Name="tbWs" Margin="0,8,0,0" Width="100"></TextBox>
-                            </StackPanel>
-                            <Image  x:Name="sp6s" Grid.Column="6" Source="Pics/AS.png"  Width="100" Margin="20,0,0,0" VerticalAlignment="Top" ></Image>
-                            <Image  x:Name="sp7s" Grid.Column="6" Grid.Row="1" Source="Pics/BS.png"  Width="120" Margin="50,-40,0,0" VerticalAlignment="Top" ></Image>
-                        </Grid>
-                    </StackPanel>
+                        </StackPanel>
+                    </Grid>
                 </StackPanel>
+
             </Grid>
         </StackPanel>
+       
 
     </Grid>
 </Window>

@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:enelex3"
         xmlns:alati="clr-namespace:enelex3.Alati"
         mc:Ignorable="d"
-       Title="Enelex GE3030" Icon="Pics/nuclear.ico" Width="1455" Height="800" WindowStartupLocation="CenterScreen" WindowState="Maximized"  Background="WhiteSmoke">
+       Title="Enelex GE3030" Icon="Pics/nuclear.ico" Width="1435" Height="800" WindowStartupLocation="CenterScreen" WindowState="Maximized"  Background="WhiteSmoke">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -24,10 +24,11 @@
             <Button Style="{DynamicResource Add}" Visibility="Collapsed"  BorderBrush="Transparent" Background="Transparent" Click="Add_Click_1"></Button>
             <Button Style="{DynamicResource Update}" BorderBrush="Transparent" Background="Transparent" Click="Button_Click"></Button>
             <Button Style="{DynamicResource Delete}" BorderBrush="Transparent" Background="Transparent" Click="Button_Click_1"></Button>
+            <Button Style="{DynamicResource Print2}" Visibility="Visible" VerticalAlignment="Top" Click="Button_Click_2">Print</Button>
+
             <Button Style="{DynamicResource Excel}" BorderBrush="Transparent" Background="Transparent" VerticalAlignment="Top" Click="Excel_Button"></Button>
             <Button Style="{DynamicResource Print}" BorderBrush="Transparent" Background="Transparent" VerticalAlignment="Top" Visibility="Collapsed" ></Button>
-            <Button Style="{DynamicResource PrintExcel}" Visibility="Collapsed" VerticalAlignment="Top" Click="Button_Click_2">Print</Button>
-
+            
         </StackPanel>
         <StackPanel Grid.Row="1" Background="White" Orientation="Horizontal" Margin="5,5,0,0">
             <Label Visibility="Collapsed" Margin="-3,0,0,0">Br</Label>
@@ -133,7 +134,7 @@
                         </Grid>
                     </StackPanel>
                     <StackPanel Grid.Row="3" Grid.Column="2" VerticalAlignment="Bottom" HorizontalAlignment="Right">
-                        <Button Click="Button_Click_9" Style="{DynamicResource PrintSheet}"></Button>
+                        <Button Click="Button_Click_9" Visibility="Collapsed" Style="{DynamicResource PrintSheet}"></Button>
                     </StackPanel>
                 </Grid>
             </GroupBox>
@@ -163,7 +164,7 @@
                                         <Button Style="{DynamicResource SaveButton}" Click="Save_Click"  Margin="5,0,0,0" ></Button>
                                         <Button Style="{DynamicResource UpdateButton}" Click="Button_Click_4"></Button>
                                     </StackPanel >
-                                    <DataGrid   Name="dgTipAB" Style="{StaticResource dgCustom }" ItemsSource="{Binding ListOfCalibrations}"  CanUserAddRows="False"  Grid.Row="2" Height="45" Margin="5,0,0,7" >
+                                    <DataGrid   Name="dgTipAB" Style="{StaticResource dgCustom }" ItemsSource="{Binding ListOfCalibrations}"  CanUserAddRows="False"  Grid.Row="2" Height="45" Margin="5,5,0,0">
                                         <DataGrid.Columns>
                                             <DataGridTextColumn Header="Vrednost [a]" Binding="{Binding NumberA, Mode=TwoWay, StringFormat={}{0:F2}}" ></DataGridTextColumn>
                                             <DataGridTextColumn Header="Vrednost [b]" Binding="{Binding NumberB, Mode=TwoWay, StringFormat={}{0:F2}}" ></DataGridTextColumn>
@@ -171,7 +172,7 @@
                                     </DataGrid>
                                 </Grid>
                             </StackPanel>
-                            <StackPanel Grid.Column="1" Margin="20">
+                            <StackPanel Grid.Column="1" Margin="0,20,5,0">
                                 <Grid>
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="auto"></RowDefinition>
@@ -215,7 +216,7 @@
                             </StackPanel>
                            
                             <StackPanel Grid.Column="3"   Orientation="Horizontal" HorizontalAlignment="Right">
-                                <Button  Style="{DynamicResource Graph}" Click="Graph1" Height="50" Margin="5,0,0,0" ></Button>
+                                <Button  Style="{DynamicResource Graph}" Click="Graph1" />
                             </StackPanel>
                             <StackPanel Visibility="Collapsed" Orientation="Horizontal" Grid.Row="1" Height="20">
                                 <TextBox Width="72" Height="20" Margin="5,0,5,0"  Text="{Binding NumberAp, Mode=TwoWay, StringFormat={}{0:F2}}"  ></TextBox>
@@ -249,7 +250,7 @@
 
                                     </StackPanel>
                                     <StackPanel  Grid.Row="2" >
-                                        <DataGrid Name="dgApsolutno" Style="{StaticResource dgCustom}" ItemsSource="{Binding ListOfPercetange}" Height="45" CanUserAddRows="False"  >
+                                        <DataGrid Name="dgApsolutno" Style="{StaticResource dgCustom}" ItemsSource="{Binding ListOfPercetange}" Height="45" CanUserAddRows="False" Margin="5,5,0,0" >
                                             <DataGrid.Columns>
                                                 <DataGridTextColumn Header="Procenat pomeranja [k]" Binding="{Binding NumberP,  Mode=TwoWay, StringFormat={}{0:F2}}"></DataGridTextColumn>
                                             </DataGrid.Columns>
@@ -272,7 +273,7 @@
                                         <TextBox Width="72" Height="20" Margin="5,0,5,0"  Text="{Binding NumberAa, Mode=TwoWay, StringFormat={}{0:F2}}"  ></TextBox>
                                         <TextBox Width="72" Height="20" Text="{Binding NumberBa, Mode=TwoWay, StringFormat={}{0:F2}}" ></TextBox>
                                     </StackPanel>
-                                    <StackPanel Grid.Row="2">
+                                    <StackPanel Grid.Row="2" Margin="5,5,0,0">
                                         
                                         <DataGrid Name="dgTipAB2"   Style="{StaticResource dgCustom}" ItemsSource="{Binding ListOfCalibrationTwo}" Height="45" CanUserAddRows="False" SelectionChanged="DgTipAB2_SelectionChanged"   >
                                             <DataGrid.Columns>
@@ -325,7 +326,7 @@
                                 </Grid>
                             </StackPanel>
                             <StackPanel Grid.Column="4"  Orientation="Horizontal" HorizontalAlignment="Right">
-                                <Button  Style="{DynamicResource Graph}" Click="Graph2" Height="50" Margin="5,0,0,0" ></Button>
+                                <Button  Style="{DynamicResource Graph}" Click="Graph2"  ></Button>
                             </StackPanel>
                             
                            
@@ -381,7 +382,7 @@
                                         <Button Style="{DynamicResource UpdateButton}" Click="Update_One"></Button>
                                         <Button Style="{DynamicResource DeleteButton}"  Click="Del_One"></Button>
                                     </StackPanel >
-                                    <StackPanel Visibility="Visible" Orientation="Horizontal" Grid.Row="1" Height="20">
+                                    <StackPanel Visibility="Visible" Orientation="Horizontal" Grid.Row="1" Height="20" Margin="0,5,0,0">
                                         <TextBox IsReadOnly="False" Name="tbL" Width="82" Height="20" Margin="21,0,5,0"  Text="{Binding NumberL, Mode=TwoWay, StringFormat={}{0:F2}}" TextChanged="TbL_TextChanged"  ></TextBox>
                                         <TextBox IsReadOnly="False" Width="82" Height="20" Margin="21,0,0,0"  Text="{Binding NumberP, Mode=TwoWay, StringFormat={}{0:F2}}" ></TextBox>
                                     </StackPanel>
@@ -410,7 +411,7 @@
                                         <TextBox Width="73" Height="20" Margin="5,0,5,0"  Text="{Binding NumberAs, Mode=TwoWay, StringFormat={}{0:F2}}"  ></TextBox>
                                         <TextBox Width="73" Height="20" Text="{Binding NumberBs, Mode=TwoWay, StringFormat={}{0:F2}}" ></TextBox>
                                     </StackPanel>
-                                    <StackPanel  Grid.Row="2" Margin="0,25,0,0" >
+                                    <StackPanel  Grid.Row="2" Margin="0,30,0,0" >
                                         <DataGrid Name="dgTipAB3" Style="{StaticResource dgCustom}" ItemsSource="{Binding ListOfCalibarationsThree}" CanUserAddRows="False"  Margin="10,0,0,0" Height="45">
                                             <DataGrid.Columns>
                                                 <DataGridTextColumn Header="Vrednost [a]" Binding="{Binding NumberAThree, Mode=TwoWay, StringFormat={}{0:F2}}" ></DataGridTextColumn>
@@ -462,7 +463,7 @@
                                 <Image Source="Pics/Bs.png" Width="125"></Image>
                             </StackPanel>
                             <StackPanel Grid.Column="4"   Orientation="Horizontal" Margin="0,0,0,0" HorizontalAlignment="Right">
-                                <Button  Style="{DynamicResource Graph}" Click="Graph3"  Height="50" Margin="5,0,0,0" ></Button>
+                                <Button  Style="{DynamicResource Graph}" Click="Graph3"  ></Button>
                             </StackPanel>
                         </Grid>
                     </GroupBox>

@@ -173,14 +173,14 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
-                    <Border x:Name="border" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="true">
+                    <Border x:Name="border" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="true" Width="41" Height="45">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition></RowDefinition>
                                 <RowDefinition></RowDefinition>
                             </Grid.RowDefinitions>
-                            <Image Source="/Pics/graph5.png" Width="29"/>
-                            <Label Grid.Row="1" Margin="0,-8,0,0" FontSize="11">Grafik</Label>
+                            <Image Source="/Pics/graph5.png" Width="33" HorizontalAlignment="Center"/>
+                            <Label Grid.Row="1" Margin="0,-8,0,0" HorizontalAlignment="Center" FontSize="11">Grafik</Label>
                         </Grid>
                     </Border>
                     <ControlTemplate.Triggers>
@@ -440,22 +440,22 @@
             </Setter.Value>
         </Setter>
     </Style>
-    <Style x:Key="PrintExcel" TargetType="Button">
+    <Style x:Key="Print2" TargetType="Button">
         <Setter Property="FocusVisualStyle" Value="{DynamicResource FocusVisual}"/>
-        <Setter Property="Margin" Value = "10,0,0,0"></Setter>
+        <Setter Property="Margin" Value = "5,0,0,0"></Setter>
         <Setter Property="BorderThickness" Value="1"/>
         <Setter Property="Padding" Value="1"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
-                    <Border x:Name="border" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="true">
+                    <Border x:Name="border" BorderThickness="{TemplateBinding BorderThickness}" Width="38" SnapsToDevicePixels="true">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition></RowDefinition>
-
+                                <RowDefinition></RowDefinition>
                             </Grid.RowDefinitions>
-                            <Image Source="/Pics/print.png" Width="25"/>
-
+                            <Image Source="/Pics/search3.png" Width="17"/>
+                            <Label Grid.Row="1" Margin="0,-5,0,0" FontSize="11">Print</Label>
                         </Grid>
                     </Border>
                     <ControlTemplate.Triggers>

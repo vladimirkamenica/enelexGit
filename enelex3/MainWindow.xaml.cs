@@ -151,6 +151,8 @@ namespace enelex3
 
                     var vlaga = ListOfMeasures.Sum(x => x.W) / maxId;
                     tbV.Text = vlaga.ToString("N4");
+                    tbV1.Text = vlaga.ToString("N4");
+                    tbV2.Text = vlaga.ToString("N4");
                     PrintW = vlaga;
 
                     var sum2 = ListOfMeasures.Sum(x => x.Ge);
@@ -737,20 +739,8 @@ namespace enelex3
 
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                this.IsEnabled = false;
-                PrintDialog printDialog = new PrintDialog();
-
-                if (printDialog.ShowDialog() == true)
-                {
-                  
-                }
-            }
-            finally
-            {
-                this.IsEnabled = true;
-            }
+            PrintSheet printSheet = new PrintSheet(PrintP, PrintQ, PrintA, PrintAPr, PrintB, PrintW, PrintA1, PrintB1, PrintAa1, PrintBa1, PrintBa, CountOne, PrintAs, PrintAs1, PrintBs, PrintBs1);
+            printSheet.ShowDialog();
         }
 
         private void TbBr_TextChanged(object sender, TextChangedEventArgs e)
