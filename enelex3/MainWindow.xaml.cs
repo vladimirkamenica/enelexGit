@@ -18,10 +18,14 @@ namespace enelex3
     public partial class MainWindow : Window
     {
         Model1 db = new Model1();
+        public double FinalA { get; set; }
+        public double FinalB { get; set; }
+
         public MainWindow()
         {
             InitializeComponent();
-            ListOfMeasures = new ObservableCollection<MeasuresView>();
+            ListOfMeasures = new List<MeasuresView>();
+            //ListOfMeasures = new ObservableCollection<MeasuresView>();
             ListOfCalibrations = new List<Calibration>();
             ListOfCalibarationsThree = new List<CalibrationThree>();
             ListOfPercetange = new List<Percentage>();
@@ -31,11 +35,11 @@ namespace enelex3
             SumQ = 0;
             NewMeasureB = 0;
             DataContext = this;
-            var br = 0;
-            tbBr.Text = br.ToString();
+          
         }
         private MeasuresFE mfe;
-       public ObservableCollection<MeasuresView> ListOfMeasures { get; set; }
+      // public ObservableCollection<MeasuresView> ListOfMeasures { get; set; }
+        public List<MeasuresView> ListOfMeasures { get; set; }
         public List<Calibration> ListOfCalibrations { get; set; }
         public List<CalibrationThree> ListOfCalibarationsThree { get; set; }
         public List<Percentage> ListOfPercetange { get; set; }
@@ -53,9 +57,7 @@ namespace enelex3
 
         public double NewMeasureB { get; set; }
 
-        public double FinalA { get; set; }
-
-        public double FinalB { get; set; }
+       
 
         public double SumQ { get; set; }
 
@@ -111,7 +113,9 @@ namespace enelex3
                 mfe = new MeasuresFE(db);
 
                ListOfMeasures.Clear();
-                foreach (var i in mfe.GetMeasures()) ListOfMeasures.Add(i);
+               ListOfMeasures.AddRange(mfe.GetMeasures());
+              
+               // foreach (var i in mfe.GetMeasures()) ListOfMeasures.Add(i);
 
                 // var ListOfMeasures = mfe.GetMeasures();
                 //  dgMeasures.ItemsSource = ListOfMeasures;
@@ -160,6 +164,8 @@ namespace enelex3
 
                     var sum3 = ListOfMeasures.Sum(x => x.Lab);
                     tbSum3.Text = sum3.ToString();
+
+                  
 
                     var sum1 = maxId * ListOfMeasures.Sum(x => x.SumMeasure);
                     tbSum1.Text = sum1.ToString();
@@ -231,13 +237,14 @@ namespace enelex3
                         var adole = ListOfCalibrationOne[1].P - ListOfCalibrationOne[0].P;
                         var deljenje = agore / adole;
                         FinalA = a * deljenje;
-                        tbAsraz.Text = FinalA.ToString();
+                       tbAsraz.Text = FinalA.ToString("N4");
 
                         var bgore = ListOfCalibrationOne[0].P + ListOfCalibarationsThree[0].NumberBThree;
                         var deljenjeb = bgore / a;
                         var l1 = ListOfCalibrationOne[0].L;
                         FinalB = FinalA * deljenjeb - l1;
-                        tbBsraz.Text = FinalB.ToString("0.####");
+                        tbBsraz.Text = FinalB.ToString("N4");
+                      
 
                         Ps = ListOfCalibrationOne[0].SumLP;
                         Qs = ListOfCalibrationOne[1].SumLP;
@@ -272,8 +279,9 @@ namespace enelex3
             Load();
 
         }
+       
 
-        private void Add_Click_1(object sender, RoutedEventArgs e)
+            private void Add_Click_1(object sender, RoutedEventArgs e)
         {
 
             AddMeasures add = new AddMeasures();
@@ -282,6 +290,8 @@ namespace enelex3
 
             if (res != null)
             {
+               
+           
                 db.Measures.Add(res);
                 db.SaveChanges();
             }
@@ -515,9 +525,9 @@ namespace enelex3
             if (ListOfMeasures.Count > 0)
             {
                 
-                var x = e.Row.DataContext as MeasuresView;              
-                var id = e.Row.GetIndex();
-                x.IdSort = id +1;
+             var x = e.Row.DataContext as MeasuresView;              
+              var id = e.Row.GetIndex();
+               x.IdSort = id +1;
                
             }
 
@@ -760,6 +770,11 @@ namespace enelex3
         }
 
         private void TbL_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void TbBsraz_TextChanged(object sender, TextChangedEventArgs e)
         {
 
         }

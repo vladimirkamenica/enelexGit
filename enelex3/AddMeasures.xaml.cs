@@ -63,8 +63,8 @@ namespace enelex3
             }
             if (ListOfMeasures.Count > 0)
             {
-                IndexId = 0;  
-                var index = ListOfMeasures.Max(x => x.ID);
+                IndexId = 0;
+                var index = ListOfMeasures.Count();
                 var index2 = index + 1;             
                 IndexId = index2;
                 tbIndex.Text = IndexId.ToString();

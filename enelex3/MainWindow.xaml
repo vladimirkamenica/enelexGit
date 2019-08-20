@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:enelex3"
         xmlns:alati="clr-namespace:enelex3.Alati"
         mc:Ignorable="d"
-       Title="Enelex GE3030" Icon="Pics/nuclear.ico" Width="1435" Height="800" WindowStartupLocation="CenterScreen" WindowState="Maximized"  Background="WhiteSmoke">
+       Title="Enelex GE3030" Icon="Pics/nuclear.ico" Width="1465" Height="800" WindowStartupLocation="CenterScreen" WindowState="Maximized"  Background="WhiteSmoke">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -20,13 +20,13 @@
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <StackPanel Orientation="Horizontal" Margin="2,2,0,-2" >
-            <Button Style="{DynamicResource Load}" BorderBrush="Transparent" Background="Transparent" Click="Load_Click"></Button>
-            <Button Style="{DynamicResource Add}" Visibility="Collapsed"  BorderBrush="Transparent" Background="Transparent" Click="Add_Click_1"></Button>
-            <Button Style="{DynamicResource Update}" BorderBrush="Transparent" Background="Transparent" Click="Button_Click"></Button>
-            <Button Style="{DynamicResource Delete}" BorderBrush="Transparent" Background="Transparent" Click="Button_Click_1"></Button>
-            <Button Style="{DynamicResource Print2}" Visibility="Visible" VerticalAlignment="Top" Click="Button_Click_2">Print</Button>
+            <Button Style="{DynamicResource Load}" BorderBrush="Transparent" Background="Transparent" Height="42" Click="Load_Click"></Button>
+            <Button Style="{DynamicResource Add}" Visibility="Collapsed"  BorderBrush="Transparent" Height="42" Background="Transparent" Click="Add_Click_1"></Button>
+            <Button Style="{DynamicResource Update}" BorderBrush="Transparent" Background="Transparent" Height="42" Click="Button_Click"></Button>
+            <Button Style="{DynamicResource Delete}" BorderBrush="Transparent" Background="Transparent" Height="42" Click="Button_Click_1"></Button>
+            <Button Style="{DynamicResource Print2}" Visibility="Visible"  Height="42" Click="Button_Click_2">Print</Button>
 
-            <Button Style="{DynamicResource Excel}" BorderBrush="Transparent" Background="Transparent" VerticalAlignment="Top" Click="Excel_Button"></Button>
+            <Button Style="{DynamicResource ExcelButton}" BorderBrush="Transparent" Height="42" Background="Transparent" VerticalAlignment="Top" Click="Excel_Button"></Button>
             <Button Style="{DynamicResource Print}" BorderBrush="Transparent" Background="Transparent" VerticalAlignment="Top" Visibility="Collapsed" ></Button>
             
         </StackPanel>
@@ -42,7 +42,7 @@
             <Button Click="Button_Click_3" PreviewKeyDown="Button_PreviewKeyDown" Style="{DynamicResource Add2}"></Button>
         </StackPanel>
 
-        <DataGrid Name="dgMeasures" Grid.ColumnSpan="1"   Grid.Row="2" Grid.RowSpan="2" PreviewKeyDown="DgMeasures_PreviewKeyDown" Style="{StaticResource dgCustom}" ItemsSource="{Binding ListOfMeasures, Mode=TwoWay}"  SelectionChanged="dgMeasures_SelectionChanged" LoadingRow="DgMeasures_LoadingRow" CellEditEnding="DgMeasures_CellEditEnding" BorderBrush="#FFD6D6D6"  >
+        <DataGrid Name="dgMeasures" Grid.ColumnSpan="1"   Grid.Row="2" Grid.RowSpan="2" PreviewKeyDown="DgMeasures_PreviewKeyDown" Style="{StaticResource dgCustom}" ItemsSource="{Binding ListOfMeasures, Mode=TwoWay}"  SelectionChanged="dgMeasures_SelectionChanged" LoadingRow="DgMeasures_LoadingRow" CellEditEnding="DgMeasures_CellEditEnding" BorderBrush="#FFC3C3C3"  >
             <DataGrid.ColumnHeaderStyle>
                 <Style TargetType="DataGridColumnHeader">
                     <Setter Property="ContentTemplate">
@@ -161,7 +161,7 @@
                                         <RowDefinition></RowDefinition>
                                     </Grid.RowDefinitions>
                                     <StackPanel Orientation="Horizontal" >
-                                        <Button Style="{DynamicResource SaveButton}" Click="Save_Click"  Margin="5,0,0,0" ></Button>
+                                        <Button Style="{DynamicResource SaveButton}" Click="Save_Click"  Margin="5,0,0,0" BorderBrush="#FFB8B8B8" ></Button>
                                         <Button Style="{DynamicResource UpdateButton}" Click="Button_Click_4"></Button>
                                     </StackPanel >
                                     <DataGrid   Name="dgTipAB" Style="{StaticResource dgCustom }" ItemsSource="{Binding ListOfCalibrations}"  CanUserAddRows="False"  Grid.Row="2" Height="45" Margin="5,5,0,0">
@@ -188,8 +188,9 @@
                                         <TextBox Name="tbB" Grid.Column="1" Width="70" HorizontalAlignment="Left" Background="#ffffd8" VerticalContentAlignment="Center" Height="20"></TextBox>
                                     </StackPanel>
                                     <StackPanel Grid.Row="2" Orientation="Horizontal">
-                                        <Label>R = </Label>
-                                        <TextBox Width="70" Background="#ffffd8"  Height="20" ></TextBox>
+                                        <Label>W = </Label>
+                                        <TextBox Name="tbV" Width="70" Background="#ffffd8" Height="20"></TextBox>
+
                                     </StackPanel>
                                 </Grid>
                             </StackPanel>
@@ -201,16 +202,17 @@
                                         <RowDefinition></RowDefinition>
                                     </Grid.RowDefinitions>
                                     <StackPanel  Orientation="Horizontal">
-                                        <Label>P = </Label>
+                                        <Label>P1 = </Label>
                                         <TextBox Width="70" Background="#ffffd8" Height="20"></TextBox>
                                     </StackPanel>
                                     <StackPanel  Grid.Row="1" Orientation="Horizontal">
-                                        <Label>Q =</Label>
+                                        <Label>Q1 = </Label>
                                         <TextBox Width="70" Background="#ffffd8" Height="20"  ></TextBox>
                                     </StackPanel>
                                     <StackPanel Grid.Row="2" Orientation="Horizontal">
-                                        <Label>W = </Label>
-                                        <TextBox Name="tbV" Width="70" Background="#ffffd8" Height="20"></TextBox>
+                                        <Label>R1 = </Label>
+                                        <TextBox Width="70" Background="#ffffd8"  Height="20" ></TextBox>
+                                       
                                     </StackPanel>
                                 </Grid>
                             </StackPanel>
@@ -308,20 +310,20 @@
                                         <TextBox Name="tbBprocenat" Width="70" Height="20" HorizontalAlignment="Left" Background="#ffffd8" VerticalContentAlignment="Center" Margin="0,3,0,0" VerticalAlignment="Top"  ></TextBox>
                                     </StackPanel>
                                     <StackPanel Grid.Row="3" Orientation="Horizontal">
-                                        <Label>R =</Label>
-                                        <TextBox Width="70" Background="#ffffd8"  Height="20" ></TextBox>
+                                        <Label>W =</Label>
+                                        <TextBox  Name="tbV1" Width="70" Background="#ffffd8"  Height="20" ></TextBox>
                                     </StackPanel>
                                     <StackPanel  Orientation="Horizontal" Grid.Column="1" Grid.Row="1">
-                                        <Label>P =</Label>
+                                        <Label>P1 =</Label>
                                         <TextBox Width="70" Background="#ffffd8" Height="20"></TextBox>
                                     </StackPanel>
                                     <StackPanel  Grid.Row="2" Grid.Column="1" Orientation="Horizontal">
-                                        <Label>Q =</Label>
+                                        <Label>Q1 =</Label>
                                         <TextBox Width="70" Background="#ffffd8" Height="20"  ></TextBox>
                                     </StackPanel>
                                     <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal">
-                                        <Label>W =</Label>
-                                        <TextBox Name="tbV1" Width="70" Background="#ffffd8" Height="20"></TextBox>
+                                        <Label>R1 =</Label>
+                                        <TextBox Width="70" Background="#ffffd8" Height="20"></TextBox>
                                     </StackPanel>
                                 </Grid>
                             </StackPanel>
@@ -434,33 +436,33 @@
                                     </Grid.ColumnDefinitions>
                                     <StackPanel Orientation="Horizontal">
                                         <Label>A = </Label>
-                                        <TextBox Name="tbAsraz" Width="70" Background="#ffffd8" VerticalContentAlignment="Center" Height="20" ></TextBox>
+                                        <TextBox Name="tbAsraz" Width="70" Text="{Binding FinalA, StringFormat=N4}" Background="#ffffd8" VerticalContentAlignment="Center" Height="20" ></TextBox>
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal" Grid.Row="1">
                                         <Label>B = </Label>
-                                        <TextBox Name="tbBsraz" Width="70" Background="#ffffd8" VerticalContentAlignment="Center" Height="20" Margin="0,0,0,0" Text="{Binding FinalB}"></TextBox>
+                                        <TextBox Name="tbBsraz" Width="70" Background="#ffffd8" VerticalContentAlignment="Center" Height="20" Margin="0,0,0,0"  TextChanged="TbBsraz_TextChanged"></TextBox>
                                     </StackPanel>
                                     <StackPanel Grid.Row="2" Orientation="Horizontal">
-                                        <Label>R =</Label>
-                                        <TextBox Width="70" Background="#ffffd8"  Height="20" ></TextBox>
+                                        <Label>W=</Label>
+                                        <TextBox Name="tbV2" Width="70" Background="#ffffd8"  Height="20" ></TextBox>
                                     </StackPanel>
                                     <StackPanel  Orientation="Horizontal" Grid.Column="1" Grid.Row="0">
-                                        <Label>P = </Label>
+                                        <Label>P1 = </Label>
                                         <TextBox Width="70" Background="#ffffd8" Height="20"></TextBox>
                                     </StackPanel>
                                     <StackPanel  Grid.Row="1" Grid.Column="1" Orientation="Horizontal">
-                                        <Label>Q =</Label>
+                                        <Label>Q1 =</Label>
                                         <TextBox Width="70" Background="#ffffd8" Height="20"  ></TextBox>
                                     </StackPanel>
                                     <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal">
-                                        <Label>W =</Label>
-                                        <TextBox Name="tbV2" Width="70" Background="#ffffd8" Height="20"></TextBox>
+                                        <Label>R1=</Label>
+                                        <TextBox  Width="70" Background="#ffffd8" Height="20"></TextBox>
                                     </StackPanel>
                                 </Grid>
                             </StackPanel>
                             <StackPanel Grid.Column="3" Orientation="Vertical" HorizontalAlignment="Left" Margin="30">
                                 <Image Source="Pics/As.png" Width="95" HorizontalAlignment="Left" Margin="-2,0,0,0"></Image>
-                                <Image Source="Pics/Bs.png" Width="125"></Image>
+                                <Image Source="Pics/Bs.png" Width="130"></Image>
                             </StackPanel>
                             <StackPanel Grid.Column="4"   Orientation="Horizontal" Margin="0,0,0,0" HorizontalAlignment="Right">
                                 <Button  Style="{DynamicResource Graph}" Click="Graph3"  ></Button>

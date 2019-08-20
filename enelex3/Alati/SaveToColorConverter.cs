@@ -22,7 +22,7 @@ namespace enelex3.Alati
             if (value != null)
             {
                  var o = (bool)value;
-               if (o) defColor = Colors.Red;
+                 if (o) defColor = Colors.Red;
            }
            return defColor;
            

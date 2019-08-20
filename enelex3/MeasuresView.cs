@@ -13,6 +13,8 @@ namespace enelex3
 
         public double IdSort { get; set; }
 
+        public double IndexId { get; set; }
+
         public long Number { get; set; }
 
         public double Ge { get; set; }

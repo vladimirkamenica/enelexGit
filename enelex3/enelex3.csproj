@@ -371,5 +371,8 @@
   <ItemGroup>
     <Resource Include="Pics\print11.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pics\excel20.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

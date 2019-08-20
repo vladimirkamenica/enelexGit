@@ -89,19 +89,9 @@ namespace enelex3
             tbA1.Text = A1.ToString("N2");
             tbB1.Text = B1.ToString("N2");
 
-            if (APr > 0)
+            if (APr == 0)
             {
-                sp0.Visibility = Visibility.Collapsed;
-                tbWa.Text = W.ToString("N4");
-                tbAa1.Text = Aa1.ToString("N4");
-                tbBa1.Text = Ba1.ToString("N4");
-                tbK.Text = APr.ToString("N4");
-                tbAa.Text = Aa1.ToString("N2");
-                tbBa.Text = Ba.ToString("N2");
-
-            }
-            else
-            {
+                
                 sp0.Visibility = Visibility.Visible;
                 tb0.Text = "Nema apsolutnog pomeranja!";
                 sp1.Visibility = Visibility.Collapsed;
@@ -111,6 +101,17 @@ namespace enelex3
                 sp5.Visibility = Visibility.Collapsed;
                 sp6.Visibility = Visibility.Collapsed;
 
+            }
+            else
+            {
+
+                sp0.Visibility = Visibility.Collapsed;
+                tbWa.Text = W.ToString("N4");
+                tbAa1.Text = Aa1.ToString("N4");
+                tbBa1.Text = Ba1.ToString("N4");
+                tbK.Text = APr.ToString("N4");
+                tbAa.Text = Aa1.ToString("N2");
+                tbBa.Text = Ba.ToString("N2");
 
             }
             if(CountOne ==2)
