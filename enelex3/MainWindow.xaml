@@ -164,7 +164,15 @@
                                         <Button Style="{DynamicResource SaveButton}" Click="Save_Click"  Margin="5,0,0,0" BorderBrush="#FFB8B8B8" ></Button>
                                         <Button Style="{DynamicResource UpdateButton}" Click="Button_Click_4"></Button>
                                     </StackPanel >
-                                    <DataGrid   Name="dgTipAB" Style="{StaticResource dgCustom }" ItemsSource="{Binding ListOfCalibrations}"  CanUserAddRows="False"  Grid.Row="2" Height="45" Margin="5,5,0,0">
+                                    <ListView Name="dgTipAB1" Visibility="Collapsed" Grid.Row="2"  ItemsSource="{Binding ListOfCalibrations}"  Height="45" Margin="5,5,0,0">
+                                        <ListView.View>
+                                            <GridView>
+                                                <GridViewColumn Header="Vrednost [a]" DisplayMemberBinding="{Binding NumberA, Mode=TwoWay, StringFormat={}{0:F2}}"></GridViewColumn>
+                                                <GridViewColumn Header="Vrednost [b]" DisplayMemberBinding="{Binding NumberB, Mode=TwoWay, StringFormat={}{0:F2}}"></GridViewColumn>
+                                            </GridView>
+                                        </ListView.View>
+                                    </ListView>
+                                    <DataGrid Visibility="Visible"  Name="dgTipAB" Style="{StaticResource dgCustom }" ItemsSource="{Binding ListOfCalibrations}"  CanUserAddRows="False"  Grid.Row="2" Height="45" Margin="5,5,0,0">
                                         <DataGrid.Columns>
                                             <DataGridTextColumn Header="Vrednost [a]" Binding="{Binding NumberA, Mode=TwoWay, StringFormat={}{0:F2}}" ></DataGridTextColumn>
                                             <DataGridTextColumn Header="Vrednost [b]" Binding="{Binding NumberB, Mode=TwoWay, StringFormat={}{0:F2}}" ></DataGridTextColumn>

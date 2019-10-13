@@ -385,18 +385,13 @@ namespace enelex3
                     }
 
                 }
-
-
                 foreach (var id in ids)
                 {
                     var izbaze = db.Measures.Find(id);
                     db.Measures.Remove(izbaze);
                     try
                     {
-
-
                         db.SaveChanges();
-
                     }
                     catch (Exception ex)
                     {
@@ -460,14 +455,9 @@ namespace enelex3
                 db.CalibratonOnes.Remove(izbaze);
                 try
                 {
-                    if (MessageBox.Show("Da li ste sigurni?", "Brisanje!", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
-                    {
-
-                    }
-                    else
-                    {
+                 
                         db.SaveChanges();
-                    }
+                    
                         
                 }
                 catch (Exception ex)
