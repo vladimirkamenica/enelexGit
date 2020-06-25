@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 
 namespace enelex3
 {
-    public class CalibrationTwo
+    public class ValueOfProportion
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
 
         public int Id { get; set; }
 
-        public double NumberATwo { get; set; }
+        public double NumberAThree { get; set; }
 
-        public double NumberBTwo { get; set; }
+        public double NumberBThree { get; set; }
     }
 }

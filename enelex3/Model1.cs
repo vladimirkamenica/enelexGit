@@ -3,6 +3,7 @@ namespace enelex3
     using System;
     using System.Data.Entity;
     using System.Linq;
+    using enelex3.Base;
 
     public class Model1 : DbContext
     {
@@ -17,11 +18,13 @@ namespace enelex3
         {
         }
         public virtual DbSet<Measure> Measures { get; set; }
-        public virtual DbSet<Calibration> Calibrations { get; set; }
-        public virtual DbSet<CalibratonOne> CalibratonOnes { get; set; }
-        public virtual DbSet<CalibrationTwo> CalibrationTwos { get; set; }
-        public virtual DbSet<CalibrationThree> CalibrationThrees { get; set; }
+        public virtual DbSet<NewCalibration> NewCalibrations { get; set; }
+        public virtual DbSet<CalibrationProportionShifting>  CalibrationProportionShiftings{ get; set; }
+        public virtual DbSet<CalibrationAbsoluteShifting>  CalibrationAbsoluteShiftings { get; set; }
+        public virtual DbSet<ValueOfProportion> ValueOfProportions { get; set; }
         public virtual DbSet<Percentage> Percentages { get; set; }
+
+        public virtual DbSet<SaveMeasure> SaveMeasures { get; set; }
         // Add a DbSet for each entity type that you want to include in your model. For more information 
         // on configuring and using a Code First model, see http://go.microsoft.com/fwlink/?LinkId=390109.
 

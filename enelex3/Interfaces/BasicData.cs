@@ -12,6 +12,9 @@ namespace enelex3.Interfaces
 
         string Description { get; set; }
 
+       
+        double Ge { get; set; }
+
         string Comment { get; set; }
 
         bool Active { get; set; }

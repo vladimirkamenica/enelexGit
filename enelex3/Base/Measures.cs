@@ -15,6 +15,7 @@ namespace enelex3
             CreationDate = DateTime.Now;
             UpdateDate = DateTime.Now;
             Active = true;
+       
         }
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long ID { get; set; }
@@ -22,11 +23,7 @@ namespace enelex3
         public double Ge { get; set; }
 
         public double Lab { get; set; }
-
-        public double IndexId { get; set; }
-
-        public double P { get; set; }
-
+        
         public double W { get; set; }
 
         public bool Save { get; set; }

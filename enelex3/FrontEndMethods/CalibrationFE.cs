@@ -5,6 +5,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using enelex3.View;
 
 namespace enelex3.FrontEndMethods
 {
@@ -16,30 +17,30 @@ namespace enelex3.FrontEndMethods
             db = context ?? new Model1();
         }
 
-        public ObservableCollection<Calibration> GetCalibrations()
+        public ObservableCollection<NewCalibration> GetCalibrations()
         {
-            db.Calibrations.Load();
-            return db.Calibrations.Local;
+            db.NewCalibrations.Load();
+            return db.NewCalibrations.Local;
 
         }
 
-        public ObservableCollection<CalibrationTwo> GetCalibrationsTwo()
+        public ObservableCollection<CalibrationAbsoluteShifting> GetCalibrationsTwo()
         {
-            db.CalibrationTwos.Load();
-            return db.CalibrationTwos.Local;
+            db.CalibrationAbsoluteShiftings.Load();
+            return db.CalibrationAbsoluteShiftings.Local;
 
         }
 
-        public ObservableCollection<CalibrationThree> GetCalibrationsThree()
+        public ObservableCollection<ValueOfProportion> GetCalibrationsThree()
         {
-            db.CalibrationThrees.Load();
-            return db.CalibrationThrees.Local;
+            db.ValueOfProportions.Load();
+            return db.ValueOfProportions.Local;
 
         }
-        public List<CalibrationOneView> GetCalibrationOnes()
+        public List<CalibrationProportionShiftingView> GetCalibrationOnes()
         {
-            var listone = (from x in db.CalibratonOnes.Include(x => x.Id)
-                           select new CalibrationOneView
+            var listone = (from x in db.CalibrationProportionShiftings.Include(x => x.Id)
+                           select new CalibrationProportionShiftingView
                            {
                                Id = x.Id,
                                L = x.L,
@@ -48,6 +49,10 @@ namespace enelex3.FrontEndMethods
                            }).ToList();
             return listone;
 
+        }
+        public List<NewCalibrationView> calibrationViews()
+        {
+            var list = (from x in db.NewCalibrations.Include(x => x.Id) select new NewCalibrationView { Id = x.Id, NumberA = x.NumberA, NumberB = x.NumberB }).ToList();return list;
         }
     }
 }

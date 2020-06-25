@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:enelex3"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="Stranica za štampu" Height="755" Width="800" WindowStartupLocation="CenterScreen" Icon="Pics/nuclear.ico" ResizeMode="NoResize">
+        Title="Stranica za štampu" Height="755" Width="800" WindowStartupLocation="CenterScreen" Icon="pack://application:,,,/Pics/nuclear.ico" ResizeMode="NoResize">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"></RowDefinition>
@@ -48,7 +48,7 @@
                             <ColumnDefinition ></ColumnDefinition>
                             <ColumnDefinition ></ColumnDefinition>
                         </Grid.ColumnDefinitions>
-                        <Image Grid.Column="1"  Source="Pics/p.png" Width="250"></Image>
+                        <Image Grid.Column="1"  Source="pack://application:,,,/Pics/p.png" Width="250"></Image>
                         <Label Grid.Column="2" Margin="0,50,0,0">=</Label>
                         <TextBox Name="tbP"  Grid.Column="3" Height="20"  Width="100" HorizontalAlignment="Left" Background="#ffffd8" VerticalContentAlignment="Center" Margin="0,55,0,57" ></TextBox>
                     </Grid>
@@ -61,7 +61,7 @@
                             <ColumnDefinition ></ColumnDefinition>
                             <ColumnDefinition></ColumnDefinition>
                         </Grid.ColumnDefinitions>
-                        <Image Grid.Column="1" Source="Pics/q.png" Width="155" Margin="0,5,0,0"></Image>
+                        <Image Grid.Column="1" Source="pack://application:,,,/Pics/q.png" Width="155" Margin="0,5,0,0"></Image>
                         <Label Grid.Column="2" Margin="0,67,0,0">=</Label>
                         <TextBox Name="tbQ" Grid.Column="3" Width="100" HorizontalAlignment="Left" Background="#ffffd8" VerticalContentAlignment="Center" Margin="0,72,0,37" ></TextBox>
                     </Grid>
@@ -224,7 +224,7 @@
                                         <TextBox Name="tbQa" Margin="0,7,0,0" Width="100"></TextBox>
                                         <TextBox Name="tbWa" Margin="0,8,0,0" Width="100"></TextBox>
                                     </StackPanel>
-                                    <Image  x:Name="sp6" Grid.Column="6" Source="Pics/A2.png"  Width="190" Margin="50,0,0,0" VerticalAlignment="Top" ></Image>
+                                    <Image  x:Name="sp6" Grid.Column="6" Source="pack://application:,,,/Pics/A2.png"  Width="190" Margin="50,0,0,0" VerticalAlignment="Top" ></Image>
                                 </Grid>
                             </StackPanel>
                         </StackPanel>
@@ -309,8 +309,8 @@
                                         <TextBox Name="tbQs" Margin="0,7,0,0" Width="100"></TextBox>
                                         <TextBox Name="tbWs" Margin="0,8,0,0" Width="100"></TextBox>
                                     </StackPanel>
-                                    <Image  x:Name="sp6s" Grid.Column="6" Source="Pics/AS.png"  Width="100" Margin="20,0,0,0" VerticalAlignment="Top" ></Image>
-                                    <Image  x:Name="sp7s" Grid.Column="6" Grid.Row="1" Source="Pics/BS.png"  Width="137" Margin="60,-30,0,0" VerticalAlignment="Top" ></Image>
+                                    <Image  x:Name="sp6s" Grid.Column="6" Source="pack://application:,,,/Pics/AS.png"  Width="100" Margin="20,0,0,0" VerticalAlignment="Top" ></Image>
+                                    <Image  x:Name="sp7s" Grid.Column="6" Grid.Row="1" Source="pack://application:,,,/Pics/BS.png"  Width="137" Margin="60,-30,0,0" VerticalAlignment="Top" ></Image>
                                 </Grid>
                             </StackPanel>
                         </StackPanel>

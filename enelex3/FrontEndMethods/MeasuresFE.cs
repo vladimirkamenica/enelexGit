@@ -4,6 +4,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using enelex3.View;
 
 namespace enelex3.FrontEndMethods
 {
@@ -24,15 +25,40 @@ namespace enelex3.FrontEndMethods
                             Lab = x.Lab,
                             Ge = x.Ge,
                             Number = x.ID,
-                            P = x.P,
                             W = x.W,
-                            IndexId = x.IndexId,
+                          
                            
                         }).ToList();
 
             return list;
 
         }
+        public List<SaveMeasureViews> GetSaveMeasureViews()
+        {
+            var list = (from x in db.SaveMeasures.Include(x => x.Id)
+                        select new SaveMeasureViews
+                        {
+                            Id = x.Id,
+                            Lab = x.Lab,
+                            Ge = x.Ge,
+                            DateOfCalibration = x.DateOfCalibration,
+                            Description = x.Description,
+                            W = x.W,
+                            GroupID = x.GroupID
+                        }).ToList();
+            return list;
+        }
 
+        public List<SaveMeasureViewGroup> GetViewGroups(List<SaveMeasureViews> views)
+        {
+            return views.GroupBy(x => x.GroupID).Select(x => new SaveMeasureViewGroup
+                {
+                    Id = x.FirstOrDefault().Id,
+                    Description = x.FirstOrDefault().Description,
+                    DateOfCalibration = x.FirstOrDefault().DateOfCalibration,
+                    GroupID = x.FirstOrDefault().GroupID,
+                    Details = x.ToList(),
+                }).ToList();
+        }
     }
 }

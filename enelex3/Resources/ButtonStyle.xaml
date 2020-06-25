@@ -1,7 +1,9 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:local="clr-namespace:enelex3"
-                    xmlns:alati="clr-namespace:enelex3.Alati">
+                    xmlns:local="clr-namespace:enelex3.Resources">
+
+
+
 
     <SolidColorBrush x:Key="Button.Static.Background" Color="#FFDDDDDD"/>
     <SolidColorBrush x:Key="Button.Static.Border" Color="#FF707070"/>
@@ -12,40 +14,6 @@
     <SolidColorBrush x:Key="Button.Disabled.Background" Color="#FFF4F4F4"/>
     <SolidColorBrush x:Key="Button.Disabled.Border" Color="#FFADB2B5"/>
     <SolidColorBrush x:Key="Button.Disabled.Foreground" Color="#FF838383"/>
-    <SolidColorBrush x:Key="TextColor">Black</SolidColorBrush>
-    <SolidColorBrush x:Key="AltRowColor">#e8e8e8</SolidColorBrush>
-    <SolidColorBrush x:Key="AltRowColorDetails">#d8d8d8</SolidColorBrush>
-    <alati:SaveToColorConverter x:Key="saveToColorConverter"/>
-    <Thickness x:Key="CustMargin">10,5,5,5</Thickness>
-    <Style x:Key="btCustom" TargetType="Button">
-        <Setter Property="Margin" Value="{StaticResource CustMargin}"></Setter>
-        <Setter Property="Background" Value="LightGray"></Setter>
-    </Style>
-    <Style TargetType="TextBox">
-        <Setter Property="IsReadOnly" Value="True"></Setter>
-    </Style>
-    
-    <Style x:Key="SaveToColorRowStyle" TargetType="DataGridRow">
-        <Setter Property="Foreground" Value="{Binding Save, Converter={StaticResource saveToColorConverter}}"/>
-    </Style>
-    
-    <Style x:Key="dgCustom" TargetType="DataGrid">
-        <Setter Property="AlternationCount" Value="2"></Setter>
-        <Setter Property="AlternatingRowBackground" Value="{StaticResource AltRowColor}"></Setter>
-        <Setter Property="Margin" Value="5,0,0,0"></Setter>
-        <Setter Property="Foreground" Value="{StaticResource TextColor}"></Setter>
-        <Setter Property="AutoGenerateColumns" Value="False"></Setter>
-        <Setter Property="VerticalGridLinesBrush" Value="#c6c6c6"></Setter>
-        <Setter Property="HorizontalGridLinesBrush" Value="#c6c6c6"></Setter>
-        <Setter Property="BorderBrush" Value="#c6c6c6"></Setter>
-        <Setter Property="Background" Value="White"></Setter>
-        <Setter Property="RowHeaderWidth" Value="0"></Setter>
-        <Setter Property="CanUserAddRows" Value="False"></Setter>
-        <Setter Property="CanUserSortColumns" Value="False"></Setter>
-        <Setter Property="AllowDrop" Value="True"></Setter>
-        <Setter Property="RowStyle" Value="{StaticResource SaveToColorRowStyle}"></Setter>       
-        
-    </Style>
 
     <Style x:Key="SaveButton" TargetType="Button">
         <Setter Property="FocusVisualStyle" Value="{DynamicResource FocusVisual}"/>
@@ -57,7 +25,7 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
                     <Border x:Name="border" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="true" >
-                        
+
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition></RowDefinition>
@@ -66,11 +34,14 @@
                             <Image Source="/Pics/add1.png" Width="17"/>
                             <Label Grid.Row="1" Margin="0,-8,0,0">Dodaj</Label>
                         </Grid>
-                      
+
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsDefaulted" Value="true">
                             <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Cursor" Value="Hand"/>
                         </Trigger>
                         <Trigger Property="IsMouseOver" Value="true">
                             <Setter Property="Background" TargetName="border" Value="{DynamicResource Button.MouseOver.Background}"/>
@@ -98,24 +69,23 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
                     <Border x:Name="border" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="true" >
-                        
-                            <Grid>
+
+                        <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition></RowDefinition>
                                 <RowDefinition></RowDefinition>
                             </Grid.RowDefinitions>
-                            <Image Source="/Pics/del9.png" Width="17"/>
+                            <Image Source="/Pics/del10.png" Width="17"/>
                             <Label Grid.Row="1" Margin="0,-5,0,0">Obriši</Label>
                         </Grid>
-                            
+
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsDefaulted" Value="true">
                             <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
                         </Trigger>
-                        <Trigger Property="IsMouseOver" Value="true">
-                            <Setter Property="Background" TargetName="border" Value="{DynamicResource Button.MouseOver.Background}"/>
-                            <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource Button.MouseOver.Border}"/>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Cursor" Value="Hand"/>
                         </Trigger>
                         <Trigger Property="IsPressed" Value="true">
                             <Setter Property="Background" TargetName="border" Value="{DynamicResource Button.Pressed.Background}"/>
@@ -152,9 +122,9 @@
                         <Trigger Property="IsDefaulted" Value="true">
                             <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
                         </Trigger>
-                        <Trigger Property="IsMouseOver" Value="true">
-                            <Setter Property="Background" TargetName="border" Value="{DynamicResource Button.MouseOver.Background}"/>
-                            <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource Button.MouseOver.Border}"/>
+
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Cursor" Value="Hand"/>
                         </Trigger>
                         <Trigger Property="IsPressed" Value="true">
                             <Setter Property="Background" TargetName="border" Value="{DynamicResource Button.Pressed.Background}"/>
@@ -172,32 +142,68 @@
     <Style x:Key="Graph" TargetType="Button">
         <Setter Property="FocusVisualStyle" Value="{DynamicResource FocusVisual}"/>
         <Setter Property="Margin" Value = "5,0,0,0"></Setter>
-        <Setter Property="BorderThickness" Value="1"/>
+
+        <Setter Property="BorderThickness" Value="0,0,2,2"/>
         <Setter Property="Padding" Value="1"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
-                    <Border x:Name="border" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="true" Width="41" Height="45" >
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition></RowDefinition>
-                                <RowDefinition></RowDefinition>
-                            </Grid.RowDefinitions>
-                            <Image Source="/Pics/graph5.png" Width="33" HorizontalAlignment="Center"/>
-                            <Label Grid.Row="1" Margin="0,-8,0,0" HorizontalAlignment="Center" FontSize="11">Grafik</Label>
-                        </Grid>
+                    <Border x:Name="border" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="true" Width="41" Height="42" Background="WhiteSmoke" BorderBrush="#adadad" >
+                        <Border BorderBrush="#FFEAE8E8" BorderThickness="1,1,0,0">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Image Source="{StaticResource GraphImage}" HorizontalAlignment="Center"/>
+                                <Label Grid.Row="1" Margin="0,-4,0,0" HorizontalAlignment="Center" FontSize="11">Grafik</Label>
+                            </Grid>
+                        </Border>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsDefaulted" Value="true">
+                            <!--<Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>-->
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Cursor" Value="Hand"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="true">
+                            <Setter Property="BorderThickness" Value="2,2,0,0"></Setter>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="false">
+                            <Setter Property="Background" TargetName="border" Value="{DynamicResource Button.Disabled.Background}"/>
+                            <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource Button.Disabled.Border}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="Save" TargetType="Button">
+        <Setter Property="FocusVisualStyle" Value="{DynamicResource FocusVisual}"/>
+        <Setter Property="Margin" Value = "5,0,0,0"></Setter>
+        <Setter Property="BorderThickness" Value="0,0,2,2"/>
+        <Setter Property="Padding" Value="1"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border x:Name="border" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="true" BorderBrush="#adadad">
+                        <Border BorderBrush="White" BorderThickness="1,1,0,0">
+                            <StackPanel Orientation="Vertical" >
+                                <Image Source="/Pics/save3.png" Width="17" Margin="0,4,0,0" />
+                                <Label FontSize="11" Margin="0,-4,0,0">Snimi</Label>
+                            </StackPanel>
+                        </Border>
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsDefaulted" Value="true">
                             <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
                         </Trigger>
-                        <Trigger Property="IsMouseOver" Value="true">
-                            <Setter Property="Background" TargetName="border" Value="{DynamicResource Button.MouseOver.Background}"/>
-                            <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource Button.MouseOver.Border}"/>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Cursor" Value="Hand"/>
                         </Trigger>
                         <Trigger Property="IsPressed" Value="true">
-                            <Setter Property="Background" TargetName="border" Value="{DynamicResource Button.Pressed.Background}"/>
-                            <Setter Property="BorderBrush" TargetName="border" Value="Transparent"/>
+                            <Setter Property="BorderThickness" Value="2,2,0,0"></Setter>
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="false">
                             <Setter Property="Background" TargetName="border" Value="{DynamicResource Button.Disabled.Background}"/>
@@ -218,21 +224,23 @@
                 <ControlTemplate TargetType="{x:Type Button}">
                     <Border x:Name="border" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="true" BorderBrush="#adadad">
                         <Border BorderBrush="White" BorderThickness="1,1,0,0">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition></RowDefinition>
-                                <RowDefinition></RowDefinition>
-                            </Grid.RowDefinitions>
-                            <Image Source="/Pics/down.png" Width="17"/>
-                            <Label Grid.Row="1" Margin="0,-5,0,0" FontSize="11">Učitaj</Label>
-                        </Grid>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Path Style="{StaticResource MediumPathStyle}" Data="{StaticResource ReFreshGeo}" Fill="Black"></Path>
+                                <Label Grid.Row="1" Margin="0,-5,0,0" FontSize="11">Učitaj</Label>
+                            </Grid>
                         </Border>
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsDefaulted" Value="true">
                             <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
                         </Trigger>
-                       
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Cursor" Value="Hand"/>
+                        </Trigger>
                         <Trigger Property="IsPressed" Value="true">
                             <Setter Property="BorderThickness" Value="2,2,0,0"></Setter>
                         </Trigger>
@@ -294,21 +302,23 @@
                 <ControlTemplate TargetType="{x:Type Button}">
                     <Border x:Name="border" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="true" BorderBrush="#adadad">
                         <Border BorderBrush="White" BorderThickness="1,1,0,0">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition></RowDefinition>
-                                <RowDefinition></RowDefinition>
-                            </Grid.RowDefinitions>
-                            <Image Source="/Pics/edit.png" Width="17"/>
-                            <Label Grid.Row="1" Margin="0,-5,0,0" FontSize="11">Ažuriraj</Label>
-                        </Grid>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Path Style="{StaticResource MediumPathStyle}" Data="{StaticResource PencilGeo}" Fill="Black"></Path>
+                                <Label Grid.Row="1" Margin="0,-4,0,0" FontSize="11">Ažuriraj</Label>
+                            </Grid>
                         </Border>
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsDefaulted" Value="true">
                             <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
                         </Trigger>
-                       
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Cursor" Value="Hand"/>
+                        </Trigger>
                         <Trigger Property="IsPressed" Value="true">
                             <Setter Property="BorderThickness" Value="2,2,0,0"></Setter>
                         </Trigger>
@@ -331,21 +341,23 @@
                 <ControlTemplate TargetType="{x:Type Button}">
                     <Border x:Name="border" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="true" BorderBrush="#adadad">
                         <Border BorderBrush="White" BorderThickness="1,1,0,0">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition></RowDefinition>
-                                <RowDefinition></RowDefinition>
-                            </Grid.RowDefinitions>
-                            <Image Source="/Pics/del9.png" Width="17"/>
-                            <Label Grid.Row="1" Margin="0,-5,0,0" FontSize="11">Obriši</Label>
-                        </Grid>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Path Style="{StaticResource MediumPathStyle}" Data="{StaticResource DelGeo}" Fill="#b82e2e"></Path>
+                                <Label Grid.Row="1" Margin="0,-3.5,0,0" FontSize="11">Obriši</Label>
+                            </Grid>
                         </Border>
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsDefaulted" Value="true">
                             <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
                         </Trigger>
-                      
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Cursor" Value="Hand"/>
+                        </Trigger>
                         <Trigger Property="IsPressed" Value="true">
                             <Setter Property="BorderThickness" Value="2,2,0,0"></Setter>
                         </Trigger>
@@ -358,7 +370,7 @@
             </Setter.Value>
         </Setter>
     </Style>
-   
+
     <Style x:Key="Add2" TargetType="Button">
         <Setter Property="FocusVisualStyle" Value="{DynamicResource FocusVisual}"/>
         <Setter Property="Margin" Value = "3,0,5,0"></Setter>
@@ -369,24 +381,23 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
                     <Border x:Name="border" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="true">
-                        
-                            <Grid>
+
+                        <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition></ColumnDefinition>
                                 <ColumnDefinition></ColumnDefinition>
                             </Grid.ColumnDefinitions>
-                            <Image Source="/Pics/add1.png" Width="15"/>
-                            <Label Grid.Column="1" Margin="-5,-2,0,0" FontSize="11">Dodaj</Label>
+                            <Path Style="{StaticResource MediumPathStyle}" Data="{StaticResource AddGreenGeo}" Width="12" Margin="5" Fill="Black"></Path>
+                            <Label Grid.Column="1" VerticalAlignment="Center" HorizontalContentAlignment="Left" FontSize="11">Dodaj</Label>
                         </Grid>
-                            
+
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsDefaulted" Value="true">
                             <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
                         </Trigger>
-                        <Trigger Property="IsMouseOver" Value="true">
-                            <Setter Property="Background" TargetName="border" Value="{DynamicResource Button.Pressed.Background}"/>
-                            <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource Button.Pressed.Border}"/>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Cursor" Value="Hand"/>
                         </Trigger>
                         <Trigger Property="IsPressed" Value="true">
                             <Setter Property="Background" TargetName="border" Value="{DynamicResource Button.Pressed.Background}"/>
@@ -416,8 +427,8 @@
                                     <RowDefinition></RowDefinition>
                                     <RowDefinition></RowDefinition>
                                 </Grid.RowDefinitions>
-                                <Image Source="/Pics/excel20.png" Width="22"  Margin="0,6,0,0"/>
-                                <Label Grid.Row="1" Margin="0,-4,0,-5">Excel</Label>
+                                <Image Source="{StaticResource ExcelImage}" Width="16"></Image>
+                                <Label Grid.Row="1" Margin="0,-3.5,0,-5">Excel</Label>
 
                             </Grid>
                         </Border>
@@ -426,7 +437,9 @@
                         <Trigger Property="IsDefaulted" Value="true">
                             <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
                         </Trigger>
-
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Cursor" Value="Hand"/>
+                        </Trigger>
                         <Trigger Property="IsPressed" Value="true">
 
                             <Setter Property="BorderThickness" Value="2,2,0,0"></Setter>
@@ -451,20 +464,22 @@
                     <Border x:Name="border" BorderThickness="{TemplateBinding BorderThickness}" Width="38" SnapsToDevicePixels="true" BorderBrush="#adadad">
                         <Border BorderBrush="White" BorderThickness="1,1,0,0">
                             <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition></RowDefinition>
-                                <RowDefinition></RowDefinition>
-                            </Grid.RowDefinitions>
-                            <Image Source="/Pics/search3.png" Width="17"/>
-                            <Label Grid.Row="1" Margin="0,-5,0,0" FontSize="11">Print</Label>
-                        </Grid>
-                            </Border>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Image Source="/Pics/search3.png" Width="17"/>
+                                <Label Grid.Row="1" Margin="0,-5,0,0" FontSize="11">Print</Label>
+                            </Grid>
+                        </Border>
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsDefaulted" Value="true">
                             <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
                         </Trigger>
-                       
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Cursor" Value="Hand"/>
+                        </Trigger>
                         <Trigger Property="IsPressed" Value="true">
                             <Setter Property="BorderThickness" Value="2,2,0,0"></Setter>
                         </Trigger>
@@ -481,38 +496,36 @@
         <Setter Property="FocusVisualStyle" Value="{DynamicResource FocusVisual}"/>
         <Setter Property="Margin" Value = "5,0,0,0"></Setter>
         <Setter Property="BorderThickness" Value="1"/>
-
+        <Setter Property="BorderThickness" Value="0,0,2,2"/>
         <Setter Property="Padding" Value="1"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
-                    <Border x:Name="border" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="true" >
-                       
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition></RowDefinition>
-                                <RowDefinition></RowDefinition>
-                            </Grid.RowDefinitions>
-                            <Image Source="/Pics/edit.png" Width="18"/>
-                            <Label Grid.Row="1" Margin="0,-5,0,0">Аžuriraj</Label>
-                        </Grid>
-                           
+                    <Border x:Name="border" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="true" Background="WhiteSmoke"  BorderBrush="#adadad">
+                        <Border BorderBrush="#FFEAE8E8"  BorderThickness="1,1,0,0">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Path Style="{StaticResource MediumPathStyle}" Data="{StaticResource PencilGeo}" Fill="Black"></Path>
+                                <Label Grid.Row="1" Margin="0,-5,-2,-2">Аžuriraj</Label>
+                            </Grid>
+                        </Border>
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsDefaulted" Value="true">
                             <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
                         </Trigger>
-                        <Trigger Property="IsMouseOver" Value="true">
-                            <Setter Property="Background" TargetName="border" Value="{DynamicResource Button.MouseOver.Background}"/>
-                            <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource Button.MouseOver.Border}"/>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Cursor" Value="Hand"/>
                         </Trigger>
                         <Trigger Property="IsPressed" Value="true">
-                            <Setter Property="Background" TargetName="border" Value="{DynamicResource Button.Pressed.Background}"/>
-                            <Setter Property="BorderBrush" TargetName="border" Value="Transparent"/>
+                            <Setter Property="BorderThickness" Value="2,2,0,0"></Setter>
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="false">
-                            <Setter Property="Background" TargetName="border" Value="{DynamicResource Button.Disabled.Background}"/>
-                            <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource Button.Disabled.Border}"/>
+                            <!--<Setter Property="Background" TargetName="border" Value="{DynamicResource Button.Disabled.Background}"/>
+                            <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource Button.Disabled.Border}"/>-->
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -558,45 +571,132 @@
             </Setter.Value>
         </Setter>
     </Style>
-   <Style x:Key="PrintSheet" TargetType="Button">
-    <Setter Property="FocusVisualStyle" Value="{DynamicResource FocusVisual}"/>
-    <Setter Property="Margin" Value = "10,0,0,0"></Setter>
-    <Setter Property="BorderThickness" Value="1"/>
-    <Setter Property="Padding" Value="1"/>
-    <Setter Property="Template">
-        <Setter.Value>
-            <ControlTemplate TargetType="{x:Type Button}">
-                <Border x:Name="border" BorderThickness="{TemplateBinding BorderThickness}"  Width="140" Height="30">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="20"></ColumnDefinition>
+    <Style x:Key="PrintSheet" TargetType="Button">
+        <Setter Property="FocusVisualStyle" Value="{DynamicResource FocusVisual}"/>
+        <Setter Property="Margin" Value = "10,0,0,0"></Setter>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Padding" Value="1"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border x:Name="border" BorderThickness="{TemplateBinding BorderThickness}"  Width="140" Height="30">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="20"></ColumnDefinition>
                                 <ColumnDefinition Width="auto "></ColumnDefinition>
-                        </Grid.ColumnDefinitions>
-                        <Image Source="/Pics/search3.png" Width="20" Margin="-5" />
+                            </Grid.ColumnDefinitions>
+                            <Image Source="/Pics/search3.png" Width="20" Margin="-5" />
                             <Label Grid.Column="1" HorizontalAlignment="Left">Stranica za štampu</Label>
 
-                    </Grid>
-                </Border>
-                <ControlTemplate.Triggers>
-                    <Trigger Property="IsDefaulted" Value="true">
-                        <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
-                    </Trigger>
-                    <Trigger Property="IsMouseOver" Value="true">
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsDefaulted" Value="true">
+                            <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="true">
                             <Setter Property="Background" TargetName="border" Value="{DynamicResource Button.Pressed.Background}"/>
                             <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource Button.Pressed.Border}"/>
                         </Trigger>
-                    <Trigger Property="IsPressed" Value="true">
-                        <Setter Property="Background" TargetName="border" Value="{DynamicResource Button.Pressed.Background}"/>
+                        <Trigger Property="IsPressed" Value="true">
+                            <Setter Property="Background" TargetName="border" Value="{DynamicResource Button.Pressed.Background}"/>
                             <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource Button.MouseOver.Border}"/>
                         </Trigger>
-                    <Trigger Property="IsEnabled" Value="false">
-                        <Setter Property="Background" TargetName="border" Value="{DynamicResource Button.Disabled.Background}"/>
-                        <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource Button.Disabled.Border}"/>
-                    </Trigger>
-                </ControlTemplate.Triggers>
-            </ControlTemplate>
-        </Setter.Value>
-    </Setter>
+                        <Trigger Property="IsEnabled" Value="false">
+                            <Setter Property="Background" TargetName="border" Value="{DynamicResource Button.Disabled.Background}"/>
+                            <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource Button.Disabled.Border}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
     </Style>
-    
+    <Style x:Key="OkButton" TargetType="Button" >
+        <Setter Property="FocusVisualStyle" Value="{DynamicResource FocusVisual}"/>
+        <Setter Property="Margin" Value = "0,5,5,5"></Setter>
+        <Setter Property="BorderThickness" Value="0,0,2,2"/>
+        <Setter Property="Padding" Value="1"/>
+        <Setter Property="Background" Value="WhiteSmoke"></Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border x:Name="border" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="true" BorderBrush="#adadad" Background="WhiteSmoke">
+                        <Border BorderBrush="White" BorderThickness="1,1,0,0">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Border Padding="2">
+                                    <Path Style="{StaticResource MediumPathStyle}" Fill="#0ba4e0" Data="{StaticResource OKGeo}" Width="17"></Path>
+                                </Border>
+                                <Label Grid.Column="1" Margin="-10,0,0,0">Ok</Label>
+                            </Grid>
+                        </Border>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsDefaulted" Value="true">
+                            <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="true">
+
+                            <Setter Property="Cursor" Value="Hand" />
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="true">
+                            <Setter Property="BorderThickness" Value="2,2,0,0"></Setter>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="false">
+                            <Setter Property="Background" TargetName="border" Value="{DynamicResource Button.Disabled.Background}"/>
+                            <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource Button.Disabled.Border}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="CloseButton" TargetType="Button" >
+        <Setter Property="FocusVisualStyle" Value="{DynamicResource FocusVisual}"/>
+        <Setter Property="Margin" Value = "0,5,5,5"></Setter>
+        <Setter Property="BorderThickness" Value="0,0,2,2"/>
+        <Setter Property="Padding" Value="1"/>
+        <Setter Property="Background" Value="WhiteSmoke"></Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border x:Name="border" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="true" BorderBrush="#adadad" Background="WhiteSmoke">
+                        <Border BorderBrush="White" BorderThickness="1,1,0,0">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Border Padding="2">
+                                    <Path Style="{StaticResource MediumPathStyle}" Fill="#C83232" Data="{StaticResource DelGeo}" Width="15"></Path>
+                                </Border>
+                                <Label Grid.Column="1" Margin="-10,0,0,0">Close</Label>
+                            </Grid>
+                        </Border>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsDefaulted" Value="true">
+                            <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="true">
+
+                            <Setter Property="Cursor" Value="Hand" />
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="true">
+                            <Setter Property="BorderThickness" Value="2,2,0,0"></Setter>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="false">
+                            <Setter Property="Background" TargetName="border" Value="{DynamicResource Button.Disabled.Background}"/>
+                            <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource Button.Disabled.Border}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 </ResourceDictionary>

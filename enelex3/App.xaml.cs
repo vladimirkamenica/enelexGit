@@ -31,6 +31,7 @@ namespace enelex3
          XmlLanguage.GetLanguage(CultureInfo.CurrentCulture.IetfLanguageTag)));
 
             base.OnStartup(e);
+            
         }
     }
 }

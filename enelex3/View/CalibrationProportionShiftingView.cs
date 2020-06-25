@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace enelex3
 {
-    public class CalibrationOneView
+    public class CalibrationProportionShiftingView
     {
         public int Id { get; set; }
 
@@ -26,5 +26,6 @@ namespace enelex3
             }
 
         }
+        public bool Edit { get; set; }
     }
 }

@@ -1,0 +1,30 @@
+﻿<Window x:Class="enelex3.Windows.SaveTransWin"
+        x:Name="addWin"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:enelex3.Windows"
+        xmlns:viewModel ="clr-namespace:enelex3.ViewModel"
+        mc:Ignorable="d"
+        d:DataContext="{d:DesignInstance viewModel:SaveTransViewModel}"
+        Title="SaveTransWin" SizeToContent="WidthAndHeight" Background="WhiteSmoke" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Vertical" Width="300" DataContext="{Binding Save}">
+            <TextBlock Text="Broj kalibracije:" Margin="10,0,0,0"></TextBlock>
+            <TextBox Height="25" IsReadOnly="False" Text="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}},Path=DataContext.Count}" VerticalContentAlignment="Center" Margin="10"></TextBox>
+            <TextBlock Text="Izaberite datum kalibracija:" Margin="10,0,0,0"></TextBlock>
+            <DatePicker SelectedDate="{Binding DateOfCalibration,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Margin="10"></DatePicker>
+            <TextBlock Text="Opis kalibracije:" Margin="10,0,0,0"></TextBlock>
+            <TextBox Height="25" IsReadOnly="False" Text="{Binding Description,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center" Margin="10"></TextBox>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Center">
+            <Button Style="{DynamicResource OkButton}" Width="90" Height="30" Command="{Binding SaveMeasureCommand}" CommandParameter="{Binding ElementName=addWin}"></Button>
+            <Button Style="{DynamicResource CloseButton}" Width="90" Height="30" IsCancel="True" ></Button>
+        </StackPanel>
+    </Grid>
+</Window>

@@ -20,7 +20,7 @@ namespace enelex3
     public partial class AddCalibrationOne : Window
     {
         private Model1 db = new Model1();
-        public CalibratonOne resOne = new CalibratonOne();
+        public CalibrationProportionShifting resOne = new CalibrationProportionShifting();
         bool Save = false;
 
         public AddCalibrationOne()

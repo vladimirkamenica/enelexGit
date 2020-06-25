@@ -1,0 +1,13 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:enelex3.Resources">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/Resources/Brushes.xaml"></ResourceDictionary>
+    </ResourceDictionary.MergedDictionaries>
+
+    <Style TargetType="Path" x:Key="MediumPathStyle">
+        <Setter Property="Stretch" Value="Uniform"></Setter>
+        <Setter Property="Height" Value="16"></Setter>
+        <Setter Property="Fill" Value="{StaticResource DefaultDetailsBrush}"></Setter>
+    </Style>
+</ResourceDictionary>

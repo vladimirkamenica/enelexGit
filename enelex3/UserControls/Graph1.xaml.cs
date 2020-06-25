@@ -20,7 +20,7 @@ using LiveCharts.Helpers;
 using DocumentFormat.OpenXml.Drawing.Charts;
 using System.Collections.ObjectModel;
 
-namespace enelex3
+namespace enelex3.UserControls
 {
     /// <summary>
     /// Interaction logic for Graph1.xaml
@@ -36,13 +36,13 @@ namespace enelex3
         public Graph1(List<MeasuresView> input, double p, double q, double NumP)
         {
             InitializeComponent();
-            Grafik1.SetMeasureViewToGraph(input, p, q, NumP);
+            Grafik1.SetMeasureViewToGraph2(input, p, q, NumP);
         }
 
-        public Graph1(List<MeasuresView> input, double p, double q, double Ps, double Qs)
+        public Graph1(List<MeasuresView> input, double p, double q, double Ps, double Qs,double shift)
         {
             InitializeComponent();
-            Grafik1.SetMeasureViewToGraph1(input, p, q, Ps, Qs);
+            Grafik1.SetMeasureViewToGraph3(input, p, q, Ps, Qs, shift);
         }
     }
 }
