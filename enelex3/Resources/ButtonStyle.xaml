@@ -384,10 +384,10 @@
 
                         <Grid>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition></ColumnDefinition>
-                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition Width="auto"></ColumnDefinition>
+                                <ColumnDefinition Width="auto"></ColumnDefinition>
                             </Grid.ColumnDefinitions>
-                            <Path Style="{StaticResource MediumPathStyle}" Data="{StaticResource AddGreenGeo}" Width="12" Margin="5" Fill="Black"></Path>
+                            <Path Style="{StaticResource MediumPathStyle}" Data="{StaticResource AddGreenGeo}" Width="12"  Fill="Black"></Path>
                             <Label Grid.Column="1" VerticalAlignment="Center" HorizontalContentAlignment="Left" FontSize="11">Dodaj</Label>
                         </Grid>
 
@@ -414,7 +414,7 @@
     </Style>
     <Style x:Key="ExcelButton" TargetType="Button">
         <Setter Property="FocusVisualStyle" Value="{DynamicResource FocusVisual}"/>
-        <Setter Property="Margin" Value = "5,5,5,5"></Setter>
+        <Setter Property="Margin" Value = "5,0,0,0"></Setter>
         <Setter Property="BorderThickness" Value="0,0,2,2"/>
         <Setter Property="Padding" Value="1"/>
         <Setter Property="Template">
@@ -427,10 +427,141 @@
                                     <RowDefinition></RowDefinition>
                                     <RowDefinition></RowDefinition>
                                 </Grid.RowDefinitions>
-                                <Image Source="{StaticResource ExcelImage}" Width="16"></Image>
-                                <Label Grid.Row="1" Margin="0,-3.5,0,-5">Excel</Label>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                    <Path Style="{StaticResource MediumPathStyle}" Data="{StaticResource ArrowUpGeo}" Fill="Black" Width="8"></Path>
+                                    <Image Source="{StaticResource ExcelImage}" Width="16"></Image>
+                                </StackPanel>
+                                <Label Grid.Row="1" Margin="0,-3.5,0,-5">Expotr</Label>
 
                             </Grid>
+                        </Border>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsDefaulted" Value="true">
+                            <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Cursor" Value="Hand"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="true">
+
+                            <Setter Property="BorderThickness" Value="2,2,0,0"></Setter>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="false">
+                            <Setter Property="Background" TargetName="border" Value="{DynamicResource Button.Disabled.Background}"/>
+                            <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource Button.Disabled.Border}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="ExcelImportButton" TargetType="Button">
+        <Setter Property="FocusVisualStyle" Value="{DynamicResource FocusVisual}"/>
+        <Setter Property="Margin" Value = "5,0,0,0"></Setter>
+        <Setter Property="BorderThickness" Value="0,0,2,2"/>
+        <Setter Property="Padding" Value="1"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border x:Name="border" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="true" BorderBrush="#adadad" >
+                        <Border BorderBrush="White" BorderThickness="1,1,0,0">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                    <Image Source="{StaticResource ExcelImage}" Width="16"></Image>
+                                    <Path Style="{StaticResource MediumPathStyle}" Data="{StaticResource ArrowDown}" Fill="Black" Width="8"></Path>
+                                </StackPanel>
+                               
+                                <Label Grid.Row="1" Margin="0,-3.5,0,-5">Import</Label>
+
+                            </Grid>
+                        </Border>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsDefaulted" Value="true">
+                            <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Cursor" Value="Hand"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="true">
+
+                            <Setter Property="BorderThickness" Value="2,2,0,0"></Setter>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="false">
+                            <Setter Property="Background" TargetName="border" Value="{DynamicResource Button.Disabled.Background}"/>
+                            <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource Button.Disabled.Border}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="ExcelImportHorButton" TargetType="Button">
+        <Setter Property="FocusVisualStyle" Value="{DynamicResource FocusVisual}"/>
+        <Setter Property="Margin" Value = "5,5,5,5"></Setter>
+        <Setter Property="BorderThickness" Value="0,0,2,2"/>
+        <Setter Property="Padding" Value="1"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border x:Name="border" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="true" BorderBrush="#adadad" >
+                        <Border BorderBrush="White" BorderThickness="1,1,0,0">
+                            
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                    <Image Source="{StaticResource ExcelImage}" Width="16"></Image>
+                                    <Path Style="{StaticResource MediumPathStyle}" Data="{StaticResource ArrowDown}" Fill="Black" Width="8"></Path>
+                                <Label Grid.Row="1" Margin="5,0,0,0">Import</Label>
+                            </StackPanel>
+
+                               
+
+                        
+                        </Border>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsDefaulted" Value="true">
+                            <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Cursor" Value="Hand"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="true">
+
+                            <Setter Property="BorderThickness" Value="2,2,0,0"></Setter>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="false">
+                            <Setter Property="Background" TargetName="border" Value="{DynamicResource Button.Disabled.Background}"/>
+                            <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource Button.Disabled.Border}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="OpenFolderButton" TargetType="Button">
+        <Setter Property="FocusVisualStyle" Value="{DynamicResource FocusVisual}"/>
+        <Setter Property="Margin" Value = "5,5,5,5"></Setter>
+        <Setter Property="BorderThickness" Value="0,0,2,2"/>
+        <Setter Property="Padding" Value="1"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border x:Name="border" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="true" BorderBrush="#adadad" >
+                        <Border BorderBrush="White" BorderThickness="1,1,0,0">
+
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                <Path Style="{StaticResource MediumPathStyle}" Data="{StaticResource OpenFolder1Geo}" Fill="Black" Width="18"></Path>
+                                <Label Grid.Row="1" Margin="5,0,0,0">Open</Label>
+                            </StackPanel>
+
+
+
+
                         </Border>
                     </Border>
                     <ControlTemplate.Triggers>
@@ -688,6 +819,92 @@
                             <Setter Property="Cursor" Value="Hand" />
                         </Trigger>
                         <Trigger Property="IsPressed" Value="true">
+                            <Setter Property="BorderThickness" Value="2,2,0,0"></Setter>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="false">
+                            <Setter Property="Background" TargetName="border" Value="{DynamicResource Button.Disabled.Background}"/>
+                            <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource Button.Disabled.Border}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="CopyButton" TargetType="Button">
+        <Setter Property="FocusVisualStyle" Value="{DynamicResource FocusVisual}"/>
+        <Setter Property="Margin" Value = "5,0,0,0"></Setter>
+        <Setter Property="BorderThickness" Value="0,0,2,2"/>
+        <Setter Property="Padding" Value="1"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border x:Name="border" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="true"  BorderBrush="#adadad" >
+                        <Border BorderBrush="White" BorderThickness="1,1,0,0">
+
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"></RowDefinition>
+                                    <RowDefinition Height="auto"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Border Padding="2">
+                                    <Path Style="{StaticResource MediumPathStyle}" Data="{StaticResource CopyGeo}" Fill="Black"></Path>
+                                </Border>
+
+                                <Label Grid.Row="1" Margin="0,-5,0,0">Kopiraj</Label>
+                            </Grid>
+                        </Border>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsDefaulted" Value="true">
+                            <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Cursor" Value="Hand"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="true">
+
+                            <Setter Property="BorderThickness" Value="2,2,0,0"></Setter>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="false">
+                            <Setter Property="Background" TargetName="border" Value="{DynamicResource Button.Disabled.Background}"/>
+                            <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource Button.Disabled.Border}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="SearchButton" TargetType="Button">
+        <Setter Property="FocusVisualStyle" Value="{DynamicResource FocusVisual}"/>
+        <Setter Property="Margin" Value = "5,0,0,0"></Setter>
+        <Setter Property="BorderThickness" Value="0,0,2,2"/>
+        <Setter Property="Padding" Value="1"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border x:Name="border" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="true" BorderBrush="#adadad" >
+                        <Border BorderBrush="White" BorderThickness="1,1,0,0">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Border Padding="2">
+                                    <Path Style="{StaticResource MediumPathStyle}" Data="{StaticResource FolderGeo}" Fill="Black" Width="17"></Path>
+                                </Border>
+                                <Label Grid.Row="1" Margin="0,-5,0,-5">Pregled</Label>
+                            </Grid>
+                        </Border>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsDefaulted" Value="true">
+                            <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Cursor" Value="Hand"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="true">
+
                             <Setter Property="BorderThickness" Value="2,2,0,0"></Setter>
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="false">

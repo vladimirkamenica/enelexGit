@@ -53,6 +53,12 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="ExcelDataReader, Version=3.6.0.0, Culture=neutral, PublicKeyToken=93517dbe6a4012fa, processorArchitecture=MSIL">
+      <HintPath>..\packages\ExcelDataReader.3.6.0\lib\net45\ExcelDataReader.dll</HintPath>
+    </Reference>
+    <Reference Include="ExcelDataReader.DataSet, Version=3.6.0.0, Culture=neutral, PublicKeyToken=93517dbe6a4012fa, processorArchitecture=MSIL">
+      <HintPath>..\packages\ExcelDataReader.DataSet.3.6.0\lib\net35\ExcelDataReader.DataSet.dll</HintPath>
+    </Reference>
     <Reference Include="ExcelNumberFormat, Version=1.0.10.0, Culture=neutral, PublicKeyToken=23c6f5d73be07eca, processorArchitecture=MSIL">
       <HintPath>..\packages\ExcelNumberFormat.1.0.10\lib\net20\ExcelNumberFormat.dll</HintPath>
     </Reference>
@@ -86,6 +92,7 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
+    <Reference Include="System.IO.Compression" />
     <Reference Include="System.IO.FileSystem.Primitives, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.IO.FileSystem.Primitives.4.3.0\lib\net46\System.IO.FileSystem.Primitives.dll</HintPath>
     </Reference>
@@ -94,6 +101,7 @@
     </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\MvvmLightLibs.5.4.1.1\lib\net45\System.Windows.Interactivity.dll</HintPath>
     </Reference>
@@ -151,12 +159,17 @@
     <Compile Include="Migrations\202006250920539_groupID.designer.cs">
       <DependentUpon>202006250920539_groupID.cs</DependentUpon>
     </Compile>
+    <Compile Include="ViewModel\ExcelImportViewModel.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
     <Compile Include="ViewModel\SaveMeasureViewModel.cs" />
     <Compile Include="ViewModel\SaveTransViewModel.cs" />
+    <Compile Include="View\ImportClassView.cs" />
     <Compile Include="View\NewCalibrationView.cs" />
     <Compile Include="View\SaveMeasureViewGroup.cs" />
     <Compile Include="View\SaveMeasureViews.cs" />
+    <Compile Include="Windows\ExcelImportWindows.xaml.cs">
+      <DependentUpon>ExcelImportWindows.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\PrintSheet.xaml.cs">
       <DependentUpon>PrintSheet.xaml</DependentUpon>
     </Compile>
@@ -186,6 +199,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Resources\GeometryDictionary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\GeometryDictionarySigma.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -241,6 +258,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Windows\ExcelImportWindows.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Windows\PrintSheet.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -373,140 +394,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Pics\001-file.png" />
-    <Resource Include="Pics\003-refresh.png" />
-    <Resource Include="Pics\004-exit.png" />
-    <Resource Include="Pics\006-trash.png" />
-    <Resource Include="Pics\A1.png" />
-    <Resource Include="Pics\A2.png" />
-    <Resource Include="Pics\addnew.png" />
-    <Resource Include="Pics\As.png" />
-    <Resource Include="Pics\Bs.png" />
-    <Resource Include="Pics\logo.png" />
-    <Resource Include="Pics\ok.png" />
-    <Resource Include="Pics\p.png" />
-    <Resource Include="Pics\q.png" />
-    <Resource Include="Pics\radioactivity.png" />
-    <Resource Include="Pics\save.png" />
-    <Resource Include="Pics\suma1.png" />
-    <Resource Include="Pics\suma2.png" />
-    <Resource Include="Pics\suma3.png" />
-    <Resource Include="Pics\suma4.png" />
-    <Resource Include="Pics\suma5.png" />
-    <Resource Include="Pics\suma6.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Pics\bar-chart.png" />
-    <Resource Include="Pics\graph.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Pics\graph1.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Pics\graph2.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Pics\graph3.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Pics\graph4.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Pics\graph5.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Pics\nuclear.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Pics\excel.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Pics\excel1.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Pics\add1.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Pics\add2.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Pics\add3.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Pics\refresh.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Pics\ref.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Pics\ref1.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Pics\refresh3.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Pics\edit.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Pics\close.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Pics\down.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Pics\print.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Pics\print1.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Pics\del9.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Pics\print5.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Pics\print2.png" />
-    <Resource Include="Pics\print3.png" />
-    <Resource Include="Pics\print4.png" />
-    <Resource Include="Pics\print6.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Pics\print8.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Pics\proba.txt" />
-    <Resource Include="Pics\search3.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Pics\print11.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Pics\excel20.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Pics\reload.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Pics\edit8.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Pics\del10.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Pics\down3.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Pics\down4.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Pics\save3.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Pics\icon2.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Pics\pencil.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

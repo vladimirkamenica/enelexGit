@@ -15,6 +15,8 @@ using enelex3.UserControls;
 using GalaSoft.MvvmLight.CommandWpf;
 using enelex3.Base;
 using enelex3.Windows;
+using Microsoft.Win32;
+
 
 namespace enelex3.ViewModel
 {
@@ -172,11 +174,46 @@ namespace enelex3.ViewModel
 
         public double NumberAp { get; set; }
         public double NumberBp { get; set; }
-        public double NewMeasureLAB { get; set; }
+        private double newMeasureLAB { get; set; }
+        public double NewMeasureLAB
+        {
+            get => newMeasureLAB;
+            set
+            {
+                if (newMeasureLAB != null)
+                {
+                    newMeasureLAB = value;
+                    OnPropertyChanged(nameof(NewMeasureLAB));
+                }
+            }
+        }
+        private double newMeasureGE { get; set; }
+        public double NewMeasureGE
+        {
+            get => newMeasureGE;
+            set
+            {
+                if(newMeasureGE != null)
+                {
+                    newMeasureGE = value;
+                    OnPropertyChanged(nameof(NewMeasureGE));
+                }
+            }
+        }
 
-        public double NewMeasureGE { get; set; }
-
-        public double NewMeasureW { get; set; }
+        private double newMeasureW { get; set; }
+        public double NewMeasureW
+        {
+            get => newMeasureW;
+            set
+            {
+                if (newMeasureW != null)
+                {
+                    newMeasureW = value;
+                    OnPropertyChanged(nameof(NewMeasureW));
+                }
+            }
+        }
 
         public double NewMeasureB { get; set; }
 
@@ -478,7 +515,7 @@ namespace enelex3.ViewModel
                 ListOfMeasures = new List<MeasuresView>();
                 ListOfMeasures.Clear();
                 ListOfMeasures = mfe.GetMeasures();
-                
+                RefreshNumber();
                 if (ListOfMeasures.Count > 0)
                 {
                     cfe = new CalibrationFE(db);
@@ -563,6 +600,25 @@ namespace enelex3.ViewModel
             {
                 MessageBox.Show("Greška u podacima");
             }
+        }
+        private void RefreshNumber()
+        {
+            Sum_1 = 0;
+            Sum_2 = 0;
+            Sum_3 = 0;
+            Sum_4 = 0;
+            Sum_5 = 0;
+            Sum_Q1 = 0;
+            Sum_Q2 = 0;
+            Result_AbsoluteA = 0;
+            Result_AbsoluteB = 0;
+            Result_ProportionA = 0;
+            Result_ProportionB = 0;
+            Result_W = 0;
+            Result_NewA = 0;
+            Result_NewB = 0;
+            Result_Q = 0;
+            Result_P = 0;
         }
         public ICommand SaveChangesCommand => new RelayCommand(SaveChanges);
         private void SaveChanges()
@@ -727,10 +783,10 @@ namespace enelex3.ViewModel
             if (ListOfMeasures.Count > 0)
             {
 
-                dtMeasure.Columns.Add(new DataColumn("Broj uzorka [n]", typeof(string)));
-                dtMeasure.Columns.Add(new DataColumn("Pepeo x [GE]", typeof(string)));
-                dtMeasure.Columns.Add(new DataColumn("Pepeo y [LAB]", typeof(string)));
-                dtMeasure.Columns.Add(new DataColumn("Vlaga [W]", typeof(string)));
+                dtMeasure.Columns.Add(new DataColumn("Broj uzorka [n]", typeof(double)));
+                dtMeasure.Columns.Add(new DataColumn("Pepeo x [GE]", typeof(double)));
+                dtMeasure.Columns.Add(new DataColumn("Pepeo y [LAB]", typeof(double)));
+                dtMeasure.Columns.Add(new DataColumn("Vlaga [W]", typeof(double)));
 
                 foreach (var z in ListOfMeasures)
                 {
@@ -738,7 +794,7 @@ namespace enelex3.ViewModel
                     MeasuresView x = (MeasuresView)z;
                     DataRow dr = dtMeasure.NewRow();
 
-                    dr[0] = x.IdSort;
+                    dr[0] = x.Index;
                     dr[1] = x.Ge;
                     dr[2] = x.Lab;
                     dr[3] = x.W;
@@ -765,7 +821,7 @@ namespace enelex3.ViewModel
                 if(x != null)
                 {
                     var id = e.Row.GetIndex();
-                    x.IdSort = id + 1;
+                    x.Index = id + 1;
                 }
                 
 
@@ -823,9 +879,9 @@ namespace enelex3.ViewModel
         private void EditNewType()
         {
          
-            if (SelectedNewCalibration != null)
+            if (ListOfCalibrations.Count > -1)
             {
-                ListOfCalibrationEdit(SelectedNewCalibration, true);
+                ListOfCalibrationEdit(ListOfCalibrations[0], true);
             }
             Load();
         }
@@ -913,7 +969,7 @@ namespace enelex3.ViewModel
             }
             else
             {
-                MessageBox.Show("maksimalan broj clanova");
+                MessageBox.Show("Maksimalan broj clanova");
             }
         }
         public double NumberAs { get; set; }
@@ -955,6 +1011,14 @@ namespace enelex3.ViewModel
             SaveCalibrationWindow save = new SaveCalibrationWindow(Load);
             save.ShowDialog();
         }
+        public ICommand ExcelImportCommand => new RelayCommand(ExcelImport);
+        private void ExcelImport()
+        {
+            ExcelImportWindows excel = new ExcelImportWindows(Load);
+            excel.ShowDialog();
+        }
+
+      
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged([CallerMemberName] string name = null)
         {

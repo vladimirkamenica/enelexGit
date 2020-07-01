@@ -12,10 +12,7 @@ namespace enelex3
        
 
         public long ID { get; set; }
-
-        public double IdSort { get; set; }
-
-        public double IndexId { get; set; }
+        public double Index { get; set; }
 
         public long Number { get; set; }
 
@@ -28,6 +25,8 @@ namespace enelex3
         public double LabAsh { get; set; }
 
         public double W { get; set; }
+
+        public string Description { get; set; }
 
         public double SumMeasure
         {

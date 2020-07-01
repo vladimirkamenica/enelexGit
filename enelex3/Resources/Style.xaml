@@ -9,6 +9,7 @@
         <ResourceDictionary Source="pack://application:,,,/Resources/Colours.xaml"></ResourceDictionary>
        
         <ResourceDictionary Source="pack://application:,,,/Resources/GeometryDictionary.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="pack://application:,,,/Resources/GeometryDictionarySigma.xaml"></ResourceDictionary>
     </ResourceDictionary.MergedDictionaries>
 
 </ResourceDictionary>

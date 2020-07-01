@@ -9,7 +9,7 @@
         xmlns:viewModel="clr-namespace:enelex3.ViewModel"
         mc:Ignorable="d"
         d:DataContext="{d:DesignInstance viewModel:MainWindowViewModel}"
-       Title="Enelex GE3030" Icon="Pics/nuclear.ico" Width="1465" Height="800" WindowStartupLocation="CenterScreen" WindowState="Maximized"  Background="WhiteSmoke">
+       Title="Enelex GE3030" Icon="Pics/nuclear.ico" Width="1475" Height="800" WindowStartupLocation="CenterScreen" WindowState="Maximized"  Background="WhiteSmoke">
     <b:Interaction.Triggers>
         <b:EventTrigger EventName="Loaded">
             <b:InvokeCommandAction Command="{Binding LoadCommand}"></b:InvokeCommandAction>
@@ -26,17 +26,15 @@
             <ColumnDefinition Width="auto"></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <StackPanel Orientation="Horizontal" Margin="2,2,0,-2" >
-            <Button Style="{DynamicResource Load}" BorderBrush="Transparent" Background="Transparent" Height="42" Command="{Binding LoadCommand}"></Button>
-
-            <Button Style="{DynamicResource Update}" BorderBrush="Transparent" Background="Transparent" Height="42" Command="{Binding EditMeasureCommand}"></Button>
-            <Button Style="{DynamicResource Delete}" BorderBrush="Transparent" Background="Transparent" Height="42" Command="{Binding DelMeasureCommand}"></Button>
-            <Button Style="{DynamicResource Print2}" Visibility="Collapsed"  Height="42" >Print</Button>
-
-            <Button Style="{DynamicResource ExcelButton}" BorderBrush="Transparent" Height="42" Background="Transparent" VerticalAlignment="Top" Command="{Binding ExcelCommand}"></Button>
-            <Button Style="{DynamicResource Print}" BorderBrush="Transparent" Background="Transparent" VerticalAlignment="Top" Visibility="Collapsed" ></Button>
-            <Button Margin="5" Command="{Binding SaveMeasureCommand}">Snimi</Button>
-            <Button Margin="5" Command="{Binding SaveWinCommand}">Snimi win</Button>
+        <StackPanel Orientation="Horizontal" Margin="5,5,0,0"  Grid.ColumnSpan="2">
+            <Button Style="{DynamicResource Load}"  Height="42" Command="{Binding LoadCommand}"></Button>
+            <Button Style="{DynamicResource Update}"  Height="42" Command="{Binding EditMeasureCommand}"></Button>
+            <Button Style="{StaticResource CopyButton}"  Command="{Binding SaveMeasureCommand}" Height="42"></Button>
+            <Button Style="{StaticResource SearchButton}"  Command="{Binding SaveWinCommand}"></Button>
+            <Button Style="{DynamicResource Delete}"  Height="42" Command="{Binding DelMeasureCommand}"></Button>
+            <Button Style="{DynamicResource ExcelButton}" Height="42" Command="{Binding ExcelCommand}"></Button>
+            <Button Style="{DynamicResource Print}"  VerticalAlignment="Top" Visibility="Collapsed" ></Button>
+            <Button Style="{StaticResource ExcelImportButton}" Command="{Binding ExcelImportCommand}" Content="+"></Button>
         </StackPanel>
         <StackPanel Grid.Row="1" Background="White" Orientation="Horizontal" Margin="5,5,0,0">
             <Label Visibility="Collapsed" Margin="-3,0,0,0">Br</Label>
@@ -47,10 +45,10 @@
             <TextBox Name="tbLAB" Width="42" IsReadOnly="False" Height="20"  Text="{Binding NewMeasureLAB, Mode=TwoWay, StringFormat=N2,UpdateSourceTrigger=PropertyChanged}"></TextBox>
             <Label Margin="-2,0,0,0">W</Label>
             <TextBox Name="tbW" Width="42" IsReadOnly="False" Height="20"  Text="{Binding NewMeasureW, Mode=TwoWay, StringFormat=N2,UpdateSourceTrigger=PropertyChanged}"></TextBox>
-            <Button   Style="{DynamicResource Add2}" Command="{Binding AddMeasureCommand}"></Button>
+            <Button   Style="{DynamicResource Add2}" Width="70" Command="{Binding AddMeasureCommand}" Margin="10,0,0,0"></Button>
         </StackPanel>
 
-        <DataGrid Name="dgMeasures" Grid.ColumnSpan="1"   Grid.Row="2" Grid.RowSpan="2"  Style="{StaticResource dgCustom}" RowStyle="{StaticResource SelectedRow}" ItemsSource="{Binding ListOfMeasures, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedListOfMeasures, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  BorderBrush="#FFC3C3C3"  >
+        <DataGrid Name="dgMeasures"  MinWidth="275" Grid.ColumnSpan="1"   Grid.Row="2" Grid.RowSpan="2"  Style="{StaticResource dgCustom}" RowStyle="{StaticResource SelectedRow}" ItemsSource="{Binding ListOfMeasures, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedListOfMeasures, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  BorderBrush="#FFC3C3C3"  >
             <b:Interaction.Triggers>
                 <b:EventTrigger EventName="LoadingRow">
                     <b:InvokeCommandAction Command="{Binding GetRowIndexMeasure}" PassEventArgsToCommand="True"></b:InvokeCommandAction>
@@ -67,8 +65,11 @@
                     </Setter>
                 </Style>
             </DataGrid.ColumnHeaderStyle>
+            <DataGrid.InputBindings>
+                <KeyBinding Key="Delete" Command="{Binding DelMeasureCommand}"></KeyBinding>
+            </DataGrid.InputBindings>
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Broj uzoraka    j " Binding="{Binding IdSort}" Width="65"></DataGridTextColumn>
+                <DataGridTextColumn Header="Broj uzoraka    j " Binding="{Binding Index}" Width="65"></DataGridTextColumn>
                 <DataGridTextColumn Header="Pepeo GE3030      x" Binding="{Binding Ge,  StringFormat= N2, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="65"  ></DataGridTextColumn>
                 <DataGridTextColumn Header="Pepeo Labaratorija y" Binding="{Binding Lab, StringFormat= N2, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="80"   ></DataGridTextColumn>
                 <DataGridTextColumn Header="Vlaga uzorka    w" Binding="{Binding W, StringFormat= N2, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="65" ></DataGridTextColumn>
@@ -90,110 +91,116 @@
                         <ColumnDefinition></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.ColumnSpan="2" Margin="10,10,0,0">
-                        <Image Source="Pics/suma1.png" Width="80" Margin="0,-10,0,0"></Image>
-                        <Label Margin="0,5,0,0">=</Label>
-                        <TextBox Name="tbSum1" Width="80" Text="{Binding Sum_1,StringFormat=N4}" VerticalContentAlignment="Center" Margin="0,10,0,27" Height="20" IsReadOnly="True"></TextBox>
-                        <Image Source="Pics/suma2.png" Width="45" Margin="5,-10,0,0"></Image>
-                        <Label Margin="0,5,0,0">=</Label>
-                        <TextBox Name="tbSum2" Width="80" Text="{Binding Sum_2,StringFormat=N4}" VerticalContentAlignment="Center" Margin="0,10,0,27" Height="20"></TextBox>
-                        <Image Source="Pics/suma3.png" Width="45" Margin="5,-10,0,0"></Image>
-                        <Label Margin="0,5,0,0">=</Label>
-                        <TextBox Name="tbSum3" Width="80" Text="{Binding Sum_3,StringFormat=N4}" VerticalContentAlignment="Center" Margin="0,10,0,27" Height="20"></TextBox>
-                        <Image Source="Pics/suma4.png" Width="55" Margin="5,-10,0,0"></Image>
-                        <Label Margin="0,5,0,0">=</Label>
-                        <TextBox Name="tbSum4" Width="80" Text="{Binding Sum_4,StringFormat=N4}" VerticalContentAlignment="Center" Margin="0,10,0,27" Height="20"></TextBox>
-                        <Image Source="Pics/suma5.png" Width="73" Margin="5,-10,0,0"></Image>
-                        <Label Margin="0,5,0,0">=</Label>
-                        <TextBox Name="tbSum5" Width="80" Text="{Binding Sum_5,StringFormat=N4}" VerticalContentAlignment="Center" Margin="0,10,0,27" Height="20"></TextBox>
-                        <Label Margin="0,5,0,0">n=</Label>
-                        <TextBox Name="tbn" Width="80" Text="{Binding Number_n}" VerticalContentAlignment="Center" Margin="0,10,0,27" Height="20"></TextBox>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="{StaticResource Sum1Image}" VerticalAlignment="Center"  Width="105"></Image>
+                            <Label  VerticalAlignment="Center">=</Label>
+                            <TextBox Name="tbSum1" Width="80" Text="{Binding Sum_1,StringFormat=N4}" VerticalContentAlignment="Center" Height="20" IsReadOnly="True"></TextBox>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="5,0,0,0">
+                            <Image Source="{StaticResource Sum2Image}"  VerticalAlignment="Center"  Width="60"></Image>
+                            <Label VerticalAlignment="Center">=</Label>
+                            <TextBox Name="tbSum2" Width="80" Text="{Binding Sum_2,StringFormat=N4}" VerticalContentAlignment="Center"  Height="20"></TextBox>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="5,0,0,0">
+                            <Image Source="{StaticResource Sum3Image}" Width="60" VerticalAlignment="Center"></Image>
+                            <Label  VerticalAlignment="Center">=</Label>
+                            <TextBox Name="tbSum3" Width="80" Text="{Binding Sum_3,StringFormat=N4}" VerticalContentAlignment="Center"  VerticalAlignment="Center" Height="20"></TextBox>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="5,0,0,0">
+                            <Image Source="{StaticResource Sum4Image}" Width="72" VerticalAlignment="Center"></Image>
+                            <Label  VerticalAlignment="Center">=</Label>
+                            <TextBox Name="tbSum4" Width="80" Text="{Binding Sum_4,StringFormat=N4}" VerticalContentAlignment="Center"  VerticalAlignment="Center" Height="20"></TextBox>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="5,0,0,0">
+                            <Image Source="{StaticResource Sum5Image}" Width="90" VerticalAlignment="Center"></Image>
+                            <Label VerticalAlignment="Center">=</Label>
+                            <TextBox Name="tbSum5" Width="80" Text="{Binding Sum_5,StringFormat=N4}" VerticalContentAlignment="Center" Height="20"></TextBox>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Margin="5,0,0,0">
+                            <Label VerticalAlignment="Center">n=</Label>
+                            <TextBox  Width="80" Text="{Binding Number_n}" VerticalContentAlignment="Center" VerticalAlignment="Center" Height="20"></TextBox>
+                        </StackPanel>
                     </StackPanel>
                     <StackPanel  Grid.Row="1" Orientation="Horizontal" Margin="0,-15,0,0">
-                        <StackPanel Margin="10,10,0,0">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="auto" ></ColumnDefinition>
-                                    <ColumnDefinition ></ColumnDefinition>
-                                    <ColumnDefinition ></ColumnDefinition>
-                                    <ColumnDefinition ></ColumnDefinition>
-                                </Grid.ColumnDefinitions>
-                                <Image Grid.Column="1"  Source="Pics/p.png" Width="250"></Image>
-                                <Label Grid.Column="2" Margin="0,50,0,0">=</Label>
-                                <TextBox Name="tbP"  Grid.Column="3" Height="20"  Width="100" HorizontalAlignment="Left" VerticalContentAlignment="Center" Margin="0,55,0,57" Text="{Binding Result_P, Mode=TwoWay, StringFormat=N4}"></TextBox>
-                            </Grid>
+                        <StackPanel Margin="10,20,20,0" Orientation="Horizontal">
+                            <Image   Source="{StaticResource SumPImage}" Width="320"></Image>
+                            <Label VerticalAlignment="Center" Margin="0,-7,0,0">=</Label>
+                            <TextBox Name="tbP" Margin="0,-7,0,0" Grid.Column="3" Height="20"  Width="100" HorizontalAlignment="Left" VerticalContentAlignment="Center" Text="{Binding Result_P, Mode=TwoWay, StringFormat=N4}"></TextBox>
                         </StackPanel>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Grid.Row="2" Margin="10,5,0,0">
-                        <Image Source="Pics/suma3.png" Width="42" Margin="0,-10,0,0"></Image>
-                        <Label Margin="0,5,0,0">=</Label>
-                        <TextBox x:Name="tbSumQ1" Width="80" Text="{Binding Sum_Q1}" VerticalContentAlignment="Center" Margin="0,10,0,28" Height="20"/>
-                        <Image Source="Pics/suma6.png" Width="45" Margin="5,-10,0,0"></Image>
-                        <Label Margin="0,5,0,0">=</Label>
-                        <TextBox Name="tbSumQ2" Width="80" Text="{Binding Sum_Q2}" VerticalContentAlignment="Center" Margin="0,10,0,28" Height="20"></TextBox>
-                        <Label Margin="0,5,0,0">n=</Label>
-                        <TextBox Name="tbn1" Width="80" Text="{Binding Number_n}" VerticalContentAlignment="Center" Margin="0,10,0,28" Height="20"></TextBox>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="{StaticResource Sum6Image}" Width="55" VerticalAlignment="Center"></Image>
+                            <Label VerticalAlignment="Center">=</Label>
+                            <TextBox x:Name="tbSumQ1" Width="80" Text="{Binding Sum_Q1}" VerticalContentAlignment="Center" VerticalAlignment="Center" Height="20"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="5,0,0,0">
+                            <Image Source="{StaticResource Sum7Image}" Width="72" VerticalAlignment="Center"></Image>
+                            <Label VerticalAlignment="Center">=</Label>
+                            <TextBox Name="tbSumQ2" Width="80" Text="{Binding Sum_Q2}" VerticalContentAlignment="Center" VerticalAlignment="Center" Height="20"></TextBox>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="5,0,0,0">
+                            <Label VerticalAlignment="Center">n=</Label>
+                            <TextBox Name="tbn1" Width="80" Text="{Binding Number_n}" VerticalContentAlignment="Center" VerticalAlignment="Center" Height="20"></TextBox>
+                        </StackPanel>
+                        
                     </StackPanel>
-                    <StackPanel Margin="10,-20,0,0" Grid.Row="3" Orientation="Horizontal">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="auto" ></ColumnDefinition>
-                                <ColumnDefinition  ></ColumnDefinition>
-                                <ColumnDefinition ></ColumnDefinition>
-                                <ColumnDefinition ></ColumnDefinition>
-                            </Grid.ColumnDefinitions>
-                            <Image Grid.Column="1" Source="Pics/q.png" Width="155" Margin="0,5,0,0"></Image>
-                            <Label Grid.Column="2" Margin="0,67,0,0">=</Label>
-                            <TextBox Name="tbQ" Grid.Column="3" Width="100" HorizontalAlignment="Left"  VerticalContentAlignment="Center" Margin="0,72,0,37" Text="{Binding Result_Q, Mode=TwoWay, StringFormat=N4}"></TextBox>
-                        </Grid>
+                    <StackPanel Margin="10,10,0,0" Grid.Row="3" Orientation="Horizontal">
+                        
+                            <Image Source="{StaticResource SumQImage}" Width="200" Margin="0,5,0,0"></Image>
+                        <Label VerticalAlignment="Center"  Margin="0,50,0,0">=</Label>
+                            <TextBox Name="tbQ" Margin="0,55,0,0" Width="100" HorizontalAlignment="Left"  VerticalContentAlignment="Center" VerticalAlignment="Center" Text="{Binding Result_Q, Mode=TwoWay, StringFormat=N4}"></TextBox>
+                        
                     </StackPanel>
                     <StackPanel Grid.Row="3" Grid.Column="2" VerticalAlignment="Bottom" HorizontalAlignment="Right">
                         <Button Visibility="Collapsed" Style="{DynamicResource PrintSheet}"></Button>
                     </StackPanel>
                 </Grid>
             </GroupBox>
-            <StackPanel Margin="0,-10,5,0">
+            <StackPanel Margin="0,0,5,0">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition ></ColumnDefinition>
                         <ColumnDefinition ></ColumnDefinition>
                     </Grid.ColumnDefinitions>
-                    <GroupBox Header="Novi tip kalibracije" Margin="5,5,5,0" BorderThickness="1"   BorderBrush="#FFCBCBCB" >
+                    <GroupBox Header="Novi tip kalibracije" Margin="5,0,5,0" BorderThickness="1"   BorderBrush="#FFCBCBCB" >
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="auto"></ColumnDefinition>
                                 <ColumnDefinition Width="auto"></ColumnDefinition>
                                 <ColumnDefinition Width="auto"></ColumnDefinition>
                                 <ColumnDefinition  ></ColumnDefinition>
-                               
                             </Grid.ColumnDefinitions>
                             <StackPanel>
-                                <Grid>
+                                <Grid Margin="0,5,0,0">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="auto"></RowDefinition>
-                                        <RowDefinition></RowDefinition>
-                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition ></RowDefinition>
                                     </Grid.RowDefinitions>
                                     <StackPanel Orientation="Horizontal" >
                                         <Button Style="{DynamicResource SaveButton}" Visibility="Collapsed" Command="{Binding EditNewCommand}"  Margin="5,0,0,0" BorderBrush="#FFB8B8B8" ></Button>
                                         <Button Style="{DynamicResource UpdateButton}" Command="{Binding EditNewTypeCommand}"></Button>
                                         <Button  Style="{DynamicResource Graph}" Command="{Binding Graph1Command}" />
                                     </StackPanel >
-                                    <ListView Grid.Row="2" Visibility="Collapsed"  ItemsSource="{Binding ListOfCalibrations}" SelectedItem="{Binding SelectedNewCalibration}">
-                                        <ListView.ItemTemplate>
-                                            <DataTemplate>
-                                                <StackPanel Orientation="Horizontal">
-                                                    <TextBox Text="{Binding  NumberA}" MinWidth="100"></TextBox>
-                                                    <TextBlock Text="{Binding  NumberB}" MinWidth="100"></TextBlock>
-                                                </StackPanel>
-                                            </DataTemplate>
-                                        </ListView.ItemTemplate>
-                                    </ListView>
-                                    <DataGrid Visibility="Visible" ColumnHeaderStyle="{StaticResource HeaderStyle}" Name="dgTipAB" Style="{StaticResource dgCustom }" ItemsSource="{Binding ListOfCalibrations}" SelectedItem="{Binding SelectedNewCalibration}"  CanUserAddRows="False"  Grid.Row="2" Height="45" Margin="5,5,0,0">
+                                   
+                                    <DataGrid Visibility="Collapsed" ColumnHeaderStyle="{StaticResource HeaderStyle}" Name="dgTipAB" Style="{StaticResource dgCustom }" ItemsSource="{Binding ListOfCalibrations}" SelectedItem="{Binding SelectedNewCalibration}"  CanUserAddRows="False"  Grid.Row="2" Height="45" Margin="5,5,0,0">
                                         <DataGrid.Columns>
                                             <DataGridTextColumn Header="Vrednost [a]" MinWidth="100" Binding="{Binding NumberA, Mode=TwoWay, StringFormat=N4}" ></DataGridTextColumn>
                                             <DataGridTextColumn Header="Vrednost [b]" MinWidth="100" Binding="{Binding NumberB, Mode=TwoWay, StringFormat=N4}" ></DataGridTextColumn>
                                         </DataGrid.Columns>
                                     </DataGrid>
+                                    <StackPanel Orientation="Vertical" Grid.Row="2" Grid.RowSpan="3"  DataContext="{Binding ListOfCalibrations,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Margin="0,5,0,0">
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBox Margin="5" BorderThickness="0" Text="Vrednost [a] :" MinWidth="100" HorizontalContentAlignment="Center"></TextBox>
+                                            <TextBox Margin="0,5,0,0" BorderThickness="1" MinWidth="100" IsReadOnly="False" Text="{Binding NumberA,StringFormat=N2,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" >
+                                            <TextBox  Margin="5" BorderThickness="0" Text="Vrednost [b] :" MinWidth="100" HorizontalContentAlignment="Center"></TextBox>
+                                            <TextBox  Margin="0,5,0,0" BorderThickness="1"  MinWidth="100" IsReadOnly="False"  Text="{Binding NumberB,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,StringFormat=N2}"></TextBox>
+                                        </StackPanel>
+                                    </StackPanel>
                                 </Grid>
                             </StackPanel>
                             <StackPanel Grid.Column="1" Margin="0,20,5,0">
@@ -250,9 +257,8 @@
                             </StackPanel>
                         </Grid>
                     </GroupBox>
-                    <GroupBox Header="Apsolutno pomeranje" Grid.Column="1" Margin="5,5,0,0" BorderThickness="1"   BorderBrush="#FFCBCBCB">
-                        <Grid>
-                          
+                    <GroupBox Header="Apsolutno pomeranje" Grid.Column="1" Margin="5,0,0,0" BorderThickness="1"   BorderBrush="#FFCBCBCB">
+                        <Grid Margin="0,5,0,0">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="auto"></ColumnDefinition>
                                 <ColumnDefinition Width="auto"></ColumnDefinition>
@@ -264,21 +270,21 @@
                                 <Grid>
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="auto"></RowDefinition>
-                                        <RowDefinition></RowDefinition>
-                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="auto"></RowDefinition>
                                     </Grid.RowDefinitions>
                                     <StackPanel Orientation="Horizontal">
                                         <Button Style="{DynamicResource SaveButton}" Visibility="Collapsed" ></Button>
-                                        <Button Style="{DynamicResource UpdateButton}"  Command="{Binding SaveChangesCommand}"></Button>
+                                        <Button Style="{DynamicResource UpdateButton}" Height="42"  Command="{Binding SaveChangesCommand}"></Button>
                                     </StackPanel >
                                     <StackPanel Visibility="Collapsed" Orientation="Horizontal" Grid.Row="1" Height="20" Margin="0,0,0,0">
                                         <TextBox Width="72" Height="20" Margin="5,0,5,0"  Text="{Binding NumberPr, Mode=TwoWay, StringFormat={}{0:F2}}"  ></TextBox>
 
                                     </StackPanel>
                                     <StackPanel  Grid.Row="2" >
-                                        <DataGrid Name="dgApsolutno" Style="{StaticResource dgCustom}" ItemsSource="{Binding ListOfPercetange}" Height="45" CanUserAddRows="False" Margin="5,5,0,0" >
+                                        <DataGrid Name="dgApsolutno" ColumnHeaderStyle="{StaticResource HeaderStyle}" Style="{StaticResource dgCustom}" ItemsSource="{Binding ListOfPercetange}" Height="45" CanUserAddRows="False" Margin="5,5,0,0" >
                                             <DataGrid.Columns>
-                                                <DataGridTextColumn Header="Procenat pomeranja [k]" Binding="{Binding NumberP,  Mode=TwoWay, StringFormat={}{0:F2}}"></DataGridTextColumn>
+                                                <DataGridTextColumn Header="Procenat pomeranja [k]"  MinWidth="130"  Binding="{Binding NumberP,  Mode=TwoWay, StringFormat={}{0:F2}}"></DataGridTextColumn>
                                             </DataGrid.Columns>
                                         </DataGrid>
                                     </StackPanel>
@@ -288,8 +294,8 @@
                                 <Grid>
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="auto"></RowDefinition>
-                                        <RowDefinition ></RowDefinition>
-                                        <RowDefinition ></RowDefinition>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="auto"></RowDefinition>
                                     </Grid.RowDefinitions>
                                     <StackPanel Orientation="Horizontal" >
                                         <Button Style="{DynamicResource SaveButton}" Visibility="Collapsed" ></Button>
@@ -301,11 +307,11 @@
                                         <TextBox Width="72" Height="20" Text="{Binding NumberBa, Mode=TwoWay, StringFormat={}{0:F2}}" ></TextBox>
                                     </StackPanel>
                                     <StackPanel Grid.Row="2" Margin="5,5,0,0">
-                                        
-                                        <DataGrid Name="dgTipAB2"   Style="{StaticResource dgCustom}" ItemsSource="{Binding ListOfCalibrationAbsoluteShifting}" SelectedItem="{Binding SelectedListOfCalibrationAbsoluteShifting}" Height="45" CanUserAddRows="False"    >
+
+                                        <DataGrid Name="dgTipAB2" ColumnHeaderStyle="{StaticResource HeaderStyle}"  Style="{StaticResource dgCustom}" ItemsSource="{Binding ListOfCalibrationAbsoluteShifting}" SelectedItem="{Binding SelectedListOfCalibrationAbsoluteShifting}" Height="45" CanUserAddRows="False"    >
                                             <DataGrid.Columns>
-                                                <DataGridTextColumn Header="Vrednost [a]" Binding="{Binding NumberATwo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat=N4}" ></DataGridTextColumn>
-                                                <DataGridTextColumn Header="Vrednost [b]" Binding="{Binding NumberBTwo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat=N4}" ></DataGridTextColumn>
+                                                <DataGridTextColumn Header="Vrednost [a]"  MinWidth="100"  Binding="{Binding NumberATwo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat=N4}" ></DataGridTextColumn>
+                                                <DataGridTextColumn Header="Vrednost [b]"  MinWidth="100"  Binding="{Binding NumberBTwo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat=N4}" ></DataGridTextColumn>
                                             </DataGrid.Columns>
                                         </DataGrid>
                                     </StackPanel>
@@ -314,10 +320,10 @@
                             <StackPanel Grid.Column="2">
                                 <Grid>
                                     <Grid.RowDefinitions>
-                                        <RowDefinition></RowDefinition>
-                                        <RowDefinition></RowDefinition>
-                                        <RowDefinition></RowDefinition>
-                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="auto"></RowDefinition>
                                     </Grid.RowDefinitions>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="auto"></ColumnDefinition>
@@ -352,21 +358,7 @@
                                     </StackPanel>
                                 </Grid>
                             </StackPanel>
-                            <StackPanel Grid.Column="4"  Orientation="Horizontal" HorizontalAlignment="Right">
-                              
-                            </StackPanel>
-                            
-                           
-                           
-
                           
-                           
-                           
-
-                           
-                           
-                           
-                           
                         </Grid>
                     </GroupBox>
                 </Grid>
@@ -381,8 +373,8 @@
                         <RowDefinition></RowDefinition>
                         <RowDefinition></RowDefinition>
                     </Grid.RowDefinitions>
-                    <GroupBox Header="Srazmerno pomeranje" Margin="5,-6,0,5" BorderThickness="1"   BorderBrush="#FFCBCBCB">
-                        <Grid>
+                    <GroupBox Header="Srazmerno pomeranje" Margin="5,0,0,5" BorderThickness="1"   BorderBrush="#FFCBCBCB">
+                        <Grid Margin="0,5,0,0">
                             <Grid.RowDefinitions>
                                 <RowDefinition ></RowDefinition>
                                 <RowDefinition ></RowDefinition>
@@ -440,10 +432,10 @@
                                         <TextBox Width="73" Height="20" Text="{Binding NumberBs, Mode=TwoWay, StringFormat={}{0:F2}}" ></TextBox>
                                     </StackPanel>
                                     <StackPanel  Grid.Row="2" Margin="0,30,0,0" >
-                                        <DataGrid Name="dgTipAB3" Style="{StaticResource dgCustom}" ItemsSource="{Binding ListOfValueOfProportion}" CanUserAddRows="False"  Margin="10,0,-15,0" Height="45">
+                                        <DataGrid Name="dgTipAB3" ColumnHeaderStyle="{StaticResource HeaderStyle}" Style="{StaticResource dgCustom}" ItemsSource="{Binding ListOfValueOfProportion}" CanUserAddRows="False"  Margin="10,0,-15,0" Height="45">
                                             <DataGrid.Columns>
-                                                <DataGridTextColumn Header="Vrednost [a]" Binding="{Binding NumberAThree, Mode=TwoWay, StringFormat=N4}" ></DataGridTextColumn>
-                                                <DataGridTextColumn Header="Vrednost [b]" Binding="{Binding NumberBThree, Mode=TwoWay, StringFormat=N4}" ></DataGridTextColumn>
+                                                <DataGridTextColumn Header="Vrednost [a]"  MinWidth="100"  Binding="{Binding NumberAThree, Mode=TwoWay, StringFormat=N4}" ></DataGridTextColumn>
+                                                <DataGridTextColumn Header="Vrednost [b]"  MinWidth="100"  Binding="{Binding NumberBThree, Mode=TwoWay, StringFormat=N4}" ></DataGridTextColumn>
                                             </DataGrid.Columns>
                                         </DataGrid>
                                     </StackPanel>
@@ -497,9 +489,7 @@
             </StackPanel>
         </StackPanel>
         <StackPanel Grid.Row="3" Grid.Column="1"  >
-            <StackPanel  Background="White"  HorizontalAlignment="Right">
-                <Image Source="Pics/logo.png" Width="100" Margin="0,0,10,10"></Image>
-            </StackPanel>
+            
         </StackPanel>
     </Grid>
 </Window>
