@@ -21,7 +21,7 @@ namespace enelex3.ViewModel
     public class SaveTransViewModel : INotifyPropertyChanged
     {
         Model1 db = new Model1();
-        List<MeasuresView> ListOfMeasures;
+        ObservableCollection<MeasuresView> ListOfMeasures;
         private SaveMeasure save;
         public SaveMeasure Save
         {
@@ -35,10 +35,19 @@ namespace enelex3.ViewModel
                 }
             }
         }
-
-        public SaveTransViewModel(List<MeasuresView> listOfMeasures)
+        private double Shift;
+        private double P;
+        private double Q;
+        private double Ps;
+        private double Qs;
+        public SaveTransViewModel(ObservableCollection<MeasuresView> listOfMeasures, double shift, double p, double q, double ps, double qs)
         {
             Load();
+            Shift = shift;
+            P = p;
+            Q = q;
+            Ps = ps;
+            Qs = qs;
             Save = new SaveMeasure() { DateOfCalibration = DateTime.Now };
             ListOfMeasures = listOfMeasures;
         }
@@ -77,6 +86,7 @@ namespace enelex3.ViewModel
             GetSaveMeasureGroup = new ObservableCollection<SaveMeasureViewGroup>();
             GetSaveMeasureGroup.Clear();
             GetSaveMeasureGroup = mfe.GetViewGroups(GetSaveMeasure).ToObservable();
+            var xx = GetSaveMeasure.Max(x => x.GroupID);
             Count = GetSaveMeasureGroup.Count() + 1; ;
         }
         public ICommand SaveMeasureCommand => new RelayCommand<Window>(SaveMeasure);
@@ -87,10 +97,15 @@ namespace enelex3.ViewModel
             {
                 if (x != null)
                 {
-                    save.GroupID = GetSaveMeasureGroup.Count() + 1;
+                    save.GroupID = GetSaveMeasure.Max(y => y.GroupID) + 1;
                     save.Ge = x.Ge;
                     save.Lab = x.Lab;
                     save.W = x.W;
+                    save.P = P;
+                    save.Q = Q;
+                    save.Shifting = Shift;
+                    save.ShiftingProportionP = Ps;
+                    save.ShiftingProportionQ = Qs;
                     if (save != null)
                     {
                         db.SaveMeasures.Add(save);

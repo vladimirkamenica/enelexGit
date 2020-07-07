@@ -14,6 +14,8 @@ using GalaSoft.MvvmLight.CommandWpf;
 using System.Windows.Input;
 using System.Windows;
 using enelex3.UserControls;
+using enelex3.ConvertToGrahView;
+using System.Windows.Controls;
 
 namespace enelex3.ViewModel
 {
@@ -38,7 +40,32 @@ namespace enelex3.ViewModel
                 }
             }
         }
-
+        private ScatterLineGraph scatterGraph2;
+        public ScatterLineGraph ScatterGraph2
+        {
+            get => scatterGraph2;
+            set
+            {
+                if (scatterGraph2 != value)
+                {
+                    scatterGraph2 = value;
+                    OnPropertyChanged(nameof(ScatterGraph2));
+                }
+            }
+        }
+        private ScatterLineGraph scatterGraph3;
+        public ScatterLineGraph ScatterGraph3
+        {
+            get => scatterGraph3;
+            set
+            {
+                if (scatterGraph3 != value)
+                {
+                    scatterGraph3 = value;
+                    OnPropertyChanged(nameof(ScatterGraph3));
+                }
+            }
+        }
         private MeasuresFE mfe;
         private List<SaveMeasureViews> getSaveMeasure { get; set; }
 
@@ -78,10 +105,19 @@ namespace enelex3.ViewModel
                 if (selectedGetSaveMeasureGroup != value)
                 {
                     selectedGetSaveMeasureGroup = value;
+                    if(selectedGetSaveMeasureGroup != null)
+                    {
+                        FillItems();
+                    }
                     OnPropertyChanged(nameof(SelectedGetSaveMeasureGroup));
                 }
             }
         }
+        private double Shift;
+        private double P;
+        private double Q;
+        private double Ps;
+        private double Qs;
         private List<MeasuresView> GetMeasuresViews { get; set; } = new List<MeasuresView>();
         public ICommand LoadCommand => new RelayCommand(Load);
         private void Load()
@@ -90,19 +126,49 @@ namespace enelex3.ViewModel
             mfe = new MeasuresFE(db);
             GetSaveMeasure = new List<SaveMeasureViews>();
             GetSaveMeasure.Clear();
-            GetSaveMeasure = mfe.GetSaveMeasureViews();
+            GetSaveMeasure = mfe.GetSaveMeasureViews().ToList();
             GetSaveMeasureGroup = new ObservableCollection<SaveMeasureViewGroup>();
             GetSaveMeasureGroup.Clear();
             GetSaveMeasureGroup = mfe.GetViewGroups(GetSaveMeasure).ToObservable();
-           
-           
-           
-             
+          
         }
+        private void FillItems()
+        {
+            GetSaveMeasure = new List<SaveMeasureViews>();
+            GetSaveMeasure.Clear();
+            GetSaveMeasure = mfe.GetSaveMeasureViews().Where(x=> x.GroupID == SelectedGetSaveMeasureGroup.GroupID).ToList();
+            var find = GetSaveMeasureGroup.Where(x => x.GroupID == SelectedGetSaveMeasureGroup.GroupID).ToObservable();
 
+            foreach (var x in find)
+            {
+                P = x.P;
+                Q = x.Q;
+                Shift = x.Shifting;
+                Ps = x.ShiftingProportionP;
+                Qs = x.ShiftingProportionQ;
+            }
+
+            ScatterGraph = new ScatterLineGraph();
+            ScatterGraph2 = new ScatterLineGraph();
+            ScatterGraph3 = new ScatterLineGraph();
+            ScatterGraph.SetMeasureViewToGraph(GraphViewConvert.SaveMeasureToGraphView(find), P, Q);
+            ScatterGraph2.SetMeasureViewToGraph2(GraphViewConvert.SaveMeasureToGraphView(find), P, Q, Shift);
+            ScatterGraph3.SetMeasureViewToGraph3(GraphViewConvert.SaveMeasureToGraphView(find), P, Q, Ps, Qs, Shift);
+        }
+        public ICommand GraphLoadCommand => new RelayCommand(GraphLoad);
+        private void GraphLoad()
+        {
+            var xxx = GetSaveMeasureGroup.Select(x => x.P);
+            ScatterGraph = new ScatterLineGraph();
+            ScatterGraph.SetMeasureViewToGraph(GraphViewConvert.SaveMeasureToGraphView(GetSaveMeasureGroup), P, Q);
+        }
         public ICommand DelMeasureCommand => new RelayCommand(DelMeasure);
         private void DelMeasure()
         {
+            if(SelectedGetSaveMeasureGroup != null)
+            {
+
+        
             if (MessageBox.Show("Da li ste sigurni?", "Eneleks 1.0", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
             {
 
@@ -111,7 +177,7 @@ namespace enelex3.ViewModel
             {
                 List<long> ids = new List<long>();
 
-                foreach (var x in GetSaveMeasure)
+                foreach (var x in SelectedGetSaveMeasureGroup.Details)
                 {
                     var id = x.Id;
                     ids.Add(id);
@@ -131,6 +197,7 @@ namespace enelex3.ViewModel
                     GetSaveMeasure.Remove(GetSaveMeasure.FirstOrDefault(x => x.Id == id));
                 }
                 Load();
+            }
             }
         }
         public ICommand SaveCommand => new RelayCommand(Save);
@@ -152,6 +219,23 @@ namespace enelex3.ViewModel
                 }
             }
             LoadAction?.Invoke();
+        }
+        public ICommand GetRowIndexMeasure => new RelayCommand<DataGridRowEventArgs>(RowIndexMeasure);
+        private void RowIndexMeasure(DataGridRowEventArgs e)
+        {
+            if (GetSaveMeasure.Count > 0)
+            {
+
+                var x = e.Row.DataContext as SaveMeasureViews;
+                if (x != null)
+                {
+                    var id = e.Row.GetIndex();
+                    x.Index = id + 1;
+                }
+
+
+            }
+
         }
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged([CallerMemberName] string name = null)

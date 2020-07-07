@@ -16,7 +16,9 @@ using GalaSoft.MvvmLight.CommandWpf;
 using enelex3.Base;
 using enelex3.Windows;
 using Microsoft.Win32;
-
+using System.Collections.ObjectModel;
+using enelex3.ConvertToGrahView;
+using enelex3.Helpers;
 
 namespace enelex3.ViewModel
 {
@@ -30,11 +32,51 @@ namespace enelex3.ViewModel
         {
            
         }
+
         private MeasuresFE mfe;
 
-        private List<MeasuresView> listOfMeasures { get; set; }
+        private ScatterLineGraph scatterGraph;
+        public ScatterLineGraph ScatterGraph
+        {
+            get => scatterGraph;
+            set
+            {
+                if (scatterGraph != value)
+                {
+                    scatterGraph = value;
+                    OnPropertyChanged(nameof(ScatterGraph));
+                }
+            }
+        }
+        private ScatterLineGraph scatterGraph2;
+        public ScatterLineGraph ScatterGraph2
+        {
+            get => scatterGraph2;
+            set
+            {
+                if (scatterGraph2 != value)
+                {
+                    scatterGraph2 = value;
+                    OnPropertyChanged(nameof(ScatterGraph2));
+                }
+            }
+        }
+        private ScatterLineGraph scatterGraph3;
+        public ScatterLineGraph ScatterGraph3
+        {
+            get => scatterGraph3;
+            set
+            {
+                if (scatterGraph3 != value)
+                {
+                    scatterGraph3 = value;
+                    OnPropertyChanged(nameof(ScatterGraph3));
+                }
+            }
+        }
+        private ObservableCollection<MeasuresView> listOfMeasures { get; set; }
 
-        public List<MeasuresView> ListOfMeasures
+        public ObservableCollection<MeasuresView> ListOfMeasures
         {
             get => listOfMeasures;
             set
@@ -60,8 +102,19 @@ namespace enelex3.ViewModel
             }
 
         }
-
-
+        private ObservableCollection<GraphView> getGraphView { get; set; }
+        public ObservableCollection<GraphView> GetGraphView
+        {
+            get => getGraphView;
+            set
+            {
+                if (getGraphView != value)
+                {
+                    getGraphView = value;
+                    OnPropertyChanged(nameof(GetGraphView));
+                }
+            }
+        }
         private List<ValueOfProportion> listOfValueOfProportion { get; set; }
         public List<ValueOfProportion> ListOfValueOfProportion
         {
@@ -512,9 +565,9 @@ namespace enelex3.ViewModel
             {
                 db = new Model1();
                 mfe = new MeasuresFE(db);
-                ListOfMeasures = new List<MeasuresView>();
+                ListOfMeasures = new ObservableCollection<MeasuresView>();
                 ListOfMeasures.Clear();
-                ListOfMeasures = mfe.GetMeasures();
+                ListOfMeasures = mfe.GetMeasures().ToObservable();
                 RefreshNumber();
                 if (ListOfMeasures.Count > 0)
                 {
@@ -585,7 +638,7 @@ namespace enelex3.ViewModel
                         var a = ListOfValueOfProportion[0].NumberAThree;
                         var agore = ListOfCalibrationProportionShifting[1].L - ListOfCalibrationProportionShifting[0].L;
                         var adole = ListOfCalibrationProportionShifting[1].P - ListOfCalibrationProportionShifting[0].P;
-                        var deljenje = (agore) / (adole);
+                        var deljenje = agore / (adole);
                         Result_ProportionA = a * deljenje;
                         var bgore = ListOfCalibrationProportionShifting[0].P + ListOfValueOfProportion[0].NumberBThree;
                         var deljenjeb = bgore / a;
@@ -595,6 +648,14 @@ namespace enelex3.ViewModel
                         Qs = ListOfCalibrationProportionShifting[1].SumLP;
                     }
                 }
+
+                ScatterGraph = new ScatterLineGraph();
+                ScatterGraph2 = new ScatterLineGraph();
+                ScatterGraph3 = new ScatterLineGraph();
+                ScatterGraph.SetMeasureViewToGraph(GraphViewConvert.MeasureToGraphView(ListOfMeasures), Result_P, Result_Q);
+                ScatterGraph2.SetMeasureViewToGraph2(GraphViewConvert.MeasureToGraphView(ListOfMeasures), Result_P, Result_Q, Shifting_P);
+                ScatterGraph3.SetMeasureViewToGraph3(GraphViewConvert.MeasureToGraphView(ListOfMeasures), Result_P, Result_Q, Ps, Qs, Shifting_P);
+
             }
             catch
             {
@@ -978,31 +1039,31 @@ namespace enelex3.ViewModel
         public ICommand Graph1Command => new RelayCommand(Graph1);
         private void Graph1()
         {
-            Graph1 gr = new Graph1(ListOfMeasures, Result_P, Result_Q);
+            Graph1 gr = new Graph1(GraphViewConvert.MeasureToGraphView(ListOfMeasures), Result_P, Result_Q);
             gr.ShowDialog();
 
         }
         public ICommand Graph2Command => new RelayCommand(Graph2);
         private void Graph2()
         {
-            Graph1 gr = new Graph1(ListOfMeasures, Result_P, Result_Q, Shifting_P);
+            Graph1 gr = new Graph1(GraphViewConvert.MeasureToGraphView(ListOfMeasures), Result_P, Result_Q, Shifting_P);
             gr.ShowDialog();
         }
         public ICommand Graph3Command => new RelayCommand(Graph3);
         private void Graph3()
         {
-            Graph1 gr = new Graph1(ListOfMeasures, Result_P, Result_Q, Ps, Qs, Shifting_P);
+            Graph1 gr = new Graph1(GraphViewConvert.MeasureToGraphView(ListOfMeasures), Result_P, Result_Q, Ps, Qs, Shifting_P);
             gr.ShowDialog();
         }
         private void Button_Click_11(object sender, RoutedEventArgs e)
         {
-            Windows.AddMeasures add = new Windows.AddMeasures();
+            AddMeasures add = new AddMeasures();
             add.ShowDialog();
         }
         public ICommand SaveMeasureCommand => new RelayCommand(SaveMeasure);
         private void SaveMeasure()
         {
-            SaveTransWin save = new SaveTransWin(ListOfMeasures);
+            SaveTransWin save = new SaveTransWin(ListOfMeasures, Shifting_P,Result_P,Result_Q,Ps,Qs);
             save.ShowDialog();
         }
         public ICommand SaveWinCommand => new RelayCommand(SaveWin);

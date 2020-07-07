@@ -4,9 +4,10 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:enelex3.UserControls"
+             xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
              mc:Ignorable="d" 
-             Height="auto" Width="auto" >
+             MinHeight="300" MinWidth="450" >
 
         <Grid>
             <Grid.RowDefinitions>
@@ -15,8 +16,8 @@
                 <RowDefinition Height="auto"></RowDefinition>
             </Grid.RowDefinitions>
 
-            <lvc:CartesianChart Grid.Row="1"  Name="Graph" Loaded="Graph_Loaded"  >
-
+            <lvc:CartesianChart Grid.Row="1"  Name="Graph" Loaded="Graph_Loaded">
+          
                 <lvc:CartesianChart.Series>
                     <lvc:ScatterSeries Title="Ge-x, Lab-y" Values="{Binding ValuesA}" PointGeometry="{x:Static lvc:DefaultGeometries.Circle}" 
                                        >

@@ -16,6 +16,7 @@ using System.Windows.Input;
 using System.Windows.Controls;
 using System.Windows;
 using System.Collections.ObjectModel;
+using enelex3.Helpers;
 
 namespace enelex3.ViewModel
 {
@@ -26,6 +27,7 @@ namespace enelex3.ViewModel
         public ExcelImportViewModel(Action load)
         {
             Load = load;
+            All = true;
         }
         private ObservableCollection<string> nameSheetTxt { get; set; }
         public ObservableCollection<string> NameSheetTxt
@@ -108,6 +110,87 @@ namespace enelex3.ViewModel
                 }
             }
         }
+        private bool ge;
+        public bool Ge
+        {
+            get => ge;
+            set
+            {
+                if(ge != value)
+                {
+                    ge = value;
+                    OnPropertyChanged(nameof(Ge));
+                }
+            }
+        }
+        private bool lab;
+        public bool Lab
+        {
+            get => lab;
+            set
+            {
+                if (lab != value)
+                {
+                    lab = value;
+                    OnPropertyChanged(nameof(Lab));
+                }
+            }
+        }
+        private bool all;
+        public bool All
+        {
+            get => all;
+            set
+            {
+                if (all != value)
+                {
+                    all = value;
+                    OnPropertyChanged(nameof(All));
+                }
+            }
+        }
+        private double findFrom { get; set; }
+        public double FindFrom
+        {
+            get => findFrom;
+            set
+            {
+                if (findFrom != value)
+                {
+                    findFrom = value;
+
+                    OnPropertyChanged(nameof(FindFrom));
+                }
+            }
+        }
+        private double findTo { get; set; }
+        public double FindTo
+        {
+            get => findTo;
+            set
+            {
+                if (findTo != value)
+                {
+                    findTo = value;
+
+                    OnPropertyChanged(nameof(FindTo));
+                }
+            }
+
+        }
+        private List<ImportClassView> listFindImport { get; set; }
+        public List<ImportClassView> ListFindImport
+        {
+            get => listFindImport;
+            set
+            {
+                if(listFindImport != value)
+                {
+                    listFindImport = value;
+                    OnPropertyChanged(nameof(ListFindImport));
+                }
+            }
+        }
         public ICommand OpenCommand => new RelayCommand(ExcelImport);
         private void ExcelImport()
         {
@@ -184,6 +267,27 @@ namespace enelex3.ViewModel
             
            
            
+        }
+        public ICommand FindNumberCommand => new RelayCommand(FindNumber);
+        private void FindNumber()
+        {
+            LoadExcel();
+            ListFindImport = new List<ImportClassView>();
+            ListFindImport.Clear();
+            ListFindImport.AddRange(GetImportMeasure);
+            if(FindFrom > 0 && FindTo > 0 && Ge == true)
+            {
+                ListFindImport = ListFindImport.Where(x => x.Ge >= FindFrom && x.Ge <= FindTo).ToList();
+            }
+            else if(FindFrom > 0 && FindTo > 0 && Lab == true)
+            {
+                ListFindImport = ListFindImport.Where(x => x.Lab >= FindFrom && x.Lab <= FindTo).ToList();
+            }
+            else if (FindFrom > 0 && FindTo > 0 && All == true)
+            {
+                ListFindImport = ListFindImport.Where(x => x.Lab >= FindFrom && x.Lab <= FindTo && x.Ge >= FindFrom && x.Ge <= FindTo).ToList();
+            }
+            GetImportMeasure = ListFindImport.ToObservable();
         }
         public ICommand ImportCommand => new RelayCommand(ItemsExcel);
         private void ItemsExcel()

@@ -8,7 +8,7 @@
         xmlns:viewModel ="clr-namespace:enelex3.ViewModel"
         mc:Ignorable="d"
         d:DataContext="{d:DesignInstance viewModel:SaveTransViewModel}"
-        Title="SaveTransWin" SizeToContent="WidthAndHeight" Background="WhiteSmoke" WindowStartupLocation="CenterScreen">
+        Title="Snimi kalibraciju" SizeToContent="WidthAndHeight" Background="WhiteSmoke" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition></RowDefinition>

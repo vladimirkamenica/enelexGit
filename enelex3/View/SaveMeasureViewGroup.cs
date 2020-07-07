@@ -17,6 +17,16 @@ namespace enelex3.View
 
         public int GroupID { get; set; }
 
+        public double P { get; set; }
+
+        public double Q { get; set; }
+
+        public double Shifting { get; set; }
+
+        public double ShiftingProportionP { get; set; }
+
+        public double ShiftingProportionQ { get; set; }
+
         public List<SaveMeasureViews> Details { get; set; } = new List<SaveMeasureViews>();
     }
 }

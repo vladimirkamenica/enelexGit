@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,9 +22,9 @@ namespace enelex3.Windows
     /// </summary>
     public partial class SaveTransWin : Window
     {
-        public SaveTransWin(List<MeasuresView> listOfMeasures)
+        public SaveTransWin(ObservableCollection<MeasuresView> listOfMeasures,double shift, double p, double q, double Ps, double Qs)
         {
-            DataContext = new SaveTransViewModel(listOfMeasures);
+            DataContext = new SaveTransViewModel(listOfMeasures,shift,p,q,Ps,Qs);
             InitializeComponent();
         }
     }

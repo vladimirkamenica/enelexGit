@@ -22,6 +22,16 @@ namespace enelex3.View
 
         public string Description { get; set; }
 
+        public double P { get; set; }
+
+        public double Q { get; set; }
+
+        public double Shifting { get; set; }
+
+        public double ShiftingProportionP { get; set; }
+
+        public double ShiftingProportionQ { get; set; }
+
         public DateTime DateOfCalibration { get; set; }
     }
 }

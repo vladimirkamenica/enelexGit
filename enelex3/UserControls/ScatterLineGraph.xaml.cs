@@ -17,6 +17,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using enelex3.View;
 
 
 namespace enelex3.UserControls
@@ -33,7 +34,7 @@ namespace enelex3.UserControls
             InitializeComponent();
         }
 
-        public void SetMeasureViewToGraph(List<MeasuresView> input, double p, double q)
+        public void SetMeasureViewToGraph(ObservableCollection<GraphView> input, double p, double q)
         {
             DataContext = this;
             ValuesA.Clear();
@@ -84,7 +85,7 @@ namespace enelex3.UserControls
             //});
 
         }
-        public void SetMeasureViewToGraph2(List<MeasuresView> input, double p, double q, double NumP)
+        public void SetMeasureViewToGraph2(ObservableCollection<GraphView> input, double p, double q, double NumP)
         {
             DataContext = this;
             ValuesA.Clear();
@@ -159,7 +160,7 @@ namespace enelex3.UserControls
         //    }
 
         //}
-        public void SetMeasureViewToGraph3(List<MeasuresView> input, double p, double q, double Ps, double Qs, double shift)
+        public void SetMeasureViewToGraph3(ObservableCollection<GraphView> input, double p, double q, double Ps, double Qs, double shift)
         {
             DataContext = this;
             ValuesA.Clear();

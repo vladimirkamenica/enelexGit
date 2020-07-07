@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:enelex3"
-         xmlns:uc="clr-namespace:enelex3.UserControls"
+        xmlns:uc="clr-namespace:enelex3.UserControls"
         mc:Ignorable="d"
         Title="Dijagram pepela" Height="400" Width="800" WindowStartupLocation="CenterScreen" >
     <Grid>

@@ -7,9 +7,10 @@
         xmlns:uc="clr-namespace:enelex3.UserControls"
         xmlns:local="clr-namespace:enelex3.Windows"
         xmlns:viewModel ="clr-namespace:enelex3.ViewModel"
+       
         mc:Ignorable="d"
         d:DataContext="{d:DesignInstance viewModel:SaveMeasureViewModel}"
-        Title="SaveCalibrationWindow" Height="450" Width="800" WindowStartupLocation="CenterScreen" Background="WhiteSmoke">
+        Title="Pregled kalibracija" Height="450" Width="800" WindowStartupLocation="CenterScreen" Background="WhiteSmoke" WindowState="Maximized">
     <b:Interaction.Triggers>
         <b:EventTrigger EventName="Loaded">
             <b:InvokeCommandAction Command="{Binding LoadCommand}"></b:InvokeCommandAction>
@@ -20,50 +21,108 @@
             <RowDefinition Height="auto"></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
-        <StackPanel Orientation="Horizontal" Margin="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            
+        </Grid.ColumnDefinitions>
+        <StackPanel Orientation="Horizontal" Margin="10" Visibility="Visible">
             <Button Style="{DynamicResource Load}" BorderBrush="Transparent" Background="Transparent" Height="42" Command="{Binding LoadCommand}"></Button>
-            <Button Style="{DynamicResource Update}" BorderBrush="Transparent" Background="Transparent" Height="42" Command="{Binding EditMeasureCommand}"></Button>
+            <Button Style="{DynamicResource Update}" Visibility="Collapsed" BorderBrush="Transparent" Background="Transparent" Height="42" Command="{Binding EditMeasureCommand}"></Button>
             <Button Style="{DynamicResource Delete}" BorderBrush="Transparent" Background="Transparent" Height="42" Command="{Binding DelMeasureCommand}"></Button>
+            <Button Content="Graph" Visibility="Collapsed" Command="{Binding GraphLoadCommand}"></Button>
         </StackPanel>
-        <DataGrid Visibility="Visible" Grid.Row="1" RowHeaderStyle="{StaticResource HeaderRowIndexStyle}" Style="{StaticResource dgCustom}" ItemsSource="{Binding GetSaveMeasureGroup}" SelectedItem="{Binding SelectedGetSaveMeasureGroup}">
+        <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.ColumnSpan="2" HorizontalAlignment="Right" Height="50">
+            <ListBox     SelectionMode="Extended" Style="{StaticResource ListBoxWithAutoScroll_Horizontal}" Width="800" ItemsSource="{Binding GetSaveMeasureGroup}" SelectedItem="{Binding SelectedGetSaveMeasureGroup}" Margin="0,0,50,0">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Border x:Name="Border" BorderBrush="LightGray" BorderThickness="1" CornerRadius="4" 
+                        VerticalAlignment="Center" HorizontalAlignment="Center" Padding="1" 
+                        Background="Transparent">
+                            <StackPanel >
+                                <TextBlock Text="{Binding Description}" Foreground="Black" FontSize="12" TextAlignment="Left" 
+                                   VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5"/>
+                            </StackPanel>
+                        </Border>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+                <ListBox.ItemContainerStyle>
+                    <Style TargetType="ListBoxItem">
+                        <Setter Property="Focusable" Value="True"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Cursor" Value="Hand"></Setter>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </ListBox.ItemContainerStyle>
+            </ListBox>
+        </StackPanel>
+        <DataGrid  MinWidth="275" Grid.Row="1" CellStyle="{StaticResource cellCentar}" ItemsSource="{Binding GetSaveMeasure}"   Style="{StaticResource dgCustom}" RowStyle="{StaticResource SelectedRow}"    BorderBrush="#FFC3C3C3"  >
+            <b:Interaction.Triggers>
+                <b:EventTrigger EventName="LoadingRow">
+                    <b:InvokeCommandAction Command="{Binding GetRowIndexMeasure}" PassEventArgsToCommand="True"></b:InvokeCommandAction>
+                </b:EventTrigger>
+            </b:Interaction.Triggers>
+            <DataGrid.ColumnHeaderStyle>
+                <Style TargetType="DataGridColumnHeader">
+                    <Setter Property="ContentTemplate">
+                        <Setter.Value>
+                            <DataTemplate>
+                                <TextBlock TextWrapping="Wrap" TextAlignment="Center" Text="{Binding}"></TextBlock>
+                            </DataTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </DataGrid.ColumnHeaderStyle>
+            <DataGrid.InputBindings>
+                <KeyBinding Key="Delete" Command="{Binding DelMeasureCommand}"></KeyBinding>
+            </DataGrid.InputBindings>
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Broj kalibracije " Binding="{Binding GroupID}" MinWidth="100"></DataGridTextColumn>
-                <DataGridTextColumn Header="Opis" Binding="{Binding Description}" MinWidth="100"></DataGridTextColumn>
-                <DataGridTextColumn Header="Datum" Binding="{Binding DateOfCalibration,StringFormat=dddd/dd/MM/yyyy}" MinWidth="100"></DataGridTextColumn>
+                <DataGridTextColumn Header="Broj uzoraka    j " Binding="{Binding Index}"  Width="65"></DataGridTextColumn>
+                <DataGridTextColumn Header="Pepeo GE3030      x" Binding="{Binding Ge,  StringFormat= N2, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="65"  ></DataGridTextColumn>
+                <DataGridTextColumn Header="Pepeo Labaratorija y" Binding="{Binding Lab, StringFormat= N2, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="80"   ></DataGridTextColumn>
+                <DataGridTextColumn Header="Vlaga uzorka    w" Binding="{Binding W, StringFormat= N2, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="65" ></DataGridTextColumn>
+                <DataGridCheckBoxColumn Header="Save" Binding="{Binding Save}" Visibility="Collapsed"></DataGridCheckBoxColumn>
             </DataGrid.Columns>
-            <DataGrid.ContextMenu>
-                <ContextMenu >
-                    <MenuItem Header="Vrati"  Command="{Binding SaveCommand}" VerticalAlignment="Center">
-                        <MenuItem.Icon>
-                            <Path Data="{StaticResource ArrowLeft}" Style="{StaticResource MediumPathStyle}" Height="14" Fill="#5b8b41"></Path>
-                        </MenuItem.Icon>
-                    </MenuItem>
-                </ContextMenu>
-            </DataGrid.ContextMenu>
+
         </DataGrid>
-        <ListView Visibility="Collapsed" Grid.Row="1" ItemsSource="{Binding GetSaveMeasureGroup}" SelectedItem="{Binding SelectedGetSaveMeasureGroup}">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <WrapPanel Orientation="Horizontal" Height="400">
-                        <WrapPanel Orientation="Vertical">
-                            <TextBlock Text="{Binding Description}"></TextBlock>
-                        </WrapPanel>
-                        <WrapPanel Orientation="Vertical">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition></ColumnDefinition>
-                                    <ColumnDefinition></ColumnDefinition>
-                                    <ColumnDefinition></ColumnDefinition>
-                                </Grid.ColumnDefinitions>
-                                <uc:ScatterLineGraph Grid.Column="0" Width="500" Height="250" Margin="5"></uc:ScatterLineGraph>
-                                <uc:ScatterLineGraph Grid.Column="1" Width="500" Height="250" Margin="5"></uc:ScatterLineGraph>
-                                <uc:ScatterLineGraph Grid.Column="2" Width="500" Height="250" Margin="5"></uc:ScatterLineGraph>
-                            </Grid>
-                            
-                        </WrapPanel>
-                    </WrapPanel>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+        
+            <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="1" Grid.Column="1" HorizontalScrollBarVisibility="Auto" >
+            <StackPanel  Background="White" Orientation="Vertical">
+                <GroupBox Header="Novi tip kalibracije">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <uc:ScatterLineGraph  DataContext="{Binding ScatterGraph}" Width="500" Height="400" HorizontalAlignment="Right"></uc:ScatterLineGraph>
+                    </Grid>
+                </GroupBox>
+                <GroupBox Header="Apsolutno pomeranje">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <uc:ScatterLineGraph  DataContext="{Binding ScatterGraph2}" Width="500" Height="400" HorizontalAlignment="Right"></uc:ScatterLineGraph>
+                    </Grid>
+                </GroupBox>
+                <GroupBox Header="Srazmerno pomeranje">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <uc:ScatterLineGraph  DataContext="{Binding ScatterGraph3}" Width="500" Height="400" HorizontalAlignment="Right"></uc:ScatterLineGraph>
+                    </Grid>
+                </GroupBox>
+            </StackPanel>
+        </ScrollViewer>
+           
+        
     </Grid>
 </Window>

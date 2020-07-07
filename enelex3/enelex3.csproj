@@ -126,6 +126,7 @@
     <Compile Include="Alati\SaveToColorConverter.cs" />
     <Compile Include="Base\SaveMeasure.cs" />
     <Compile Include="Converters\ConverterRowIndex.cs" />
+    <Compile Include="ConvertToGrahView\GraphViewConvert.cs" />
     <Compile Include="Helpers\CollectionHelper.cs" />
     <Compile Include="Migrations\201905150556400_W.cs" />
     <Compile Include="Migrations\201905150556400_W.Designer.cs">
@@ -159,10 +160,15 @@
     <Compile Include="Migrations\202006250920539_groupID.designer.cs">
       <DependentUpon>202006250920539_groupID.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202007010654485_saveAdd.cs" />
+    <Compile Include="Migrations\202007010654485_saveAdd.designer.cs">
+      <DependentUpon>202007010654485_saveAdd.cs</DependentUpon>
+    </Compile>
     <Compile Include="ViewModel\ExcelImportViewModel.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
     <Compile Include="ViewModel\SaveMeasureViewModel.cs" />
     <Compile Include="ViewModel\SaveTransViewModel.cs" />
+    <Compile Include="View\GraphView.cs" />
     <Compile Include="View\ImportClassView.cs" />
     <Compile Include="View\NewCalibrationView.cs" />
     <Compile Include="View\SaveMeasureViewGroup.cs" />
@@ -182,6 +188,10 @@
     <Compile Include="Windows\SaveTransWin.xaml.cs">
       <DependentUpon>SaveTransWin.xaml</DependentUpon>
     </Compile>
+    <Page Include="Resources\AutoScrollListBoxDictionary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Resources\Brushes.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -377,6 +387,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202006250920539_groupID.resx">
       <DependentUpon>202006250920539_groupID.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202007010654485_saveAdd.resx">
+      <DependentUpon>202007010654485_saveAdd.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

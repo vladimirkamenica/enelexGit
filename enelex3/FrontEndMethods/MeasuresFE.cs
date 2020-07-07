@@ -45,7 +45,12 @@ namespace enelex3.FrontEndMethods
                             DateOfCalibration = x.DateOfCalibration,
                             Description = x.Description,
                             W = x.W,
-                            GroupID = x.GroupID
+                            GroupID = x.GroupID,
+                            P = x.P,
+                            Q = x.Q,
+                            ShiftingProportionP = x.ShiftingProportionP,
+                            ShiftingProportionQ = x.ShiftingProportionQ,
+                            Shifting = x.Shifting,
                         }).ToList();
             return list;
         }
@@ -58,6 +63,11 @@ namespace enelex3.FrontEndMethods
                     Description = x.FirstOrDefault().Description,
                     DateOfCalibration = x.FirstOrDefault().DateOfCalibration,
                     GroupID = x.FirstOrDefault().GroupID,
+                    P = x.FirstOrDefault().P,
+                    Q = x.FirstOrDefault().Q,
+                    Shifting = x.FirstOrDefault().Shifting,
+                    ShiftingProportionP = x.FirstOrDefault().ShiftingProportionP,
+                    ShiftingProportionQ = x.FirstOrDefault().ShiftingProportionQ,
                     Details = x.ToList(),
                 }).ToList();
         }
