@@ -1,0 +1,76 @@
+﻿<UserControl x:Class="enelex3.UserControls.DisplayNewCalibrations"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:enelex3.UserControls"
+             xmlns:viewModel="clr-namespace:enelex3.ViewModel"
+             mc:Ignorable="d" 
+             d:DataContext="{d:DesignInstance viewModel:DisplayNewCalibrationsViewModel}"
+             d:DesignHeight="100" d:DesignWidth="300">
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="boolConverter"></BooleanToVisibilityConverter>
+    </UserControl.Resources>
+    <Grid>
+        <Border BorderBrush="LightGray"
+            BorderThickness="1">
+            <Grid Margin="5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <WrapPanel Orientation="Vertical">
+                    <StackPanel Orientation="Horizontal">
+                        <WrapPanel Orientation="Horizontal">
+                            <Label Width="40">A =</Label>
+                            <Label Margin="-15,0,0,0" 
+                                   Visibility="{Binding VisibleTXT2,Converter={StaticResource boolConverter}}">p * a =</Label>
+                        </WrapPanel>
+                        <TextBox 
+                            Width="70" 
+                            Text="{Binding Result_A,StringFormat=N4,UpdateSourceTrigger=PropertyChanged}"
+                            VerticalContentAlignment="Center" 
+                            Height="20" ></TextBox>
+                    </StackPanel>
+                    <StackPanel Grid.Row="1" Orientation="Horizontal">
+                        <WrapPanel Orientation="Horizontal">
+                            <Label Width="40">B =</Label>
+                            <Label Margin="-15,0,0,0" 
+                                   Visibility="{Binding VisibleTXT2,Converter={StaticResource boolConverter}}">(p * b) + q =</Label>
+                        </WrapPanel>
+                        <TextBox  Width="70" 
+                                  Text="{Binding Result_B,StringFormat=N4,UpdateSourceTrigger=PropertyChanged}"
+                                  VerticalContentAlignment="Center" 
+                                  Height="20"></TextBox>
+                    </StackPanel>
+                    <StackPanel Grid.Row="2" Orientation="Horizontal">
+                        <Label Width="40">W =</Label>
+                        <TextBox  Width="70" 
+                                  Height="20" 
+                                  Text="{Binding Result_W,StringFormat=N4,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                    </StackPanel>
+                </WrapPanel>
+                <WrapPanel Orientation="Vertical" Grid.Column="1">
+                    <StackPanel  Orientation="Horizontal">
+                        <Label Width="40">P1 =</Label>
+                        <TextBox Width="70"  
+                                 Height="20"
+                                 Text="{Binding Result_P1,StringFormat=N4,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                    </StackPanel>
+                    <StackPanel  Grid.Row="1" Orientation="Horizontal">
+                        <Label Width="40">Q1 =</Label>
+                        <TextBox Width="70"  
+                                 Height="20" 
+                                 Text="{Binding Result_Q1,StringFormat=N4,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                    </StackPanel>
+                    <StackPanel Grid.Row="2" Orientation="Horizontal">
+                        <Label Width="40">R1 =</Label>
+                        <TextBox Width="70"
+                                 Height="20" 
+                                 Text="{Binding Result_R1,StringFormat=N4,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                    </StackPanel>
+                </WrapPanel>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

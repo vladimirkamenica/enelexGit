@@ -2,4 +2,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:enelex3.Resources">
     <Color x:Key="DefaultDetailColour">#262626</Color>
+    <Color x:Key="BorderFirstColour">#00ace6</Color>
+    <Color x:Key="BorderSecondColour">Green</Color>
+    <Color x:Key="BorderSaveColour">Brown</Color>
 </ResourceDictionary>

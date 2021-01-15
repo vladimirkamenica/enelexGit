@@ -3,11 +3,12 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows.Media;
+using enelex3.ViewModel;
 
 namespace enelex3
 {
 
-    public class MeasuresView : INotifyPropertyChanged
+    public class MeasuresView : ViewModelBase
     {
        
 
@@ -45,7 +46,22 @@ namespace enelex3
                 return Ge * Ge;
             }
         }
+        public double LabLab
+        {
 
+            get
+            {
+                return Lab * Lab;
+            }
+        }
+        public double GeLab
+        {
+
+            get
+            {
+                return Ge * Lab;
+            }
+        }
         public double P { get; set; }
         
         public bool Save { get; set; }
@@ -64,11 +80,7 @@ namespace enelex3
             }
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected void OnPropertyChanged([CallerMemberName] string name = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
-        }
+       
     }
 }
 

@@ -1,0 +1,30 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
+using enelex3.ViewModel;
+using enelex3.Interfaces;
+
+namespace enelex3.Windows
+{
+    /// <summary>
+    /// Interaction logic for UserRegistrationAddWindows.xaml
+    /// </summary>
+    public partial class UserRegistrationAddWindows : Window, IClosable
+    {
+        public UserRegistrationAddWindows(Action load)
+        {
+            DataContext = new UserRegistrationAddViewModel(load);
+            InitializeComponent();
+        }
+    }
+}

@@ -2,22 +2,45 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:enelex3.Resources"
                     xmlns:alati="clr-namespace:enelex3.Alati"
-                    xmlns:converter="clr-namespace:enelex3.Converters">
+                    xmlns:converter="clr-namespace:enelex3.Converters"
+                    xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit">
 
     <converter:ConverterRowIndex x:Key="ConverterRowIndex"></converter:ConverterRowIndex>
     <alati:SaveToColorConverter x:Key="saveToColorConverter"/>
+    <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"></BooleanToVisibilityConverter>
     <SolidColorBrush x:Key="TextColor">Black</SolidColorBrush>
     <SolidColorBrush x:Key="AltRowColor">#f2f2f2</SolidColorBrush>
-    <SolidColorBrush x:Key="AltRowColorDetails">#d8d8d8</SolidColorBrush>
-    <Thickness x:Key="CustMargin">10,5,5,5</Thickness>
+    <SolidColorBrush x:Key="AltRowColorDetails">#f2f2f2</SolidColorBrush>
+    <SolidColorBrush x:Key="IsMouseOverColor">#dcecef</SolidColorBrush>
+    <SolidColorBrush x:Key="IsSelectedColor">#cae3e8</SolidColorBrush>
+    <SolidColorBrush x:Key="ColCellGrid">#ffffe3</SolidColorBrush>
+    <SolidColorBrush x:Key="HorizontalGridLinesBrush">#d9d9d9</SolidColorBrush>
+    <SolidColorBrush x:Key="VerticalGridLinesBrush">#d9d9d9</SolidColorBrush>
+    <SolidColorBrush x:Key="BackgroundNoPayRow" Color="#ffe699"></SolidColorBrush>
+    <Thickness x:Key="CustMargin">0,5,0,0</Thickness>
+    <Style TargetType="{x:Type DataGridRow}" x:Key="RowStyleSelectedItems">
+        <Setter Property="IsSelected" Value="{Binding Path=IsSelected, Mode=TwoWay}"></Setter>
+        <Style.Triggers>
+            <Trigger Property="AlternationIndex" Value="0">
+                <Setter Property="Background" Value="White"/>
+            </Trigger>
+            <Trigger Property="AlternationIndex" Value="1">
+                <Setter Property="Background" Value="{StaticResource AltRowColor}"/>
+            </Trigger>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{StaticResource IsMouseOverColor}"/>
+            </Trigger>
+            <Trigger Property="IsSelected" Value="True">
+                <Setter Property="Background" Value="{StaticResource IsSelectedColor}"></Setter>
+            </Trigger>
+
+        </Style.Triggers>
+    </Style>
     <Style x:Key="btCustom" TargetType="Button">
         <Setter Property="Margin" Value="{StaticResource CustMargin}"></Setter>
         <Setter Property="Background" Value="LightGray"></Setter>
     </Style>
-    <Style TargetType="TextBox">
-        <Setter Property="IsReadOnly" Value="True"></Setter>
-    </Style>
-
+   
     <Style x:Key="SaveToColorRowStyle" TargetType="DataGridRow">
         <Setter Property="Foreground" Value="{Binding Save, Converter={StaticResource saveToColorConverter}}"/>
     </Style>
@@ -34,11 +57,26 @@
         <Setter Property="Background" Value="White"></Setter>
         <Setter Property="RowHeaderWidth" Value="0"></Setter>
         <Setter Property="CanUserAddRows" Value="False"></Setter>
-        <Setter Property="CanUserSortColumns" Value="False"></Setter>
+        <Setter Property="CanUserSortColumns" Value="True"></Setter>
         <Setter Property="AllowDrop" Value="True"></Setter>
         <Setter Property="RowStyle" Value="{StaticResource SaveToColorRowStyle}"></Setter>
         <Setter Property="EnableRowVirtualization" Value="False"></Setter>
         <Setter Property="EnableColumnVirtualization" Value="False"></Setter>
+    </Style>
+    <Style x:Key="dgTrainTableStyle" TargetType="DataGrid">
+        <Setter Property="AlternationCount" Value="2"></Setter>
+        <Setter Property="AlternatingRowBackground" Value="{StaticResource AltRowColor}"></Setter>
+        <Setter Property="Margin" Value="5"></Setter>
+        <Setter Property="Foreground" Value="{StaticResource TextColor}"></Setter>
+        <Setter Property="AutoGenerateColumns" Value="False"></Setter>
+        <Setter Property="VerticalGridLinesBrush" Value="#c6c6c6"></Setter>
+        <Setter Property="HorizontalGridLinesBrush" Value="#c6c6c6"></Setter>
+        <Setter Property="BorderBrush" Value="#c6c6c6"></Setter>
+        <Setter Property="Background" Value="White"></Setter>
+        <Setter Property="CanUserSortColumns" Value="False"></Setter>
+        <Setter Property="EnableRowVirtualization" Value="False"></Setter>
+        <Setter Property="EnableColumnVirtualization" Value="False"></Setter>
+        <Setter Property="CanUserAddRows" Value="False"></Setter>
     </Style>
     <Style x:Key="HeaderStyle" TargetType="DataGridColumnHeader">
         <Setter Property="Background" Value="White" />
@@ -52,6 +90,7 @@
         <Setter Property="Height" Value="25"></Setter>
         <Setter Property="Cursor" Value="Hand" />
     </Style>
+   
     <Style TargetType="{x:Type DatePickerTextBox}">
         <Setter Property="Control.Template">
             <Setter.Value>
@@ -84,16 +123,119 @@
     <Style x:Key="SelectedRow" TargetType="DataGridRow">
         <Setter Property="IsSelected" Value="{Binding IsSelected,Mode=TwoWay}"></Setter>
         <Setter Property="Foreground" Value="{Binding Save, Converter={StaticResource saveToColorConverter}}"/>
+      </Style>
+
+    
+    <Style x:Key="DataGridTriggerBackground" TargetType="{x:Type DataGridCell}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type DataGridCell}">
+                    <Border  BorderThickness="{TemplateBinding BorderThickness}" 
+                             BorderBrush="{TemplateBinding BorderBrush}" 
+                             Background="{TemplateBinding Background}">
+                        <ContentPresenter  VerticalAlignment="Center" />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Path=IsSelected, RelativeSource={RelativeSource AncestorType={x:Type DataGridRow}}}" Value="True">
+                <Setter Property="Background" Value="{x:Null}"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Path=IsMouseOver, RelativeSource={RelativeSource AncestorType={x:Type DataGridRow}}}" Value="True">
+                <Setter Property="Background" Value="{x:Null}"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding ErrorCalibration}" Value="False">
+                <Setter Property="Background" Value="{x:Null}"/>
+            </DataTrigger>
+            <Trigger Property="IsSelected" Value="True">
+                <Setter Property="Foreground" Value="Black"></Setter>
+              
+            </Trigger>
+
+        </Style.Triggers>
+
     </Style>
-    <Style x:Key="HeaderRowIndexStyle" TargetType="{x:Type DataGridRowHeader}">
+    <Style x:Key="RowStyleSelectedItemsErrorDetail" TargetType="{x:Type DataGridRow}">
+        <Setter Property="IsSelected" Value="{Binding Path=IsSelected, Mode=TwoWay}" />
+         
+        <Style.Triggers>
+            <Trigger Property="AlternationIndex" Value="0">
+                <Setter Property="Background" Value="White"/>
+            </Trigger>
+            <Trigger Property="AlternationIndex" Value="1">
+                <Setter Property="Background" Value="{StaticResource AltRowColor}"/>
+            </Trigger>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{StaticResource IsMouseOverColor}"/>
+            </Trigger>
+            <Trigger Property="IsSelected" Value="True">
+                <Setter Property="Background" Value="{StaticResource IsSelectedColor}"></Setter>
+            
+            </Trigger>
+           
+            <!--<MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding ErrorCalibration}" Value="True"></Condition>
+                    <Condition Binding="{Binding Path=IsMouseOver, RelativeSource={RelativeSource Self}}" Value="False"></Condition>
+                    <Condition Binding="{Binding Path=IsSelected, RelativeSource={RelativeSource Self}}" Value="False"></Condition>
+                </MultiDataTrigger.Conditions>
+                <Setter Property="Background" Value="{StaticResource BackgroundNoPayRow}"/>
+            </MultiDataTrigger>-->
+        </Style.Triggers>
+    </Style>
+    <Style x:Key="cellColorNoraml" TargetType="DataGridCell" >
+        <Setter Property="TextBlock.TextAlignment" Value="Center"></Setter>
+        <Setter Property="Foreground" Value="Black"></Setter>
         <Setter Property="Background" Value="Transparent"></Setter>
-        <Setter Property="BorderBrush" Value="#bfbfbf"></Setter>
-        <Setter Property="BorderThickness" Value="0,0,1,1"></Setter>
-        <Setter Property="MinWidth" Value="20"></Setter>
-        <Setter Property="Padding" Value="2,0,0,0"></Setter>
+    </Style>
+    <Style x:Key="cellColorLeft" TargetType="DataGridCell" >
+        <Setter Property="TextBlock.TextAlignment" Value="Left"></Setter>
+        <Setter Property="Foreground" Value="Black"></Setter>
+        <Setter Property="Background" Value="Transparent"></Setter>
+    </Style>
+    <Style x:Key="cellColorNoramlIsEditing" TargetType="DataGridCell" >
+        <Setter Property="TextBlock.TextAlignment" Value="Center"></Setter>
+        <Setter Property="Foreground" Value="Black"></Setter>
+     
+        
+    </Style>
+    <Style TargetType="{x:Type TextBox}" x:Key="ErrorCalibrationTextBoxStyle">
+       
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGridRow}}, Path=DataContext.ErrorCalibration}" Value="True">
+                <Setter Property="Foreground" Value="#d04949"></Setter>
+                <Setter Property="FontWeight" Value="Bold"></Setter>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+    <Style TargetType="{x:Type TextBox}" x:Key="ErrorMoinstureTextBoxStyle">
+       
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGridRow}}, Path=DataContext.ErrorMoistureBool}" Value="True">
+                <Setter Property="Foreground" Value="#d04949"></Setter>
+                <Setter Property="FontWeight" Value="Bold"></Setter>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+    <Style TargetType="{x:Type TextBox}" x:Key="ErrorAshTextBoxStyle">
+      
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGridRow}}, Path=DataContext.ErrorAshBool}" Value="True">
+                <Setter Property="Foreground" Value="#d04949"></Setter>
+                <Setter Property="FontWeight" Value="Bold"></Setter>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+    <Style x:Key="xctkDateNowStyle" TargetType="xctk:DateTimePicker">
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGridRow}}, Path=IsNewItem}" Value="True">
+                <Setter Property="Value" Value="{Binding DateRecordsAdd}"></Setter>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGridRow}}, Path=IsNewItem}" Value="False">
+                <Setter Property="Value" Value="{Binding DateRecords}"></Setter>
+            </DataTrigger>
 
-        <Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
-        <Setter Property="Content" Value="{Binding RelativeSource={RelativeSource AncestorType=DataGridRow, Mode=FindAncestor}, Converter={StaticResource ConverterRowIndex}}"></Setter>
-
+        </Style.Triggers>
     </Style>
 </ResourceDictionary>

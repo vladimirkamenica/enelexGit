@@ -10,4 +10,25 @@
         <Setter Property="Height" Value="16"></Setter>
         <Setter Property="Fill" Value="{StaticResource DefaultDetailsBrush}"></Setter>
     </Style>
+    <Style TargetType="Path" x:Key="AddUserMediumPathStyle" BasedOn="{StaticResource MediumPathStyle}">
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding ElementName=sexCombo,Path=SelectedItem}" Value="Male">
+                <Setter Property="Fill" Value="#72C894"></Setter>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding ElementName=sexCombo,Path=SelectedItem}" Value="Female">
+                <Setter Property="Fill" Value="Pink"></Setter>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+    <Style x:Key="PathLogInStyle" TargetType="Path" BasedOn="{StaticResource MediumPathStyle}">
+        <Setter Property="Height" Value="40"></Setter>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding SexEnum}" Value="Male">
+                <Setter Property="Fill" Value="#72C894"></Setter>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding SexEnum}" Value="Female">
+                <Setter Property="Fill" Value="Pink"></Setter>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
 </ResourceDictionary>

@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.29411.108
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "enelex3", "enelex3\enelex3.csproj", "{C2FB1F5D-8862-4DC7-A7B8-E6F7B6994797}"
 EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Enelex 1.1", "Enelex 1.1\Enelex 1.1.vdproj", "{DAEE3E31-20AA-4F7D-9987-CC07597CBD8D}"
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Kalibracija 1.2", "Kalibracija 1.2\Kalibracija 1.2.vdproj", "{1EE406E3-8B4E-4304-8439-BAC2D1C7CA3B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,8 +17,8 @@ Global
 		{C2FB1F5D-8862-4DC7-A7B8-E6F7B6994797}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C2FB1F5D-8862-4DC7-A7B8-E6F7B6994797}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C2FB1F5D-8862-4DC7-A7B8-E6F7B6994797}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DAEE3E31-20AA-4F7D-9987-CC07597CBD8D}.Debug|Any CPU.ActiveCfg = Debug
-		{DAEE3E31-20AA-4F7D-9987-CC07597CBD8D}.Release|Any CPU.ActiveCfg = Release
+		{1EE406E3-8B4E-4304-8439-BAC2D1C7CA3B}.Debug|Any CPU.ActiveCfg = Debug
+		{1EE406E3-8B4E-4304-8439-BAC2D1C7CA3B}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

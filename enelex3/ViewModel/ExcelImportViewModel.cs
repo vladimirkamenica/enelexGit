@@ -17,18 +17,50 @@ using System.Windows.Controls;
 using System.Windows;
 using System.Collections.ObjectModel;
 using enelex3.Helpers;
+using enelex3.Base;
+using enelex3.FrontEndMethods;
+using enelex3.ViewModel;
 
 namespace enelex3.ViewModel
 {
-    public class ExcelImportViewModel : INotifyPropertyChanged
+    public class ExcelImportViewModel : ViewModelBase
     {
         Model1 db = new Model1();
         private Action Load { get; set; }
-        public ExcelImportViewModel(Action load)
+        private bool calibrationVisible { get; set; }
+        public bool CalibrationVisible
         {
+            get => calibrationVisible;
+            set
+            {
+                if(calibrationVisible != value)
+                {
+                    calibrationVisible = value;
+                    OnPropertyChanged(nameof(CalibrationVisible));
+                }
+            }
+        }
+        private bool trainVisible { get; set; }
+        public bool TrainVisible
+        {
+            get => trainVisible;
+            set
+            {
+                if (trainVisible != value)
+                {
+                    trainVisible = value;
+                    OnPropertyChanged(nameof(TrainVisible));
+                }
+            }
+        }
+        public ExcelImportViewModel(Action load, bool caibration,bool train)
+        {
+            CalibrationVisible = caibration;
+            TrainVisible = train;
             Load = load;
             All = true;
         }
+        private TrainTableFE trfe = new TrainTableFE();
         private ObservableCollection<string> nameSheetTxt { get; set; }
         public ObservableCollection<string> NameSheetTxt
         {
@@ -51,7 +83,7 @@ namespace enelex3.ViewModel
                 if (selectedSheetFileTxt != value)
                 {
                     selectedSheetFileTxt = value;
-                    LoadExcel();
+                    CheckLoad();
                     OnPropertyChanged(nameof(SelectedSheetFileTxt));
                 }
             }
@@ -67,6 +99,19 @@ namespace enelex3.ViewModel
                     nameFileTxt = value;
                   
                     OnPropertyChanged(nameof(NameFileTxt));
+                }
+            }
+        }
+        private List<Shift> shiftsEnum;
+        public List<Shift> ShiftsEnum
+        {
+            get => shiftsEnum = trfe.GetShifts();
+            set
+            {
+                if (shiftsEnum != value)
+                {
+                    shiftsEnum = value;
+                    OnPropertyChanged(nameof(ShiftsEnum));
                 }
             }
         }
@@ -107,6 +152,47 @@ namespace enelex3.ViewModel
                 {
                     tableCollection = value;
                     OnPropertyChanged(nameof(TableCollection));
+                }
+            }
+        }
+        private DataTableCollection tableCollectionTrain;
+        public DataTableCollection TableCollectionTrain
+        {
+            get => tableCollectionTrain;
+            set
+            {
+                if (tableCollectionTrain != value)
+                {
+                    tableCollectionTrain = value;
+                    OnPropertyChanged(nameof(TableCollectionTrain));
+                }
+            }
+        }
+        private ObservableCollection<TrainTableView> listOfTrainTable { get; set; }
+        public ObservableCollection<TrainTableView> ListOfTrainTable
+        {
+            get => listOfTrainTable;
+            set
+            {
+                if (listOfTrainTable != value)
+                {
+                    listOfTrainTable = value;
+                    OnPropertyChanged(nameof(ListOfTrainTable));
+                }
+            }
+        }
+        private TrainTableView selectedTrainTable { get; set; }
+        public TrainTableView SelectedTrainTable
+        {
+            get => selectedTrainTable;
+            set
+            {
+                if (selectedTrainTable != value)
+                {
+                    selectedTrainTable = value;
+                    if (selectedTrainTable != null) selectedTrainTable.Edit = true;
+
+                    OnPropertyChanged(nameof(SelectedTrainTable));
                 }
             }
         }
@@ -191,87 +277,231 @@ namespace enelex3.ViewModel
                 }
             }
         }
+        private void CheckTable(bool view)
+        {
+            var xx = ExcelFile.ExcelImport.FillExcelImport(view);
+            if (view) TableCollection = xx.Item1;
+            else TableCollectionTrain = xx.Item1;
+            NameFileTxt = xx.Item2;
+           
+        }
         public ICommand OpenCommand => new RelayCommand(ExcelImport);
         private void ExcelImport()
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog() { Filter = "Excel Workbook|*.xlsx|Excel 97-2003 Workbook|*.xls" };
-           
-        
-            if (openFileDialog.ShowDialog() == true)
+            if(CalibrationVisible)
             {
-                NameFileTxt = openFileDialog.FileName;
-                using (var steam = File.Open(openFileDialog.FileName,FileMode.Open, FileAccess.Read))
-                {
-                    using (IExcelDataReader reader = ExcelReaderFactory.CreateReader(steam))
-                    {
-                        DataSet result = reader.AsDataSet(new ExcelDataSetConfiguration()
-                            {
-                            ConfigureDataTable = (_) => new ExcelDataTableConfiguration() { UseHeaderRow = true}
-                            });
-
-                        TableCollection = result.Tables;
-                        NameSheetTxt = new ObservableCollection<string>();
-                        NameSheetTxt.Clear();
-                       foreach (DataTable x in TableCollection)
-                        {
-                            NameSheetTxt.Add(x.TableName) ;
-                        }
-                    }
-                }
+                CheckTable(CalibrationVisible);
+                NameSheetTxt = ExcelFile.ExcelImport.SheetName(NameSheetTxt, TableCollection);
             }
-
-
+            else
+            {
+                CheckTable(CalibrationVisible);
+                NameSheetTxt = ExcelFile.ExcelImport.SheetName(NameSheetTxt, TableCollectionTrain);
+            }
+            
         }
-
-        private void LoadExcel()
+        private void CheckLoad()
         {
-          
-                TableExcelFile = TableCollection[SelectedSheetFileTxt];
+            if (CalibrationVisible) LoadExcelCalibration();
+            else LoadExcelTrain();
+        }
+     
+        private void LoadExcelTrain()
+        {
+            try
+            {
+                TableExcelFile = TableCollectionTrain[SelectedSheetFileTxt];
                 if (TableExcelFile != null)
                 {
-                  
-                    GetImportMeasure = new ObservableCollection<ImportClassView>();
-                    GetImportMeasure.Clear();
-                    for (int i = 0; i < TableExcelFile.Rows.Count; i++)
+
+                    ListOfTrainTable = new ObservableCollection<TrainTableView>();
+                    ListOfTrainTable.Clear();
+                    for (int i = 1; i < TableExcelFile.Rows.Count; i++)
                     {
-                    ImportClassView views = new ImportClassView();
-                    if (TableExcelFile.Rows[i]["Pepeo x [GE]"].ToString() != string.Empty)
+                        TrainTableView views = new TrainTableView();
+                        if (TableExcelFile.Rows[i].ItemArray[0].ToString() != String.Empty)
                         {
-                            views.Ge = double.Parse(TableExcelFile.Rows[i]["Pepeo x [GE]"].ToString());
+                            var train = TableExcelFile.Rows[i].ItemArray[0].ToString();
+                            views.NumberTrain = int.Parse(train);
                         }
                         else
                         {
-                            views.Ge = 0;
+                            views.NumberTrain = 0;
                         }
-                       if(TableExcelFile.Rows[i]["Pepeo y [LAB]"].ToString() != string.Empty)
+                        if (TableExcelFile.Rows[i].ItemArray[1].ToString() != String.Empty)
                         {
-                            views.Lab = double.Parse(TableExcelFile.Rows[i]["Pepeo y [LAB]"].ToString());
+                            var date = TableExcelFile.Rows[i].ItemArray[1].ToString();
+                            views.DateRecords = DateTime.Parse((string)date);
                         }
-                       else
+                        else
                         {
-                            views.Lab = 0;
+                            views.DateRecords = DateTime.Now;
                         }
-                       if(TableExcelFile.Rows[i]["Vlaga [W]"].ToString() != string.Empty)
+                        if (TableExcelFile.Rows[i].ItemArray[2].ToString() != String.Empty)
                         {
-                            views.W = double.Parse(TableExcelFile.Rows[i]["Vlaga [W]"].ToString());
+                            var shift = TableExcelFile.Rows[i].ItemArray[2].ToString();
+                            if (shift == "Jedan") views.SelectedShiftsEnum = Shift.One;
+                            if (shift == "Dva") views.SelectedShiftsEnum = Shift.Two;
+                            if (shift == "Tri") views.SelectedShiftsEnum = Shift.Three;
                         }
-                      else
-                       {
-                           views.W = 0;
-                       }
-                     
-                        GetImportMeasure.Add(views);
+                        else
+                        {
+                            views.ShiftWork = Shift.One;
+                        }
+                        if (TableExcelFile.Rows[i].ItemArray[3].ToString() != String.Empty)
+                        {
+                            var value = TableExcelFile.Rows[i].ItemArray[3].ToString();
+                            views.MoistureLabTam = Double.Parse(value);
+                        }
+                        else
+                        {
+                            views.MoistureLabTam = 0;
+                        }
+                        if (TableExcelFile.Rows[i].ItemArray[4].ToString() != String.Empty)
+                        {
+                            var value = TableExcelFile.Rows[i].ItemArray[4].ToString();
+                            views.MoistureLabTent = Double.Parse(value);
+                        }
+                        else
+                        {
+                            views.MoistureLabTam = 0;
+                        }
+                        if (TableExcelFile.Rows[i].ItemArray[5].ToString() != String.Empty)
+                        {
+                            var value = TableExcelFile.Rows[i].ItemArray[5].ToString();
+                            views.Moisture = Double.Parse(value);
+                        }
+                        else
+                        {
+                            views.Moisture = 0;
+                        }
+                        if (TableExcelFile.Rows[i].ItemArray[7].ToString() != String.Empty)
+                        {
+                            var value = TableExcelFile.Rows[i].ItemArray[7].ToString();
+                            views.AshLabTam = Double.Parse(value);
+                        }
+                        else
+                        {
+                            views.AshLabTam = 0;
+                        }
+                        if (TableExcelFile.Rows[i].ItemArray[8].ToString() != String.Empty)
+                        {
+                            var value = TableExcelFile.Rows[i].ItemArray[8].ToString();
+                            views.AshLabTent = Double.Parse(value);
+                        }
+                        else
+                        {
+                            views.AshLabTent = 0;
+                        }
+                        if (TableExcelFile.Rows[i].ItemArray[9].ToString() != String.Empty)
+                        {
+                            var value = TableExcelFile.Rows[i].ItemArray[9].ToString();
+                            views.AshGE = Double.Parse(value);
+                        }
+                        else
+                        {
+                            views.AshGE = 0;
+                        }
+                        if (TableExcelFile.Rows[i].ItemArray[11].ToString() != String.Empty)
+                        {
+                            var value = TableExcelFile.Rows[i].ItemArray[11].ToString();
+                            views.CalorificLabTam = Double.Parse(value);
+                        }
+                        else
+                        {
+                            views.CalorificLabTam = 0;
+                        }
+                        if (TableExcelFile.Rows[i].ItemArray[12].ToString() != String.Empty)
+                        {
+                            var value = TableExcelFile.Rows[i].ItemArray[12].ToString();
+                            views.CalorificLabTent = Double.Parse(value);
+                        }
+                        else
+                        {
+                            views.CalorificLabTent = 0;
+                        }
+                        if (TableExcelFile.Rows[i].ItemArray[13].ToString() != String.Empty)
+                        {
+                            var value = TableExcelFile.Rows[i].ItemArray[13].ToString();
+                            views.CalorificGE = Double.Parse(value);
+                        }
+                        else
+                        {
+                            views.CalorificGE = 0;
+                        }
+                        ListOfTrainTable.Add(views);
 
                     }
                 }
-            
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
            
-           
+
+        }
+        private void LoadExcelCalibration()
+        {
+            if (SelectedSheetFileTxt != null)
+            {
+                try
+                {
+
+
+
+                    TableExcelFile = TableCollection[SelectedSheetFileTxt];
+                    if (TableExcelFile != null)
+                    {
+
+                        GetImportMeasure = new ObservableCollection<ImportClassView>();
+                        GetImportMeasure.Clear();
+                        for (int i = 0; i < TableExcelFile.Rows.Count; i++)
+                        {
+                            ImportClassView views = new ImportClassView();
+                            if (TableExcelFile.Rows[i].ItemArray[1] != String.Empty)
+                            {
+                                var ge = TableExcelFile.Rows[i].ItemArray[1];
+                                views.Ge = (double)ge;
+                            }
+                            else
+                            {
+                                views.Ge = 0;
+                            }
+                            if (TableExcelFile.Rows[i].ItemArray[2] != String.Empty)
+                            {
+                                var lab = TableExcelFile.Rows[i].ItemArray[2];
+                                views.Lab = (double)lab;
+                            }
+                            else
+                            {
+                                views.Lab = 0;
+                            }
+                            if (TableExcelFile.Rows[i].ItemArray[3].ToString() != String.Empty)
+                            {
+                                var w = TableExcelFile.Rows[i].ItemArray[3];
+                                views.W = (double)w;
+                            }
+                            else
+                            {
+                                views.W = 0;
+                            }
+
+                            GetImportMeasure.Add(views);
+
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
         }
         public ICommand FindNumberCommand => new RelayCommand(FindNumber);
         private void FindNumber()
         {
-            LoadExcel();
+            LoadExcelCalibration();
             ListFindImport = new List<ImportClassView>();
             ListFindImport.Clear();
             ListFindImport.AddRange(GetImportMeasure);
@@ -289,27 +519,66 @@ namespace enelex3.ViewModel
             }
             GetImportMeasure = ListFindImport.ToObservable();
         }
-        public ICommand ImportCommand => new RelayCommand(ItemsExcel);
-        private void ItemsExcel()
+        public ICommand ImportCommand => new RelayCommand(SaveToBase);
+
+        private void SaveToBase()
         {
-            Measure measure = new Measure();
-            foreach (var x in GetImportMeasure)
+            if (CalibrationVisible) SaveToBaseCalibration();
+            else SaveToBaseTrain();
+        }
+        private void SaveToBaseCalibration()
+        {
+            if(GetImportMeasure != null)
             {
-                if(x != null)
+                Measure measure = new Measure();
+                foreach (var x in GetImportMeasure)
                 {
-                    measure.Ge = x.Ge;
-                    measure.Lab = x.Lab;
-                    measure.W = x.W;
-                    if (measure != null)
+                    if (x != null)
                     {
-                        db.Measures.Add(measure);
+                        measure.Ge = x.Ge;
+                        measure.Lab = x.Lab;
+                        measure.W = x.W;
+                        if (measure != null)
+                        {
+                            db.Measures.Add(measure);
+                            db.SaveChanges();
+                        }
+                    }
+                }
+                Load?.Invoke();
+            }
+        }
+        private void SaveToBaseTrain()
+        {
+            foreach (var x in ListOfTrainTable)
+            {
+                if (x != null)
+                {
+                    TrainTable res = new TrainTable();
+                    res.DateRecords = x.DateRecords;
+                    res.Moisture = x.Moisture;
+                    res.MoistureLabTam = x.MoistureLabTam;
+                    res.MoistureLabTent = x.MoistureLabTent;
+                    res.AshGE = x.AshGE;
+                    res.AshLabTam = x.AshLabTam;
+                    res.AshLabTent = x.AshLabTent;
+                    res.CalorificGE = x.CalorificGE;
+                    res.CalorificLabTam = x.CalorificLabTam;
+                    res.CalorificLabTent = x.CalorificLabTent;
+                    res.NumberTrain = x.NumberTrain;
+                    res.ShiftWork = x.SelectedShiftsEnum;
+                    res.IsActive = true;
+                    res.LastUpdatedOn = DateTime.Now;
+                    if (res != null)
+                    {
+                        db.TrainTables.Add(res);
                         db.SaveChanges();
-                       
+                        Load();
                     }
                 }
             }
             Load?.Invoke();
-            MessageBox.Show("Import završen");
+          
         }
         public ICommand GetIndexCommand => new RelayCommand<DataGridRowEventArgs>(GetIndex);
         private void GetIndex(DataGridRowEventArgs e)
@@ -319,11 +588,6 @@ namespace enelex3.ViewModel
             {
                 x.Index = e.Row.GetIndex() + 1;
             }
-        }
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected void OnPropertyChanged([CallerMemberName] string name = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
     }
 }

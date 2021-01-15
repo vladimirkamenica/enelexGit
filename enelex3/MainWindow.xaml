@@ -8,396 +8,381 @@
         xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:viewModel="clr-namespace:enelex3.ViewModel"
         xmlns:uc="clr-namespace:enelex3.UserControls"
+        x:Name="winMain"
         mc:Ignorable="d"
         d:DataContext="{d:DesignInstance viewModel:MainWindowViewModel}"
-       Title="Enelex GE3030" Icon="Pics/nuclear.ico" Width="1475" Height="800" WindowStartupLocation="CenterScreen" WindowState="Maximized"  Background="WhiteSmoke">
+        Title="Enelex GE3030" Icon="Pics/nuclear.ico" 
+        Width="1475" 
+        Height="800" 
+        WindowStartupLocation="CenterScreen" 
+        WindowState="Maximized"  
+        Background="WhiteSmoke"
+        >
+    <Window.Resources>
+        <Style TargetType="Button"  BasedOn="{StaticResource StandardIconButton}" ></Style>
+        <BooleanToVisibilityConverter x:Key="boolConverter"></BooleanToVisibilityConverter>
+    </Window.Resources>
     <b:Interaction.Triggers>
         <b:EventTrigger EventName="Loaded">
-            <b:InvokeCommandAction Command="{Binding LoadCommand}"></b:InvokeCommandAction>
+            <b:InvokeCommandAction Command="{Binding CheckBoolVisibleGroupCommand}"></b:InvokeCommandAction>
+            <b:InvokeCommandAction Command="{Binding AllBoolLoadCommand}"></b:InvokeCommandAction>
+            <b:InvokeCommandAction Command="{Binding LoadComboTypeCommand}"></b:InvokeCommandAction>
+            <b:InvokeCommandAction Command="{Binding CheckAbsoluteShiftCommand}"></b:InvokeCommandAction>
+        </b:EventTrigger>
+        <b:EventTrigger EventName="Closed">
+            <b:InvokeCommandAction Command="{Binding CloseCommand}"></b:InvokeCommandAction>
         </b:EventTrigger>
     </b:Interaction.Triggers>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"></RowDefinition>
             <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
             <RowDefinition></RowDefinition>
-          
+
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto"></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <StackPanel Orientation="Horizontal" Margin="5,5,0,0"  Grid.ColumnSpan="2">
-            <Button Style="{DynamicResource Load}"  Height="42" Command="{Binding LoadCommand}"></Button>
-            <Button Style="{DynamicResource Update}"  Height="42" Command="{Binding EditMeasureCommand}"></Button>
-            <Button Style="{StaticResource CopyButton}"  Command="{Binding SaveMeasureCommand}" Height="42"></Button>
-            <Button Style="{StaticResource SearchButton}"  Command="{Binding SaveWinCommand}"></Button>
-            <Button Style="{DynamicResource Delete}"  Height="42" Command="{Binding DelMeasureCommand}"></Button>
-            <Button Style="{DynamicResource ExcelButton}" Height="42" Command="{Binding ExcelCommand}"></Button>
-            <Button Style="{DynamicResource Print}"  VerticalAlignment="Top" Visibility="Collapsed" ></Button>
-            <Button Style="{StaticResource ExcelImportButton}" Command="{Binding ExcelImportCommand}" Content="+"></Button>
-        </StackPanel>
-        <StackPanel Grid.Row="1" Background="White" Orientation="Horizontal" Margin="5,5,0,0">
-            <Label Visibility="Collapsed" Margin="-3,0,0,0">Br</Label>
-            <TextBox Visibility="Collapsed" Name="tbBr" Width="42"  Height="20"  ></TextBox>
-            <Label Margin="-3,0,0,0">GE</Label>
-            <TextBox Name="tbGE" Width="42"  IsReadOnly="False" Height="20" Text="{Binding NewMeasureGE, Mode=TwoWay, StringFormat=N2,UpdateSourceTrigger=PropertyChanged}"></TextBox>
-            <Label Margin="-2,0,0,0">LAB</Label>
-            <TextBox Name="tbLAB" Width="42" IsReadOnly="False" Height="20"  Text="{Binding NewMeasureLAB, Mode=TwoWay, StringFormat=N2,UpdateSourceTrigger=PropertyChanged}"></TextBox>
-            <Label Margin="-2,0,0,0">W</Label>
-            <TextBox Name="tbW" Width="42" IsReadOnly="False" Height="20"  Text="{Binding NewMeasureW, Mode=TwoWay, StringFormat=N2,UpdateSourceTrigger=PropertyChanged}"></TextBox>
-            <Button   Style="{DynamicResource Add2}" Width="70" Command="{Binding AddMeasureCommand}" Margin="10,0,0,0"></Button>
+       
+        <Separator VerticalAlignment="Top" Background="LightGray" Margin="0,5,5,0" Grid.Row="1" Grid.ColumnSpan="2"></Separator>
+        <Separator VerticalAlignment="Bottom" Background="LightGray" Margin="0,5,0,0"  Grid.Row="1" Grid.ColumnSpan="2"></Separator>
+        <WrapPanel Orientation="Horizontal" Margin="5,10,0,5"  Grid.ColumnSpan="2" Grid.Row="1">
+            <Button Tag="LoadButton" Content="{StaticResource Load}"   Command="{Binding AllLoadCommand}"></Button>
+            <Button Tag="UpdateButton" Content="{StaticResource Update}"  Command="{Binding EditMeasureCommand}"></Button>
+            <Button Tag="DelButton" Content="{StaticResource Delete}"   Command="{Binding DelMeasureCommand}"></Button>
+            <Button Tag="CopyButton" Content="{StaticResource Save}" Visibility="Collapsed"  Command="{Binding SaveMeasureCommand}"></Button>
+            <Button Tag="Folder2Button" Content="{StaticResource View}" Visibility="Collapsed"  Command="{Binding SaveWinCommand}"></Button>
+            <Button Tag="ExportButton" Content="Export Excel" Command="{Binding ExcelCommand}"></Button>
+            <Button Tag="ImportButton" Content="Import Excel"  Command="{Binding ExcelImportCommand}"></Button>
+            <Button Tag="Table2Button"  Content="{StaticResource Table}"  Command="{Binding TrainCommand}"></Button>
+            <Button Tag="TypeButton" Content="{StaticResource Type}" Width="40" Command="{Binding TypeCommand}" ></Button>
+            <Button Tag="AddCustomersButton" Content="{StaticResource Customrs}" Command="{Binding UserRegistrationCommand}" ></Button>
+        </WrapPanel>
+        <WrapPanel Grid.Column="1"
+                   x:Name="wpLogIn"
+                   Margin="5,10,10,5"
+                   Grid.Row="1"
+                   HorizontalAlignment="Right"
+                   Orientation="Horizontal"
+                   DataContext="{Binding ListOfUserLogIn}">
+            <Border Background="White"
+                    CornerRadius="40"
+                    Height="40">
+                <Path Style="{StaticResource PathLogInStyle}" 
+                  Data="{StaticResource LogInPepleGeo}"></Path>
+            </Border>
+            
+            <TextBlock Text="{Binding FirstName}" VerticalAlignment="Center" Margin="20,0,20,0"></TextBlock>
+            <Button Tag="LogOutButton"   
+                            Content="LogOut"  
+                            Command="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType=Window},Path=DataContext.LogOutCommand}" 
+                            CommandParameter="{Binding ElementName=winMain}"></Button>
+        </WrapPanel>
+        <StackPanel Grid.Row="2" 
+                    Background="White"
+                    Orientation="Horizontal" 
+                    Margin="5,5,0,0">
+            <WrapPanel Orientation="Vertical"
+                      Margin="20,0,0,0">
+                <TextBox
+                    BorderThickness="0"
+                    HorizontalContentAlignment="Center"
+                    VerticalAlignment="Center">GE</TextBox>
+                <TextBox Name="tbGE" 
+                     Width="42"  
+                     Height="20" 
+                     Text="{Binding NewMeasureGE, Mode=TwoWay, StringFormat=N2,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+            </WrapPanel>
+            <WrapPanel Orientation="Vertical"
+                        Margin="5,0,0,0">
+                <TextBox
+                    BorderThickness="0"
+                    HorizontalContentAlignment="Center"
+                    VerticalAlignment="Center">LAB</TextBox>
+                <TextBox Name="tbLAB"
+                     Width="42"
+                     Height="20"  
+                     Text="{Binding NewMeasureLAB, Mode=TwoWay, StringFormat=N2,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+            </WrapPanel>
+            <WrapPanel Orientation="Vertical"
+                        Margin="5,0,0,0">
+                <TextBox
+                    BorderThickness="0"
+                    HorizontalContentAlignment="Center"
+                    VerticalAlignment="Center">W</TextBox>
+                <TextBox Name="tbW" 
+                     Width="42" 
+                     Height="20"  
+                     Text="{Binding NewMeasureW, Mode=TwoWay, StringFormat=N2,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+            </WrapPanel>
+            
+            
+            <Button Width="45"
+                    VerticalAlignment="Bottom"
+                    HorizontalAlignment="Center"
+                    Tag="ColorMainButton" 
+                    Content="{StaticResource Add}"  
+                    Command="{Binding AddMeasureCommand}" 
+                    Margin="5"></Button>
         </StackPanel>
 
-        <DataGrid Name="dgMeasures"  MinWidth="275" Grid.ColumnSpan="1" CellStyle="{StaticResource cellCentar}"  Grid.Row="2" Grid.RowSpan="2"  Style="{StaticResource dgCustom}" RowStyle="{StaticResource SelectedRow}" ItemsSource="{Binding ListOfMeasures, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedListOfMeasures, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  BorderBrush="#FFC3C3C3"  >
+        <DataGrid Name="dgMeasures" 
+                  Grid.ColumnSpan="1" 
+                  CellStyle="{StaticResource cellCentar}"  
+                  Grid.Row="3" Grid.RowSpan="2"  
+                  Style="{StaticResource dgCustom}" 
+                  RowStyle="{StaticResource  RowStyleSelectedItems}" 
+                  ItemsSource="{Binding ListOfMeasures, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
+                  SelectedItem="{Binding SelectedListOfMeasures, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
+                  BorderBrush="#FFC3C3C3" 
+                  ColumnHeaderStyle="{StaticResource HeaderCalibrationStyle}"
+                  RowHeaderStyle="{StaticResource HeaderRowIndexStyle}">
+            <DataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem  Command="{Binding CopyExcelCommand}">
+                        <MenuItem.Header>
+                            <WrapPanel>
+                                <TextBlock Text="Copy"></TextBlock>
+                            </WrapPanel>
+                        </MenuItem.Header>
+                        <MenuItem.Icon>
+                            <Path Style="{StaticResource MediumPathStyle}" Data="{StaticResource CopyGeo}" Fill="#cc6600"></Path>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Header="Paste" Command="{Binding PasteExcelCommand}">
+                        <MenuItem.Icon>
+                            <Path Style="{StaticResource MediumPathStyle}" Data="{StaticResource LoadPaste3Geo}" Height="18" Fill="Green"></Path>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                </ContextMenu>
+            </DataGrid.ContextMenu>
             <b:Interaction.Triggers>
                 <b:EventTrigger EventName="LoadingRow">
                     <b:InvokeCommandAction Command="{Binding GetRowIndexMeasure}" PassEventArgsToCommand="True"></b:InvokeCommandAction>
                 </b:EventTrigger>
             </b:Interaction.Triggers>
-            <DataGrid.ColumnHeaderStyle>
-                <Style TargetType="DataGridColumnHeader">
-                    <Setter Property="ContentTemplate">
-                        <Setter.Value>
-                            <DataTemplate>
-                                <TextBlock TextWrapping="Wrap" TextAlignment="Center" Text="{Binding}"></TextBlock>
-                            </DataTemplate>
-                        </Setter.Value>
-                    </Setter>
-                </Style>
-            </DataGrid.ColumnHeaderStyle>
+
             <DataGrid.InputBindings>
                 <KeyBinding Key="Delete" Command="{Binding DelMeasureCommand}"></KeyBinding>
             </DataGrid.InputBindings>
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Broj uzoraka    j " Binding="{Binding Index}"  Width="65"></DataGridTextColumn>
-                <DataGridTextColumn Header="Pepeo GE3030      x" Binding="{Binding Ge,  StringFormat= N2, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="65"  ></DataGridTextColumn>
-                <DataGridTextColumn Header="Pepeo Labaratorija y" Binding="{Binding Lab, StringFormat= N2, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="80"   ></DataGridTextColumn>
-                <DataGridTextColumn Header="Vlaga uzorka    w" Binding="{Binding W, StringFormat= N2, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="65" ></DataGridTextColumn>
-                <DataGridCheckBoxColumn Header="Save" Binding="{Binding Save}" Visibility="Collapsed"></DataGridCheckBoxColumn>
+
+                <DataGridTextColumn Header="GE3030  x[%]" 
+                                    Binding="{Binding Ge,  StringFormat= N2, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
+                                    Width="60" ></DataGridTextColumn>
+                <DataGridTextColumn Header="Labaratorija y[%]" 
+                                    Binding="{Binding Lab, StringFormat= N2, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
+                                    Width="75"  ></DataGridTextColumn>
+                <DataGridTextColumn Header="Vlaga   w[%]" 
+                                    Width="60"
+                                    Binding="{Binding W, StringFormat= N2, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                                     ></DataGridTextColumn>
+                <DataGridCheckBoxColumn Header="Save"
+                                        Binding="{Binding Save}" Visibility="Collapsed"></DataGridCheckBoxColumn>
             </DataGrid.Columns>
 
         </DataGrid>
-        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Grid.Row="1" Grid.Column="1" Grid.RowSpan="2" >
-        <StackPanel Background="White" Orientation="Vertical" Margin="0,5,0,0">
-            <GroupBox Header="Izračunavanje p i q" Margin="5,5,5,0" BorderThickness="1"  BorderBrush="#FFCBCBCB">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition></ColumnDefinition>
-                        <ColumnDefinition></ColumnDefinition>
-                    </Grid.ColumnDefinitions>
-                    <StackPanel Orientation="Vertical">
-                        <StackPanel Margin="10,20,20,0" Orientation="Horizontal">
-                            <Image   Source="{StaticResource SumPImage}" Width="250"></Image>
-                            <Label VerticalAlignment="Center" Margin="0,-7,0,0">=</Label>
-                            <TextBox Name="tbP" Margin="0,-7,0,0" Grid.Column="3" Height="20"  Width="100" HorizontalAlignment="Left" VerticalContentAlignment="Center" Text="{Binding Result_P, Mode=TwoWay, StringFormat=N4}"></TextBox>
-                        </StackPanel>
-                        <StackPanel Margin="10,10,0,0" Grid.Row="3" Orientation="Horizontal">
-
-                            <Image Source="{StaticResource SumQImage}" Width="150" Margin="0,5,0,0"></Image>
-                            <Label VerticalAlignment="Center"  Margin="0,37,0,0">=</Label>
-                            <TextBox Name="tbQ" Margin="0,40,0,0" Width="100" HorizontalAlignment="Left"  VerticalContentAlignment="Center" VerticalAlignment="Center" Text="{Binding Result_Q, Mode=TwoWay, StringFormat=N4}"></TextBox>
-
-                        </StackPanel>
-                        <StackPanel Margin="0,50,0,0">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="auto"></ColumnDefinition>
-                                    <ColumnDefinition Width="auto"></ColumnDefinition>
-                                    <ColumnDefinition Width="auto"></ColumnDefinition>
-                                    <ColumnDefinition  ></ColumnDefinition>
-                                </Grid.ColumnDefinitions>
-                                <StackPanel >
-                                    <Grid Margin="0,5,0,0">
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="auto"></RowDefinition>
-                                            <RowDefinition Height="auto"></RowDefinition>
-                                            <RowDefinition ></RowDefinition>
-                                        </Grid.RowDefinitions>
-                                        <StackPanel Orientation="Horizontal" >
-                                            <Button Style="{DynamicResource SaveButton}" Visibility="Collapsed" Command="{Binding EditNewCommand}"  Margin="5,0,0,0" BorderBrush="#FFB8B8B8" ></Button>
-                                            <Button Style="{DynamicResource UpdateButton}" Command="{Binding EditNewTypeCommand}" Height="42"></Button>
-                                            <Button  Style="{DynamicResource Graph}" Visibility="Collapsed" Command="{Binding Graph1Command}" />
-                                        </StackPanel >
-
-                                        <DataGrid Visibility="Visible" ColumnHeaderStyle="{StaticResource HeaderStyle}" Name="dgTipAB" Style="{StaticResource dgCustom }" ItemsSource="{Binding ListOfCalibrations}" SelectedItem="{Binding SelectedNewCalibration}"  CanUserAddRows="False"  Grid.Row="2" Height="45" Margin="5,5,0,0">
-                                            <DataGrid.Columns>
-                                                <DataGridTextColumn Header="Vrednost [a]" MinWidth="100" Binding="{Binding NumberA, Mode=TwoWay, StringFormat=N4}" ></DataGridTextColumn>
-                                                <DataGridTextColumn Header="Vrednost [b]" MinWidth="100" Binding="{Binding NumberB, Mode=TwoWay, StringFormat=N4}" ></DataGridTextColumn>
-                                            </DataGrid.Columns>
-                                        </DataGrid>
-                                        <StackPanel Visibility="Collapsed" Orientation="Vertical" Grid.Row="2" Grid.RowSpan="3"  DataContext="{Binding ListOfCalibrations,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Margin="0,5,0,0">
-                                            <StackPanel Orientation="Horizontal">
-                                                <TextBox Margin="5" BorderThickness="0" Text="Vrednost [a] :" MinWidth="100" HorizontalContentAlignment="Center"></TextBox>
-                                                <TextBox Margin="0,5,0,0" BorderThickness="1" MinWidth="100" IsReadOnly="False" Text="{Binding NumberA,StringFormat=N2,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBox>
-                                            </StackPanel>
-                                            <StackPanel  Orientation="Horizontal" >
-                                                <TextBox  Margin="5" BorderThickness="0" Text="Vrednost [b] :" MinWidth="100" HorizontalContentAlignment="Center"></TextBox>
-                                                <TextBox  Margin="0,5,0,0" BorderThickness="1"  MinWidth="100" IsReadOnly="False"  Text="{Binding NumberB,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,StringFormat=N2}"></TextBox>
-                                            </StackPanel>
-                                        </StackPanel>
-                                    </Grid>
-                                </StackPanel>
-                                <StackPanel Grid.Column="1" Margin="20,20,5,0">
-                                    <Grid>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="auto"></RowDefinition>
-                                            <RowDefinition></RowDefinition>
-                                            <RowDefinition></RowDefinition>
-                                        </Grid.RowDefinitions>
-                                        <StackPanel Orientation="Horizontal">
-                                            <Label>A = p * a =</Label>
-                                            <TextBox Name="tbA" Grid.Column="1" Width="70" Text="{Binding Result_NewA,StringFormat=N4}" HorizontalAlignment="Left" VerticalContentAlignment="Center" Height="20" ></TextBox>
-                                        </StackPanel>
-                                        <StackPanel Grid.Row="1" Orientation="Horizontal">
-                                            <Label>B = (p * b) + q =</Label>
-                                            <TextBox Name="tbB" Grid.Column="1" Width="70" Text="{Binding Result_NewB,StringFormat=N4}" HorizontalAlignment="Left" VerticalContentAlignment="Center" Height="20"></TextBox>
-                                        </StackPanel>
-                                        <StackPanel Grid.Row="2" Orientation="Horizontal">
-                                            <Label>W =</Label>
-                                            <TextBox Name="tbV" Width="70" Height="20" Text="{Binding Result_W,StringFormat=N4}"></TextBox>
-
-                                        </StackPanel>
-                                    </Grid>
-                                </StackPanel>
-                                <StackPanel Grid.Column="2" Margin="0,20,0,0">
-                                    <Grid>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition ></RowDefinition>
-                                            <RowDefinition></RowDefinition>
-                                            <RowDefinition></RowDefinition>
-                                        </Grid.RowDefinitions>
-                                        <StackPanel  Orientation="Horizontal">
-                                            <Label Width="40">P1 =</Label>
-                                            <TextBox Width="70"  Height="20"></TextBox>
-                                        </StackPanel>
-                                        <StackPanel  Grid.Row="1" Orientation="Horizontal">
-                                            <Label Width="40">Q1 =</Label>
-                                            <TextBox Width="70"  Height="20"  ></TextBox>
-                                        </StackPanel>
-                                        <StackPanel Grid.Row="2" Orientation="Horizontal">
-                                            <Label Width="40">R1 =</Label>
-                                            <TextBox Width="70"  Height="20" ></TextBox>
-
-                                        </StackPanel>
-                                    </Grid>
-                                </StackPanel>
-
-                                <StackPanel Grid.Column="3"   Orientation="Horizontal" HorizontalAlignment="Right">
-
-                                </StackPanel>
-                                <StackPanel Visibility="Collapsed" Orientation="Horizontal" Grid.Row="1" Height="20">
-                                    <TextBox Width="72" Height="20" Margin="5,0,5,0"  Text="{Binding NumberAp, Mode=TwoWay, StringFormat={}{0:F2}}"  ></TextBox>
-                                    <TextBox Width="72" Height="20" Text="{Binding NumberBp, Mode=TwoWay, StringFormat={}{0:F2}}" ></TextBox>
-                                </StackPanel>
-                            </Grid>
-                        </StackPanel>
-                    </StackPanel>
-                        <uc:ScatterLineGraph Width="350" Height="250" Grid.Column="1" DataContext="{Binding ScatterGraph}" HorizontalAlignment="Right"></uc:ScatterLineGraph>
-                </Grid>
-            </GroupBox>
-
-                <GroupBox Header="Apsolutno pomeranje" Grid.Column="0" Grid.ColumnSpan="2" Margin="5,0,0,0" BorderThickness="1"   BorderBrush="#FFCBCBCB">
-                    <Grid>
+    
+    
+            <ScrollViewer VerticalScrollBarVisibility="Visible"
+                           Grid.Row="2" 
+                      Grid.Column="1"
+                      Grid.ColumnSpan="3"
+                      Grid.RowSpan="2" >
+            <StackPanel Background="White" Orientation="Vertical" Margin="0,5,0,0">
+                <GroupBox BorderThickness="1"  
+                          Style="{StaticResource GroupBoxPandQ}">
+                    <Grid Visibility="{Binding VisiblePandQ,Converter={StaticResource boolConverter}}">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition></ColumnDefinition>
                             <ColumnDefinition></ColumnDefinition>
                         </Grid.ColumnDefinitions>
-                        <StackPanel>
-                            <Grid Margin="0,5,0,0">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="auto"></ColumnDefinition>
-                                    <ColumnDefinition Width="auto"></ColumnDefinition>
-                                    <ColumnDefinition Width="auto"></ColumnDefinition>
-                                    <ColumnDefinition Width="auto"></ColumnDefinition>
-                                    <ColumnDefinition ></ColumnDefinition>
-                                </Grid.ColumnDefinitions>
-                                <StackPanel>
-                                    <Grid>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="auto"></RowDefinition>
-                                            <RowDefinition Height="auto"></RowDefinition>
-                                            <RowDefinition Height="auto"></RowDefinition>
-                                        </Grid.RowDefinitions>
-                                        <StackPanel Orientation="Horizontal">
-                                            <Button Style="{DynamicResource SaveButton}" Visibility="Collapsed" ></Button>
-                                            <Button Style="{DynamicResource UpdateButton}" Height="42"  Command="{Binding SaveChangesCommand}"></Button>
-                                        </StackPanel >
-                                        <StackPanel Visibility="Collapsed" Orientation="Horizontal" Grid.Row="1" Height="20" Margin="0,0,0,0">
-                                            <TextBox Width="72" Height="20" Margin="5,0,5,0"  Text="{Binding NumberPr, Mode=TwoWay, StringFormat={}{0:F2}}"  ></TextBox>
+                        <StackPanel Orientation="Vertical">
+                            <StackPanel Margin="10,20,20,0" Orientation="Horizontal">
+                                <Image   Source="{StaticResource SumPImage}" Width="250"></Image>
+                                <Label VerticalAlignment="Center" Margin="0,-7,0,0">=</Label>
+                                <TextBox Name="tbP" Margin="0,-7,0,0" Grid.Column="3" Height="20"  Width="100" HorizontalAlignment="Left" VerticalContentAlignment="Center" Text="{Binding Result_P, Mode=TwoWay, StringFormat=N4}"></TextBox>
+                            </StackPanel>
+                            <StackPanel Margin="10,10,0,0" Grid.Row="3" Orientation="Horizontal">
+                                <Image Source="{StaticResource SumQImage}" Width="150" Margin="0,5,0,0"></Image>
+                                <Label VerticalAlignment="Center"  Margin="0,37,0,0">=</Label>
+                                <TextBox Name="tbQ" Margin="0,40,0,0" Width="100" HorizontalAlignment="Left"  VerticalContentAlignment="Center" VerticalAlignment="Center" Text="{Binding Result_Q, Mode=TwoWay, StringFormat=N4}"></TextBox>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal"
+                                        Margin="0,10,0,0">
+                                <Button Tag="LoadButton"
+                                        Visibility="Collapsed"
+                                        Content="{StaticResource Load}"  
+                                        Command="{Binding EditNewTypeCommand}" ></Button>
+                                <WrapPanel Orientation="Vertical">
+                                    <TextBlock Text="Izaberi tip za rekalibraciju"></TextBlock>
+                                    <ComboBox Style="{StaticResource ComboBoxMyStyle}" 
+                                          MinWidth="120"
+                                                          IsEditable="True"
+                                                          SelectedItem="{Binding SelectedListOfType,UpdateSourceTrigger=PropertyChanged}"
+                                                          SelectedIndex="{Binding SelectedIdexType,UpdateSourceTrigger=PropertyChanged}"
+                                                          VerticalAlignment="Center"
+                                                          ItemsSource="{Binding ListOfType}"
+                                                          DisplayMemberPath="Type"
+                                                          Margin="0,5"></ComboBox>
+                                </WrapPanel>
+                               
+                            </StackPanel >
+                            <WrapPanel Margin="0,10,0,0"
+                                       Orientation="Horizontal">
+                                <Border BorderBrush="{StaticResource DefaultBorderFirstColor}"
+                                                BorderThickness="1">
+                                    <uc:DisplayNewCalibrations DataContext="{Binding DisplayCalibrations}"></uc:DisplayNewCalibrations>
+                                </Border>
 
-                                        </StackPanel>
-                                        <StackPanel  Grid.Row="2" >
-                                            <DataGrid Name="dgApsolutno" ColumnHeaderStyle="{StaticResource HeaderStyle}" Style="{StaticResource dgCustom}" ItemsSource="{Binding ListOfPercetange}" Height="45" CanUserAddRows="False" Margin="5,5,0,0" >
-                                                <DataGrid.Columns>
-                                                    <DataGridTextColumn Header="Procenat pomeranja [k]"  MinWidth="130"  Binding="{Binding NumberP,  Mode=TwoWay, StringFormat={}{0:F2}}"></DataGridTextColumn>
-                                                </DataGrid.Columns>
-                                            </DataGrid>
-                                        </StackPanel>
-                                    </Grid>
-                                </StackPanel>
-                                <StackPanel Grid.Column="1" >
-                                    <Grid>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="auto"></RowDefinition>
-                                            <RowDefinition Height="auto"></RowDefinition>
-                                            <RowDefinition Height="auto"></RowDefinition>
-                                        </Grid.RowDefinitions>
-                                        <StackPanel Orientation="Horizontal" >
-                                            <Button Style="{DynamicResource SaveButton}" Visibility="Collapsed" ></Button>
-                                            <Button Style="{DynamicResource UpdateButton}" Height="42" Command="{Binding SaveChangesCommand}"></Button>
-                                            <Button Visibility="Collapsed" Style="{DynamicResource Graph}"  Command="{Binding Graph2Command}"></Button>
-                                        </StackPanel >
-                                        <StackPanel Visibility="Collapsed" Orientation="Horizontal" Grid.Row="1"  Height="20">
-                                            <TextBox Width="72" Height="20" Margin="5,0,5,0"  Text="{Binding NumberAa, Mode=TwoWay, StringFormat={}{0:F2}}"  ></TextBox>
-                                            <TextBox Width="72" Height="20" Text="{Binding NumberBa, Mode=TwoWay, StringFormat={}{0:F2}}" ></TextBox>
-                                        </StackPanel>
-                                        <StackPanel Grid.Row="2" Margin="5,5,0,0">
-
-                                            <DataGrid Name="dgTipAB2" ColumnHeaderStyle="{StaticResource HeaderStyle}"  Style="{StaticResource dgCustom}" ItemsSource="{Binding ListOfCalibrationAbsoluteShifting}" SelectedItem="{Binding SelectedListOfCalibrationAbsoluteShifting}" Height="45" CanUserAddRows="False"    >
-                                                <DataGrid.Columns>
-                                                    <DataGridTextColumn Header="Vrednost [a]"  MinWidth="100"  Binding="{Binding NumberATwo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat=N4}" ></DataGridTextColumn>
-                                                    <DataGridTextColumn Header="Vrednost [b]"  MinWidth="100"  Binding="{Binding NumberBTwo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat=N4}" ></DataGridTextColumn>
-                                                </DataGrid.Columns>
-                                            </DataGrid>
-                                        </StackPanel>
-                                    </Grid>
-                                </StackPanel>
-                                <StackPanel Grid.Column="2" Margin="20,0,0,0">
-                                    <Grid>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="auto"></RowDefinition>
-                                            <RowDefinition Height="auto"></RowDefinition>
-                                            <RowDefinition Height="auto"></RowDefinition>
-                                            <RowDefinition Height="auto"></RowDefinition>
-                                        </Grid.RowDefinitions>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="auto"></ColumnDefinition>
-                                            <ColumnDefinition></ColumnDefinition>
-                                        </Grid.ColumnDefinitions>
-
-                                        <StackPanel Orientation="Horizontal"  Grid.Row="1" >
-                                            <Label Height="26" VerticalAlignment="Top" Width="40">A =</Label>
-                                            <TextBox Name="tbAprocenat" Width="70" Height="20" Text="{Binding Result_AbsoluteA,StringFormat=N4}" HorizontalAlignment="Left"  VerticalContentAlignment="Center"></TextBox>
-                                        </StackPanel>
-                                        <StackPanel Grid.Row="2" Orientation="Horizontal"  >
-                                            <Label Width="40">B =</Label>
-                                            <TextBox Name="tbBprocenat" Width="70" Height="20" HorizontalAlignment="Left" Text="{Binding Result_AbsoluteB,StringFormat=N4}"  VerticalContentAlignment="Center" Margin="0,3,0,0" VerticalAlignment="Top"  ></TextBox>
-                                        </StackPanel>
-                                        <StackPanel Grid.Row="3" Orientation="Horizontal">
-                                            <Label Width="40">W =</Label>
-                                            <TextBox  Name="tbV1" Width="70" Text="{Binding Result_W, StringFormat=N4}"  Height="20" ></TextBox>
-                                        </StackPanel>
-                                        <StackPanel  Orientation="Horizontal" Grid.Column="1" Grid.Row="1">
-                                            <Label Width="40">P1 =</Label>
-                                            <TextBox Width="70" Height="20"></TextBox>
-                                        </StackPanel>
-                                        <StackPanel  Grid.Row="2" Grid.Column="1" Orientation="Horizontal">
-                                            <Label Width="40">Q1 =</Label>
-                                            <TextBox Width="70" Height="20"  ></TextBox>
-                                        </StackPanel>
-                                        <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal">
-                                            <Label Width="40">R1 =</Label>
-                                            <TextBox Width="70"  Height="20"></TextBox>
-                                        </StackPanel>
-                                    </Grid>
-                                </StackPanel>
-
-                            </Grid>
+                                <uc:EquallyArrowUserControl></uc:EquallyArrowUserControl>
+                                <StackPanel >
+                                        <Border BorderBrush="Green"
+                                                BorderThickness="1"
+                                                Margin="10,0,0,0">
+                                        <uc:DisplayNewCalibrations DataContext="{Binding DisplayNewCalibrations}"></uc:DisplayNewCalibrations>
+                                    </Border>
+                                    </StackPanel>
+                                
+                            </WrapPanel>
                         </StackPanel>
-                        <uc:ScatterLineGraph Width="350" Height="250" Grid.Column="1" DataContext="{Binding ScatterGraph2}" HorizontalAlignment="Right"></uc:ScatterLineGraph>
+                        <uc:ScatterLineGraph Width="350" Height="250" Grid.Column="1" DataContext="{Binding ScatterGraph,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Right"></uc:ScatterLineGraph>
                     </Grid>
                 </GroupBox>
-                <GroupBox Header="Srazmerno pomeranje" Margin="5,0,0,5" BorderThickness="1"   BorderBrush="#FFCBCBCB">
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="auto"></RowDefinition>
-                                    <RowDefinition Height="auto"></RowDefinition>
-                                </Grid.RowDefinitions>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="auto"></ColumnDefinition>
-                                    <ColumnDefinition Width="auto"></ColumnDefinition>
-                                   <ColumnDefinition></ColumnDefinition>
+
+                <GroupBox  Grid.Column="0"
+                           Grid.ColumnSpan="2" 
+                           Style="{StaticResource GroupBoxAbsolue}">
+                    <Grid 
+                               Visibility="{Binding VisibleAB,Converter={StaticResource boolConverter}}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"></ColumnDefinition>
+                            <ColumnDefinition Width="auto"></ColumnDefinition>
+                            <ColumnDefinition Width="auto"></ColumnDefinition>
+                            <ColumnDefinition Width="auto"></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
                         </Grid.ColumnDefinitions>
-                                <StackPanel Margin="0,10,0,0">
-                                  
-                                        <StackPanel Orientation="Horizontal">
-                                            <Button Visibility="Collapsed" Style="{DynamicResource AddButton}" ></Button>
-                                            <Button Style="{DynamicResource SaveButton}" Visibility="Collapsed" Command="{Binding AddProportionCommand}"></Button>
-                                            <Button Style="{DynamicResource UpdateButton}" Command="{Binding UpDateProportionCommand}"></Button>
-                                            <Button Style="{DynamicResource DeleteButton}" Visibility="Collapsed" Command="{Binding DelProportionCommand}"></Button>
-                                        </StackPanel >
-                                      
-                                        <DataGrid Name="dgOne" RowHeaderStyle="{StaticResource HeaderRowIndexStyle}"  ColumnHeaderStyle="{StaticResource HeaderStyle}" Style="{StaticResource dgCustom}" ItemsSource="{Binding ListOfCalibrationProportionShifting,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedListOfCalibrationProportionShifting}" CanUserAddRows="False" Grid.Row="2" Margin="0,5,0,0" >
-                                            <DataGrid.Columns>
-                                                <DataGridTextColumn Header="Laboratorija L [%] " Binding="{Binding L, Mode=TwoWay, StringFormat={}{0:F2}}"  ></DataGridTextColumn>
-                                                <DataGridTextColumn Header="Sadrzaj pepela P [%] " Binding="{Binding P, Mode=TwoWay, StringFormat={}{0:F2}}"></DataGridTextColumn>
-                                                <DataGridTextColumn Header="Korigovanje k=L-P [%]  " Binding="{Binding SumLP}" IsReadOnly="True"></DataGridTextColumn>
-                                            </DataGrid.Columns>
-                                        </DataGrid>
-                                    
-                                </StackPanel>
-                                <StackPanel Grid.Column="0" Grid.Row="1" Margin="0,0,0,0">
-                                    
-                                        <StackPanel Orientation="Horizontal" >
-                                            <Button Style="{DynamicResource SaveButton}"  Visibility="Collapsed"></Button>
-                                            <Button Style="{DynamicResource UpdateButton}" Command="{Binding SaveChangesCommand}"></Button>
-                                            <Button  Style="{DynamicResource Graph}" Visibility="Collapsed"  Command="{Binding Graph3Command}" ></Button>
-                                        </StackPanel>
-                                      
-                                        <StackPanel  Grid.Row="2" Margin="0,10,0,0" >
-                                            <DataGrid Width="202" HorizontalAlignment="Left" Name="dgTipAB3" ColumnHeaderStyle="{StaticResource HeaderStyle}" Style="{StaticResource dgCustom}" ItemsSource="{Binding ListOfValueOfProportion}" CanUserAddRows="False"   Height="45">
-                                                <DataGrid.Columns>
-                                                    <DataGridTextColumn Header="Vrednost [a]"  MinWidth="100"  Binding="{Binding NumberAThree, Mode=TwoWay, StringFormat=N4}" ></DataGridTextColumn>
-                                                    <DataGridTextColumn Header="Vrednost [b]"  MinWidth="100"  Binding="{Binding NumberBThree, Mode=TwoWay, StringFormat=N4}" ></DataGridTextColumn>
-                                                </DataGrid.Columns>
-                                            </DataGrid>
-                                        </StackPanel>
-                                   
-                                </StackPanel>
-                        <StackPanel Grid.Column="1" Grid.Row="0" Margin="20,50,0,0">
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition></RowDefinition>
-                                    <RowDefinition></RowDefinition>
-                                    <RowDefinition></RowDefinition>
-                                </Grid.RowDefinitions>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="auto"></ColumnDefinition>
-                                    <ColumnDefinition></ColumnDefinition>
-                                </Grid.ColumnDefinitions>
-                                <StackPanel Orientation="Horizontal">
-                                    <Label Width="40">A =</Label>
-                                    <TextBox Name="tbAsraz" Width="70" Text="{Binding Result_ProportionA, StringFormat=N4}"  VerticalContentAlignment="Center" Height="20" ></TextBox>
-                                </StackPanel>
-                                <StackPanel Orientation="Horizontal" Grid.Row="1">
-                                    <Label Width="40">B =</Label>
-                                    <TextBox Name="tbBsraz" Width="70" Text="{Binding Result_ProportionB, StringFormat=N4}"  VerticalContentAlignment="Center" Height="20" Margin="0,0,0,0" ></TextBox>
-                                </StackPanel>
-                                <StackPanel Grid.Row="2" Orientation="Horizontal">
-                                    <Label Width="40">W=</Label>
-                                    <TextBox Name="tbV2" Width="70" Text="{Binding Result_W, StringFormat=N4}"   Height="20" ></TextBox>
-                                </StackPanel>
-                                <StackPanel  Orientation="Horizontal" Grid.Column="1" Grid.Row="0">
-                                    <Label Width="40">P1 =</Label>
-                                    <TextBox Width="70"  Height="20"></TextBox>
-                                </StackPanel>
-                                <StackPanel  Grid.Row="1" Grid.Column="1" Orientation="Horizontal">
-                                    <Label Width="40">Q1 =</Label>
-                                    <TextBox Width="70"  Height="20"  ></TextBox>
-                                </StackPanel>
-                                <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal">
-                                    <Label Width="40">R1=</Label>
-                                    <TextBox  Width="70"  Height="20"></TextBox>
-                                </StackPanel>
-                            </Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <WrapPanel Orientation="Vertical"
+                                   Margin="0,10">
+                            <uc:DisplayErrorCalibration x:Uid="1" DataContext="{Binding DisplayErrorAbsolute}"></uc:DisplayErrorCalibration>
+                        </WrapPanel>
+                        <uc:EquallyArrowUserControl Grid.Column="1"></uc:EquallyArrowUserControl>
+                        <WrapPanel Orientation="Vertical" 
+                                   Grid.Column="2"
+                                   Margin="10"
+                                   VerticalAlignment="Center">
+                            <Border BorderBrush="{StaticResource DefaultBorderSecondColor}"
+                                                BorderThickness="1">
+                                <uc:DisplayNewCalibrations DataContext="{Binding DisplayCalibrationsAbsolute}"></uc:DisplayNewCalibrations>
+                            </Border>
+                        </WrapPanel>
+                        <uc:SaveNewCalibrationDisplay DataContext="{Binding SaveNewCalibrationAbsolute}"
+                                                          x:Uid="1"
+                                                          Grid.Column="3"
+                                                          Grid.RowSpan="2"
+                                                      VerticalAlignment="Top"
+                                                      Margin="5,10"></uc:SaveNewCalibrationDisplay>
+                        
+                        <uc:ScatterLineGraph Width="350" 
+                                             Height="250" 
+                                             Grid.Column="4"
+                                             Grid.RowSpan="2"
+                                             DataContext="{Binding ScatterGraph2,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
+                                             HorizontalAlignment="Right"></uc:ScatterLineGraph>
+                       
+                    </Grid>
+                </GroupBox>
+                <GroupBox BorderThickness="1"   
+                          Style="{StaticResource GroupBoxProportion}">
+                    <Grid Visibility="{Binding VisibleProportion,Converter={StaticResource boolConverter}}">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"></ColumnDefinition>
+                            <ColumnDefinition Width="auto"></ColumnDefinition>
+                            <ColumnDefinition Width="auto"></ColumnDefinition>
+                            <ColumnDefinition Width="auto"></ColumnDefinition>
+                            <ColumnDefinition ></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Margin="0,10,0,0"
+                                    Grid.ColumnSpan="4">
+                            <StackPanel Orientation="Horizontal">
+                                <Button Tag="ColorMainButton" 
+                                        Content="{StaticResource Load}"   
+                                        Command="{Binding UpDateProportionCommand}"></Button>
+                            </StackPanel >
+
+                            <DataGrid Name="dgOne" 
+                                      RowHeaderStyle="{StaticResource HeaderRowIndexStyle}"  
+                                      ColumnHeaderStyle="{StaticResource HeaderStyle}" 
+                                      Style="{StaticResource dgTrainTableStyle}"
+                                      RowStyle="{StaticResource RowStyleSelectedItems}"
+                                      CellStyle="{StaticResource cellColorNoraml}"
+                                      BorderThickness="1,1,0,0"
+                                      ItemsSource="{Binding ListOfCalibrationProportionShifting,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedListOfCalibrationProportionShifting}" CanUserAddRows="False" Grid.Row="2" Margin="0,5,0,0" >
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Laboratorija L [%]"
+                                                        Width="150*"
+                                                        Binding="{Binding L, Mode=TwoWay, StringFormat=N2}"  ></DataGridTextColumn>
+                                    <DataGridTextColumn Header="Sadrzaj pepela P [%] "
+                                                        Width="150*"
+                                                        Binding="{Binding P, Mode=TwoWay, StringFormat=N2}"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="Korigovanje k=L-P [%]" 
+                                                        Width="160*"
+                                                        Binding="{Binding SumLP,StringFormat=N4}"
+                                                        IsReadOnly="True"></DataGridTextColumn>
+                                </DataGrid.Columns>
+                                <DataGrid.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <WrapPanel Orientation="Vertical"></WrapPanel>
+                                    </ItemsPanelTemplate>
+                                </DataGrid.ItemsPanel>
+                            </DataGrid>
+
                         </StackPanel>
-                        <uc:ScatterLineGraph Grid.Column="3" DataContext="{Binding ScatterGraph3}" Grid.RowSpan="2" Width="350" Height="250" HorizontalAlignment="Right"></uc:ScatterLineGraph>
-                            </Grid>
-                    </GroupBox>
-             
-        </StackPanel>
-        </ScrollViewer>
+                        <uc:DisplayErrorCalibration x:Uid="2" 
+                                                    DataContext="{Binding DisplayErrorProportional}"
+                                                  
+                                                    Grid.Row="1"></uc:DisplayErrorCalibration>
+                        <uc:EquallyArrowUserControl Grid.Row="1"
+                                                    Grid.Column="1"></uc:EquallyArrowUserControl>
+                        <Border BorderBrush="{StaticResource DefaultBorderSecondColor}"
+                                BorderThickness="1"
+                                Grid.Row="1"
+                                Grid.Column="2"
+                                Margin="10,10,0,0"
+                                VerticalAlignment="Center">
+                            <uc:DisplayNewCalibrations DataContext="{Binding DisplayCalibrationsProportion}"></uc:DisplayNewCalibrations>
+                        </Border>
+                        <uc:SaveNewCalibrationDisplay Grid.Column="3"
+                                                      Grid.RowSpan="2"
+                                                      Grid.Row="1"
+                                                      VerticalAlignment="Top"
+                                                      Margin="10,10,0,0"
+                                                      x:Name="UserProportion"
+                                                      x:Uid="2"
+                                                      DataContext="{Binding SaveNewCalibrationProportion}"></uc:SaveNewCalibrationDisplay>
+                        <uc:ScatterLineGraph Grid.Column="4"
+                                             DataContext="{Binding ScatterGraph3,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
+                                             Grid.RowSpan="2" 
+                                             Width="350" 
+                                             Height="250" 
+                                             HorizontalAlignment="Right"></uc:ScatterLineGraph>
+                    </Grid>
+                </GroupBox>
+
+            </StackPanel>
+            </ScrollViewer>
        
+
     </Grid>
 </Window>

@@ -15,6 +15,7 @@ namespace enelex3.ConvertToGrahView
             ObservableCollection<GraphView> graphView = new ObservableCollection<GraphView>();
             graphView.Clear();
             
+       
            foreach(var measure in measureView)
             {
                 GraphView x = new GraphView();

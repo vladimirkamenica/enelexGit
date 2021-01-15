@@ -11,6 +11,9 @@
         mc:Ignorable="d"
         d:DataContext="{d:DesignInstance viewModel:SaveMeasureViewModel}"
         Title="Pregled kalibracija" Height="450" Width="800" WindowStartupLocation="CenterScreen" Background="WhiteSmoke" WindowState="Maximized">
+    <Window.Resources>
+        <Style TargetType="Button"  BasedOn="{StaticResource StandardIconButton}" ></Style>
+    </Window.Resources>
     <b:Interaction.Triggers>
         <b:EventTrigger EventName="Loaded">
             <b:InvokeCommandAction Command="{Binding LoadCommand}"></b:InvokeCommandAction>
@@ -27,9 +30,9 @@
             
         </Grid.ColumnDefinitions>
         <StackPanel Orientation="Horizontal" Margin="10" Visibility="Visible">
-            <Button Style="{DynamicResource Load}" BorderBrush="Transparent" Background="Transparent" Height="42" Command="{Binding LoadCommand}"></Button>
-            <Button Style="{DynamicResource Update}" Visibility="Collapsed" BorderBrush="Transparent" Background="Transparent" Height="42" Command="{Binding EditMeasureCommand}"></Button>
-            <Button Style="{DynamicResource Delete}" BorderBrush="Transparent" Background="Transparent" Height="42" Command="{Binding DelMeasureCommand}"></Button>
+            <Button Tag="LoadButton" Content="{StaticResource Load}"   Command="{Binding LoadCommand}"></Button>
+            <Button Tag="UpdateButton" Content="{StaticResource Update}" Command="{Binding EditMeasureCommand}"></Button>
+            <Button Tag="DelButton" Content="{StaticResource Delete}" Command="{Binding DelMeasureCommand}"></Button>
             <Button Content="Graph" Visibility="Collapsed" Command="{Binding GraphLoadCommand}"></Button>
         </StackPanel>
         <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.ColumnSpan="2" HorizontalAlignment="Right" Height="50">

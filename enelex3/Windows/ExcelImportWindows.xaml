@@ -5,11 +5,17 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:local="clr-namespace:enelex3.Windows"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:viewModel ="clr-namespace:enelex3.ViewModel"
-       
+        xmlns:commands="clr-namespace:enelex3.Commands"
         mc:Ignorable="d"
         d:DataContext="{d:DesignInstance viewModel:ExcelImportViewModel}"
         Title="Import"  SizeToContent="Width" Height="800" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize" Background="WhiteSmoke">
+    <Window.Resources>
+        <Style TargetType="Button" BasedOn="{StaticResource StandardIconButton}"></Style>
+        <commands:CommonCommands x:Key="commonCommands"></commands:CommonCommands>
+        <BooleanToVisibilityConverter x:Key="boolVisibility"></BooleanToVisibilityConverter>
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"></RowDefinition>
@@ -17,8 +23,30 @@
         </Grid.RowDefinitions>
         <StackPanel Orientation="Vertical" Grid.Row="0" Margin="0,10,10,10">
             <StackPanel Orientation="Horizontal">
-                <Button Style="{StaticResource OpenFolderButton}" Grid.Row="0" Command="{Binding OpenCommand}" Margin="5" ></Button>
-                <TextBox Text="{Binding NameFileTxt}" MinWidth="400" Margin="5" Height="25" VerticalContentAlignment="Center" ></TextBox>
+                <Button Style="{StaticResource StandardIconButton}" 
+                        Tag="FolderHorizontalButton" 
+                        Content="{StaticResource Open}" 
+                        Command="{Binding OpenCommand}" 
+                        Margin="5" 
+                        Width="80"></Button>
+                <TextBox Text="{Binding NameFileTxt}" 
+                         MinWidth="400" 
+                         Margin="5" 
+                         Height="25" 
+                         VerticalContentAlignment="Center" ></TextBox>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                <TextBlock Text="Izaberi Sheet:" Width="80" 
+                           Margin="5" 
+                           VerticalAlignment="Center"></TextBlock>
+                <ComboBox IsEditable="True" 
+                          HorizontalAlignment="Left"
+                          Height="25" 
+                          ItemsSource="{Binding NameSheetTxt,UpdateSourceTrigger=PropertyChanged}" 
+                          SelectedItem="{Binding SelectedSheetFileTxt,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
+                          Margin="5,0,0,0" 
+                          MinWidth="400"></ComboBox>
+                
             </StackPanel>
             <GroupBox Header="Filtriranje podataka" Margin="5,0,0,0">
                 <StackPanel Orientation="Vertical" Margin="10">
@@ -35,31 +63,413 @@
                         <TextBox IsReadOnly="False" Height="25" VerticalContentAlignment="Center"  MinWidth="100" VerticalAlignment="Center" Margin="5,0,0,0" Text="{Binding FindFrom,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,StringFormat=N2}"></TextBox>
                         <TextBlock Text="Do" VerticalAlignment="Center" Margin="5,0,0,0"></TextBlock>
                         <TextBox IsReadOnly="False" Height="25" VerticalContentAlignment="Center" MinWidth="100" VerticalAlignment="Center" Margin="5,0,0,0" Text="{Binding FindTo,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,StringFormat=N2}"></TextBox>
-                        <Button Margin="5,0,0,0" Command="{Binding FindNumberCommand}">Pretrazi</Button>
+                        <Button Margin="5" Style="{StaticResource StandardIconImageButton}" 
+                                Tag="SearchButton" Content="Filtriraj"  
+                                Command="{Binding FindNumberCommand}"></Button>
+                        <Button Tag="SaveHorizontalButton" 
+                                Content="{StaticResource Save}"  
+                                 Command="{Binding ImportCommand}" 
+                                Margin="5"  
+                                HorizontalAlignment="Left"></Button>
                     </StackPanel>
                 </StackPanel>
             </GroupBox>
-            
-            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                <TextBlock Text="Izaberi Sheet:" Margin="5,0,0,0" VerticalAlignment="Center"></TextBlock>
-                <ComboBox IsEditable="True" HorizontalAlignment="Left" Height="25" ItemsSource="{Binding NameSheetTxt,UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedSheetFileTxt,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Margin="5,0,0,0" Width="200"></ComboBox>
-                <Button Style="{StaticResource CopyHorizontalButton}" Grid.Row="0" Command="{Binding ImportCommand}" Margin="5"  HorizontalAlignment="Left"></Button>
-            </StackPanel>
-           
            
         </StackPanel>
-     
-        <DataGrid Grid.Row="1"  Style="{StaticResource dgCustom}" CellStyle="{StaticResource cellCentar}"  ItemsSource="{Binding GetImportMeasure}" >
+        <DataGrid x:Name="dgTrainTable" 
+                  SelectedItem="{Binding SelectedTrainTable}"
+                  Style="{StaticResource dgTrainTableStyle}"
+                  RowHeaderStyle="{StaticResource  HeaderRowIndexStyle}"
+                  CellStyle="{StaticResource cellColorNoraml}"
+                  ColumnHeaderStyle="{StaticResource HeaderTrainStyle}"
+                  Grid.Row="2"
+                  CanUserAddRows="False"
+                  CanUserResizeColumns="False"
+                  RowStyle="{StaticResource RowStyleSelectedItemsErrorDetail}"
+                  Visibility="{Binding TrainVisible,Converter={StaticResource boolVisibility}}" 
+                  ItemsSource="{Binding ListOfTrainTable}"
+                  Validation.ErrorTemplate="{x:Null}">
+            <b:Interaction.Triggers>
+                <b:EventTrigger EventName="LoadingRow">
+                    <b:InvokeCommandAction Command="{Binding IsNewItemCommand, Source={StaticResource commonCommands}}" PassEventArgsToCommand="True"></b:InvokeCommandAction>
+                </b:EventTrigger>
+            </b:Interaction.Triggers>
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding NumberTrain}" 
+                                    Header="Voz"
+                                    MinWidth="30"></DataGridTextColumn>
+                <DataGridTemplateColumn Header="Datum"
+                                        MinWidth="45">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <xctk:DateTimePicker Value="{Binding DateRecords,UpdateSourceTrigger=PropertyChanged}"
+                                               
+                                                 ShowButtonSpinner="False"
+                                                 Format="LongDate"></xctk:DateTimePicker>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Header="Smena" 
+                                        MinWidth="45">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <ComboBox Name="cbTypeProduct"
+                                     Height="20"
+                                      
+                                      ItemsSource="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Path=DataContext.ShiftsEnum}" 
+                                      IsSynchronizedWithCurrentItem="False"   
+                                      SelectedValue="{Binding SelectedShiftsEnum,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                                      ItemTemplate="{StaticResource EnumDataTemplate}"
+                                       ></ComboBox>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Width="355">
+                    <DataGridTemplateColumn.HeaderTemplate>
+                        <DataTemplate>
+
+                            <WrapPanel Orientation="Vertical" >
+                                <TextBlock Text="Vlaga" 
+                                           Foreground="Black"
+                                           TextAlignment="Center"
+                                           Margin="10"/>
+                                <WrapPanel Orientation="Horizontal"
+                                           Width="370">
+                                    <Border BorderBrush="#c6c6c6" 
+                                            BorderThickness="0,1,1,0">
+                                        <TextBlock  Width="91" 
+                                              Height="28"  
+                                                    Foreground="Black"
+                                              Background="Transparent" 
+                                              Text="LAB Tamnava" 
+                                              TextAlignment="Center"/>
+                                    </Border>
+                                    <Border BorderBrush="#c6c6c6" 
+                                            BorderThickness="0,1,1,0">
+                                        <TextBlock Width="90" 
+                                             Height="28"  
+                                             Background="Transparent" 
+                                             Text="LAB Tent" 
+                                                   Foreground="Black"
+                                             TextAlignment="Center"/>
+                                    </Border>
+                                    <Border BorderBrush="#c6c6c6" 
+                                            BorderThickness="0,1,1,0">
+                                        <TextBlock Width="90" 
+                                             Height="28" 
+                                            
+                                             Background="Transparent"
+                                             Text="GE3030" 
+                                                   Foreground="Black"
+                                             TextAlignment="Center"/>
+                                    </Border>
+                                    <Border BorderBrush="#c6c6c6" 
+                                            BorderThickness="0,1,0,0">
+                                        <TextBlock Width="80" 
+                                             Height="28" 
+                                            Margin="0,0,0,0"
+                                                   Foreground="Black"
+                                             Background="Transparent" 
+                                             Text="△ %" 
+                                             TextAlignment="Center"/>
+                                    </Border>
+                                </WrapPanel>
+                            </WrapPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.HeaderTemplate>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <WrapPanel Orientation="Horizontal"
+                                        Margin="0,-1,0,-1">
+                                <Border BorderBrush="#c6c6c6" 
+                                            BorderThickness="0,0,1,0">
+                                    <TextBox Width="90" 
+                                            Margin="0,0,0,0"
+                                             Padding="2"
+                                             IsReadOnly="False" 
+                                             BorderThickness="0"
+                                             Background="Transparent"
+                                             IsHitTestVisible="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGridRow}}, Path=IsEditing}" 
+                                             Text="{Binding  MoistureLabTam,StringFormat=N2,UpdateSourceTrigger=PropertyChanged}" TextAlignment="Center"/>
+                                </Border>
+                                <Border BorderBrush="#c6c6c6" 
+                                            BorderThickness="0,0,1,0">
+                                    <TextBox Width="90" 
+                                             Height="22" 
+                                             Padding="2"
+                                             IsReadOnly="False"  
+                                             BorderThickness="0"
+                                             Background="Transparent"
+                                             IsHitTestVisible="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGridRow}}, Path=IsEditing}" 
+                                             Text="{Binding  MoistureLabTent,StringFormat=N2,UpdateSourceTrigger=PropertyChanged}" TextAlignment="Center"/>
+                                </Border>
+                                <Border BorderBrush="#c6c6c6" 
+                                            BorderThickness="0,0,1,0">
+                                    <TextBox Width="90" 
+                                             Height="22" 
+                                             Padding="2"
+                                             IsReadOnly="False"  
+                                             BorderThickness="0"
+                                             IsHitTestVisible="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGridRow}}, Path=IsEditing}" 
+                                             Background="Transparent"
+                                             Text="{Binding Moisture,StringFormat=N2,UpdateSourceTrigger=PropertyChanged}" TextAlignment="Center"/>
+                                </Border>
+                                <Border BorderBrush="#c6c6c6" 
+                                            BorderThickness="0,0,0,0">
+                                    <TextBox Width="79" 
+                                             Height="22" 
+                                             Padding="2"
+                                             IsReadOnly="True"  
+                                             BorderThickness="0"
+                                             Background="Transparent"
+                                             TextAlignment="Center"
+                                             Style="{StaticResource ErrorMoinstureTextBoxStyle}"
+                                             IsHitTestVisible="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGridRow}}, Path=IsEditing}" 
+                                             Text="{Binding ErrorMoisture,StringFormat=N2,Mode=OneTime}"/>
+                                </Border>
+                            </WrapPanel>
+                        </DataTemplate>
+
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Width="355">
+                    <DataGridTemplateColumn.HeaderTemplate>
+                        <DataTemplate>
+
+                            <WrapPanel Orientation="Vertical" >
+                                <TextBlock Text="Pepeo" 
+                                              Foreground="Black"
+                                           TextAlignment="Center"
+                                           Margin="10"/>
+                                <WrapPanel Orientation="Horizontal"
+                                           Width="370">
+                                    <Border BorderBrush="#c6c6c6" 
+                                            BorderThickness="0,1,1,0">
+                                        <TextBlock  Width="91" 
+                                              Height="28"  
+                                              Foreground="Black"
+                                              Background="Transparent" 
+                                              Text="LAB Tamnava" 
+                                              TextAlignment="Center"/>
+                                    </Border>
+                                    <Border BorderBrush="#c6c6c6" 
+                                            BorderThickness="0,1,1,0">
+                                        <TextBlock Width="90" 
+                                             Height="28"  
+                                             Foreground="Black"
+                                             Background="Transparent" 
+                                             Text="LAB Tent" 
+                                             TextAlignment="Center"/>
+                                    </Border>
+                                    <Border BorderBrush="#c6c6c6" 
+                                            BorderThickness="0,1,1,0">
+                                        <TextBlock Width="90" 
+                                             Height="28" 
+                                            Foreground="Black"
+                                             Background="Transparent"
+                                             Text="GE3030" 
+                                             TextAlignment="Center"/>
+                                    </Border>
+                                    <Border BorderBrush="#c6c6c6" 
+                                            BorderThickness="0,1,0,0">
+                                        <TextBlock Width="79" 
+                                             Height="28" 
+                                             Foreground="Black"
+                                             Margin="0,0,0,0"
+                                             Background="Transparent" 
+                                             Text="△ %" 
+                                             TextAlignment="Center"/>
+                                    </Border>
+                                </WrapPanel>
+                            </WrapPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.HeaderTemplate>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <WrapPanel Orientation="Horizontal"
+                                        Margin="0,-1,0,-1">
+                                <Border BorderBrush="#c6c6c6" 
+                                            BorderThickness="0,0,1,0">
+                                    <TextBox Width="90" 
+                                            Margin="0,0,0,0"
+                                             Padding="2"
+                                             IsReadOnly="False" 
+                                             BorderThickness="0"
+                                             Background="Transparent"
+                                             IsHitTestVisible="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGridRow}}, Path=IsEditing}" 
+                                             Text="{Binding  AshLabTam,StringFormat=N2,UpdateSourceTrigger=PropertyChanged}" TextAlignment="Center"/>
+                                </Border>
+                                <Border BorderBrush="#c6c6c6" 
+                                            BorderThickness="0,0,1,0">
+                                    <TextBox Width="90" 
+                                             Height="22" 
+                                             Padding="2"
+                                             IsReadOnly="False"  
+                                             BorderThickness="0"
+                                             Background="Transparent"
+                                             IsHitTestVisible="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGridRow}}, Path=IsEditing}" 
+                                             Text="{Binding  AshLabTent,StringFormat=N2,UpdateSourceTrigger=PropertyChanged}" TextAlignment="Center"/>
+                                </Border>
+                                <Border BorderBrush="#c6c6c6" 
+                                            BorderThickness="0,0,1,0">
+                                    <TextBox Width="90" 
+                                             Height="22" 
+                                             Padding="2"
+                                             IsReadOnly="False"  
+                                             BorderThickness="0"
+                                             Background="Transparent"
+                                             IsHitTestVisible="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGridRow}}, Path=IsEditing}" 
+                                             Text="{Binding AshGE,StringFormat=N2,UpdateSourceTrigger=PropertyChanged}" TextAlignment="Center"/>
+                                </Border>
+                                <Border BorderBrush="#c6c6c6" 
+                                            BorderThickness="0,0,0,0">
+                                    <TextBox Width="79" 
+                                             Height="22" 
+                                             Padding="2"
+                                             IsReadOnly="True"  
+                                             BorderThickness="0"
+                                             Background="Transparent"
+                                             TextAlignment="Center"
+                                             Style="{StaticResource ErrorAshTextBoxStyle}"
+                                             IsHitTestVisible="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGridRow}}, Path=IsEditing}" 
+                                             Text="{Binding ErrorAsh,StringFormat=N2,Mode=OneTime}"/>
+                                </Border>
+                            </WrapPanel>
+                        </DataTemplate>
+
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Width="355">
+                    <DataGridTemplateColumn.HeaderTemplate>
+                        <DataTemplate>
+
+                            <WrapPanel Orientation="Vertical" >
+                                <TextBlock Text="Toplotna moć" 
+                                           Foreground="Black"
+                                           TextAlignment="Center"
+                                           Margin="10"/>
+                                <WrapPanel Orientation="Horizontal"
+                                           Width="370">
+                                    <Border BorderBrush="#c6c6c6" 
+                                            BorderThickness="0,1,1,0">
+                                        <TextBlock  Width="91" 
+                                              Height="28"  
+                                              Background="Transparent" 
+                                              Text="LAB Tamnava" 
+                                              Foreground="Black"
+                                              TextAlignment="Center"/>
+                                    </Border>
+                                    <Border BorderBrush="#c6c6c6" 
+                                            BorderThickness="0,1,1,0">
+                                        <TextBlock Width="90" 
+                                             Height="28"  
+                                             Background="Transparent" 
+                                             Text="LAB Tent" 
+                                                   Foreground="Black"
+                                             TextAlignment="Center"/>
+                                    </Border>
+                                    <Border BorderBrush="#c6c6c6" 
+                                            BorderThickness="0,1,1,0">
+                                        <TextBlock Width="90" 
+                                             Height="28" 
+                                             Foreground="Black"
+                                             Background="Transparent"
+                                             Text="GE3030" 
+                                             TextAlignment="Center"/>
+                                    </Border>
+                                    <Border BorderBrush="#c6c6c6" 
+                                            BorderThickness="0,1,0,0">
+                                        <TextBlock Width="80" 
+                                            Height="28" 
+                                            Margin="0,0,0,0"
+                                             Foreground="Black"
+                                             Background="Transparent" 
+                                             Text="△ %" 
+                                             TextAlignment="Center"/>
+                                    </Border>
+                                </WrapPanel>
+                            </WrapPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.HeaderTemplate>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <WrapPanel Orientation="Horizontal"
+                                        Margin="0,-1,0,-1">
+                                <Border BorderBrush="#c6c6c6" 
+                                            BorderThickness="0,0,1,0">
+                                    <TextBox Width="90" 
+                                            Margin="0,0,0,0"
+                                             Padding="2"
+                                             IsReadOnly="False" 
+                                             BorderThickness="0"
+                                             Background="Transparent"
+                                             IsHitTestVisible="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGridRow}}, Path=IsEditing}" 
+                                             Text="{Binding  CalorificLabTam,StringFormat=N2,UpdateSourceTrigger=PropertyChanged}" TextAlignment="Center"/>
+                                </Border>
+                                <Border BorderBrush="#c6c6c6" 
+                                            BorderThickness="0,0,1,0">
+                                    <TextBox Width="90" 
+                                             Height="22" 
+                                             Padding="2"
+                                             IsReadOnly="False"  
+                                             BorderThickness="0"
+                                             Background="Transparent"
+                                             IsHitTestVisible="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGridRow}}, Path=IsEditing}" 
+                                             Text="{Binding  CalorificLabTent,StringFormat=N2,UpdateSourceTrigger=PropertyChanged}" TextAlignment="Center"/>
+                                </Border>
+                                <Border BorderBrush="#c6c6c6" 
+                                            BorderThickness="0,0,1,0">
+                                    <TextBox Width="90" 
+                                             Height="22" 
+                                             Padding="2"
+                                             IsReadOnly="False"  
+                                             BorderThickness="0"
+                                             Background="Transparent"
+                                             IsHitTestVisible="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGridRow}}, Path=IsEditing}" 
+                                             Text="{Binding CalorificGE,StringFormat=N2,UpdateSourceTrigger=PropertyChanged}" TextAlignment="Center"/>
+                                </Border>
+                                <Border BorderBrush="#c6c6c6" 
+                                            BorderThickness="0,0,0,0">
+                                    <TextBox Width="79" 
+                                             Height="22" 
+                                             Padding="2"
+                                             IsReadOnly="True"  
+                                             BorderThickness="0"
+                                             Background="Transparent"
+                                             TextAlignment="Center"
+                                             Style="{StaticResource ErrorCalibrationTextBoxStyle}"
+                                             IsHitTestVisible="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGridRow}}, Path=IsEditing}" 
+                                             Text="{Binding ErrorCalorific,StringFormat=N2,Mode=OneTime}"/>
+                                </Border>
+                            </WrapPanel>
+                        </DataTemplate>
+
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                
+            </DataGrid.Columns>
+        </DataGrid>
+        <DataGrid Grid.Row="1" 
+                  Visibility="{Binding CalibrationVisible,Converter={StaticResource boolVisibility}}"
+                  Style="{StaticResource dgCustom}"
+                  CellStyle="{StaticResource cellCentar}"  
+                  ItemsSource="{Binding GetImportMeasure}" >
             <b:Interaction.Triggers>
                 <b:EventTrigger EventName="LoadingRow">
                     <b:InvokeCommandAction Command="{Binding GetIndexCommand}" PassEventArgsToCommand="True"></b:InvokeCommandAction>
                 </b:EventTrigger>
             </b:Interaction.Triggers>
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Broj uzorka [n]" Binding="{Binding  Index}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Pepeo [Ge]" Binding="{Binding Ge,StringFormat=N2}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Pepeo [Lab]" Binding="{Binding Lab,StringFormat=N2}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Vlaga [W]" Binding="{Binding W,StringFormat=N2}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Broj uzorka [n]" 
+                                    Binding="{Binding  Index}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Pepeo [Ge]"
+                                    Binding="{Binding Ge,StringFormat=N2}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Pepeo [Lab]"
+                                    Binding="{Binding Lab,StringFormat=N2}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Vlaga [W]" 
+                                    Binding="{Binding W,StringFormat=N2}"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
         

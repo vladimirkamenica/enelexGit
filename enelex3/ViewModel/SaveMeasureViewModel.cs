@@ -27,8 +27,8 @@ namespace enelex3.ViewModel
         {
             LoadAction = load;
         }
-        private ScatterLineGraph scatterGraph;
-        public ScatterLineGraph ScatterGraph
+        private ScatterLineGraphViewModel scatterGraph;
+        public ScatterLineGraphViewModel ScatterGraph
         {
             get => scatterGraph;
             set
@@ -40,8 +40,8 @@ namespace enelex3.ViewModel
                 }
             }
         }
-        private ScatterLineGraph scatterGraph2;
-        public ScatterLineGraph ScatterGraph2
+        private ScatterLineGraphViewModel scatterGraph2;
+        public ScatterLineGraphViewModel ScatterGraph2
         {
             get => scatterGraph2;
             set
@@ -53,8 +53,8 @@ namespace enelex3.ViewModel
                 }
             }
         }
-        private ScatterLineGraph scatterGraph3;
-        public ScatterLineGraph ScatterGraph3
+        private ScatterLineGraphViewModel scatterGraph3;
+        public ScatterLineGraphViewModel ScatterGraph3
         {
             get => scatterGraph3;
             set
@@ -148,19 +148,17 @@ namespace enelex3.ViewModel
                 Qs = x.ShiftingProportionQ;
             }
 
-            ScatterGraph = new ScatterLineGraph();
-            ScatterGraph2 = new ScatterLineGraph();
-            ScatterGraph3 = new ScatterLineGraph();
-            ScatterGraph.SetMeasureViewToGraph(GraphViewConvert.SaveMeasureToGraphView(find), P, Q);
-            ScatterGraph2.SetMeasureViewToGraph2(GraphViewConvert.SaveMeasureToGraphView(find), P, Q, Shift);
-            ScatterGraph3.SetMeasureViewToGraph3(GraphViewConvert.SaveMeasureToGraphView(find), P, Q, Ps, Qs, Shift);
+            ScatterGraph = new ScatterLineGraphViewModel();
+            ScatterGraph2 = new ScatterLineGraphViewModel();
+            ScatterGraph3 = new ScatterLineGraphViewModel();
+          
         }
         public ICommand GraphLoadCommand => new RelayCommand(GraphLoad);
         private void GraphLoad()
         {
             var xxx = GetSaveMeasureGroup.Select(x => x.P);
-            ScatterGraph = new ScatterLineGraph();
-            ScatterGraph.SetMeasureViewToGraph(GraphViewConvert.SaveMeasureToGraphView(GetSaveMeasureGroup), P, Q);
+            ScatterGraph = new ScatterLineGraphViewModel();
+        
         }
         public ICommand DelMeasureCommand => new RelayCommand(DelMeasure);
         private void DelMeasure()

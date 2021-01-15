@@ -2,15 +2,21 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:enelex3.Resources">
     <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="pack://application:,,,/Resources/PathStyle.xaml"></ResourceDictionary>
         <ResourceDictionary Source="pack://application:,,,/Resources/ButtonStyle.xaml"></ResourceDictionary>
         <ResourceDictionary Source="pack://application:,,,/Resources/DataGridStyle.xaml"></ResourceDictionary>
-        <ResourceDictionary Source="pack://application:,,,/Resources/Brushes.xaml"></ResourceDictionary>
-        <ResourceDictionary Source="pack://application:,,,/Resources/Colours.xaml"></ResourceDictionary>
-       
+        <ResourceDictionary Source="pack://application:,,,/Resources/DataGridHeaderStyle.xaml"></ResourceDictionary>
         <ResourceDictionary Source="pack://application:,,,/Resources/GeometryDictionary.xaml"></ResourceDictionary>
         <ResourceDictionary Source="pack://application:,,,/Resources/GeometryDictionarySigma.xaml"></ResourceDictionary>
         <ResourceDictionary Source="pack://application:,,,/Resources/AutoScrollListBoxDictionary.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="pack://application:,,,/Resources/ComboBoxStyle.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="pack://application:,,,/Resources/ExpanderCalibrationStyle.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="pack://application:,,,/Resources/TextBoxSearchStyle.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="pack://application:,,,/Resources/TextBoxLogInStyle.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="pack://application:,,,/Resources/DataTemplateStyle.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="pack://application:,,,/Resources/CheckBoxStyle.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="pack://application:,,,/Resources/GroupBoxStyle.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="pack://application:,,,/Resources/ListViewStyle.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="pack://application:,,,/Resources/TextBoxShiftStyle.xaml"></ResourceDictionary>
     </ResourceDictionary.MergedDictionaries>
 
 </ResourceDictionary>

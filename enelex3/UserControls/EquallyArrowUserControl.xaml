@@ -1,0 +1,21 @@
+﻿<UserControl x:Class="enelex3.UserControls.EquallyArrowUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:enelex3.UserControls"
+             mc:Ignorable="d" >
+    <Grid>
+        <WrapPanel Orientation="Horizontal"
+                                           VerticalAlignment="Center"
+                                           Margin="10,0,0,0">
+            <Path Style="{StaticResource MediumPathStyle}"
+                                          Data="{StaticResource EquallyGeo}"
+                                          Margin="0,1,0,0"
+                                          Height="6"></Path>
+            <Path Style="{StaticResource MediumPathStyle}"
+                                          Data="{StaticResource ArrowRight1Geo}" Height="11"
+                                          ></Path>
+        </WrapPanel>
+    </Grid>
+</UserControl>

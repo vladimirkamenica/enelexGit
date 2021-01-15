@@ -74,6 +74,9 @@
     <Reference Include="GalaSoft.MvvmLight.Platform, Version=5.4.1.0, Culture=neutral, PublicKeyToken=5f873c45e98af8a1, processorArchitecture=MSIL">
       <HintPath>..\packages\MvvmLightLibs.5.4.1.1\lib\net45\GalaSoft.MvvmLight.Platform.dll</HintPath>
     </Reference>
+    <Reference Include="JetBrains.Annotations, Version=2020.3.0.0, Culture=neutral, PublicKeyToken=1010a0d8d6380325, processorArchitecture=MSIL">
+      <HintPath>..\packages\JetBrains.Annotations.2020.3.0\lib\net20\JetBrains.Annotations.dll</HintPath>
+    </Reference>
     <Reference Include="LiveCharts, Version=0.9.7.0, Culture=neutral, PublicKeyToken=0bc1f845d1ebb8df, processorArchitecture=MSIL">
       <HintPath>..\packages\LiveCharts.0.9.7\lib\net45\LiveCharts.dll</HintPath>
     </Reference>
@@ -88,6 +91,9 @@
     </Reference>
     <Reference Include="Microsoft.Xaml.Behaviors, Version=1.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Xaml.Behaviors.Wpf.1.1.19\lib\net45\Microsoft.Xaml.Behaviors.dll</HintPath>
+    </Reference>
+    <Reference Include="MoralesLarios.Utilities, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MoralesLarios.Utilities.1.0.0.1\lib\net45\MoralesLarios.Utilities.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -117,6 +123,21 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="Xceed.Wpf.AvalonDock, Version=4.0.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.4.0.1\lib\net40\Xceed.Wpf.AvalonDock.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Aero, Version=4.0.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.4.0.1\lib\net40\Xceed.Wpf.AvalonDock.Themes.Aero.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Metro, Version=4.0.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.4.0.1\lib\net40\Xceed.Wpf.AvalonDock.Themes.Metro.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.VS2010, Version=4.0.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.4.0.1\lib\net40\Xceed.Wpf.AvalonDock.Themes.VS2010.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.Toolkit, Version=4.0.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.4.0.1\lib\net40\Xceed.Wpf.Toolkit.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -124,10 +145,49 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Alati\SaveToColorConverter.cs" />
+    <Compile Include="Base\RegistrationUser.cs" />
     <Compile Include="Base\SaveMeasure.cs" />
+    <Compile Include="Base\SexEnum.cs" />
+    <Compile Include="Base\Shift.cs" />
+    <Compile Include="Base\TrainTable.cs" />
+    <Compile Include="Base\TypeCalibration.cs" />
+    <Compile Include="CalculatingErrorPercentage\ErrorPercentage.cs" />
+    <Compile Include="Commands\CommonCommands.cs" />
+    <Compile Include="Converters\ComboBoxBoolIsEditableConverter.cs" />
+    <Compile Include="Converters\ComboBoxBoolConverter.cs" />
+    <Compile Include="Converters\ConverterHeaderIndex.cs" />
     <Compile Include="Converters\ConverterRowIndex.cs" />
+    <Compile Include="Converters\ConverterWidthDataGrid.cs" />
     <Compile Include="ConvertToGrahView\GraphViewConvert.cs" />
+    <Compile Include="ExcelCopyPaste\ExcelActions.cs" />
+    <Compile Include="ExcelCopyPaste\ExcelCopy.cs" />
+    <Compile Include="ExcelCopyPaste\ExcelPaste.cs" />
+    <Compile Include="ExcelCopyPaste\IKeyBindingWorker.cs" />
+    <Compile Include="ExcelCopyPaste\KeyBindingWorker.cs" />
+    <Compile Include="ExcelEx\MyExcelEx.cs" />
+    <Compile Include="ExcelFile\ExcelImport.cs" />
+    <Compile Include="FrontEndMethods\TrainTableFE.cs" />
+    <Compile Include="FrontEndMethods\TypeCalibrationFE.cs" />
+    <Compile Include="FrontEndMethods\UserRegistrationFE.cs" />
+    <Compile Include="Helpers\BrushesHelper\Colorator.cs" />
     <Compile Include="Helpers\CollectionHelper.cs" />
+    <Compile Include="Helpers\Excel\AllCopyItems.cs" />
+    <Compile Include="Helpers\Excel\BuilderObjects.cs" />
+    <Compile Include="Helpers\Excel\ConstStrings.cs" />
+    <Compile Include="Helpers\Excel\ContextMenuBuilder.cs" />
+    <Compile Include="Helpers\Excel\Converters.cs" />
+    <Compile Include="Helpers\Excel\ExcelActionsCommandGenerator.cs" />
+    <Compile Include="Helpers\Excel\ExcelActionsCommandInfo.cs" />
+    <Compile Include="Helpers\Excel\ExcelActionsCommandsParameters.cs" />
+    <Compile Include="Helpers\Excel\Extensions.cs" />
+    <Compile Include="Helpers\Excel\IBuilderObjects.cs" />
+    <Compile Include="Helpers\Excel\IClipBoardCopier.cs" />
+    <Compile Include="Helpers\Excel\IItemsSourceItems.cs" />
+    <Compile Include="Helpers\Excel\ItemsSourceIntems.cs" />
+    <Compile Include="Helpers\Excel\RelayCommand.cs" />
+    <Compile Include="Helpers\Excel\SelectedCopyItems.cs" />
+    <Compile Include="Helpers\MessageBoxHelp.cs" />
+    <Compile Include="Interfaces\IClosable.cs" />
     <Compile Include="Migrations\201905150556400_W.cs" />
     <Compile Include="Migrations\201905150556400_W.Designer.cs">
       <DependentUpon>201905150556400_W.cs</DependentUpon>
@@ -164,17 +224,85 @@
     <Compile Include="Migrations\202007010654485_saveAdd.designer.cs">
       <DependentUpon>202007010654485_saveAdd.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202012010751427_TrainTable.cs" />
+    <Compile Include="Migrations\202012010751427_TrainTable.designer.cs">
+      <DependentUpon>202012010751427_TrainTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012011005383_TrainTable_IsActive_LastUpdatedOn.cs" />
+    <Compile Include="Migrations\202012011005383_TrainTable_IsActive_LastUpdatedOn.designer.cs">
+      <DependentUpon>202012011005383_TrainTable_IsActive_LastUpdatedOn.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012041022518_edit_date_number.cs" />
+    <Compile Include="Migrations\202012041022518_edit_date_number.designer.cs">
+      <DependentUpon>202012041022518_edit_date_number.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012220810484_UserRegistration.cs" />
+    <Compile Include="Migrations\202012220810484_UserRegistration.designer.cs">
+      <DependentUpon>202012220810484_UserRegistration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012220829487_UserRegistrationAdministrator.cs" />
+    <Compile Include="Migrations\202012220829487_UserRegistrationAdministrator.designer.cs">
+      <DependentUpon>202012220829487_UserRegistrationAdministrator.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012240920585_TypeCalibration.cs" />
+    <Compile Include="Migrations\202012240920585_TypeCalibration.designer.cs">
+      <DependentUpon>202012240920585_TypeCalibration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101041337162_DateCalibration_Type.cs" />
+    <Compile Include="Migrations\202101041337162_DateCalibration_Type.designer.cs">
+      <DependentUpon>202101041337162_DateCalibration_Type.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ReturnIndex\GetIndex.cs" />
+    <Compile Include="SaveToBase\TypeSave.cs" />
+    <Compile Include="UserControls\DisplayErrorCalibration.xaml.cs">
+      <DependentUpon>DisplayErrorCalibration.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\DisplayNewCalibrations.xaml.cs">
+      <DependentUpon>DisplayNewCalibrations.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\EquallyArrowUserControl.xaml.cs">
+      <DependentUpon>EquallyArrowUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\SaveNewCalibrationDisplay.xaml.cs">
+      <DependentUpon>SaveNewCalibrationDisplay.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\AddNewItemViewModel.cs" />
+    <Compile Include="ViewModel\DisplayErrorViewModel.cs" />
+    <Compile Include="ViewModel\DisplayNewCalibrationsViewModel.cs" />
     <Compile Include="ViewModel\ExcelImportViewModel.cs" />
+    <Compile Include="ViewModel\IViewModelBase.cs" />
+    <Compile Include="ViewModel\LogInViewModel.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
     <Compile Include="ViewModel\SaveMeasureViewModel.cs" />
+    <Compile Include="ViewModel\SaveNewCalibrationDisplayViewModel.cs" />
     <Compile Include="ViewModel\SaveTransViewModel.cs" />
+    <Compile Include="ViewModel\ScatterLineGraphViewModel.cs" />
+    <Compile Include="ViewModel\TrainTableViewModel.cs" />
+    <Compile Include="ViewModel\TypeCalibrationViewModel.cs" />
+    <Compile Include="ViewModel\UserRegistrationAddViewModel.cs" />
+    <Compile Include="ViewModel\UserRegistrationViewModel.cs" />
+    <Compile Include="ViewModel\ViewModelBase.cs" />
+    <Compile Include="View\ExcelCopyList.cs" />
+    <Compile Include="View\ExcelCopyListMeasure.cs" />
     <Compile Include="View\GraphView.cs" />
     <Compile Include="View\ImportClassView.cs" />
+    <Compile Include="View\MonthView.cs" />
     <Compile Include="View\NewCalibrationView.cs" />
     <Compile Include="View\SaveMeasureViewGroup.cs" />
     <Compile Include="View\SaveMeasureViews.cs" />
+    <Compile Include="View\TrainTableView.cs" />
+    <Compile Include="View\TypeCalibrationComboBoxView.cs" />
+    <Compile Include="View\TypeCalibrationViews.cs" />
+    <Compile Include="View\UserRegistrationViews.cs" />
+    <Compile Include="View\YearView.cs" />
+    <Compile Include="Windows\AddNewItemTrain.xaml.cs">
+      <DependentUpon>AddNewItemTrain.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\ExcelImportWindows.xaml.cs">
       <DependentUpon>ExcelImportWindows.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\LogInWindow.xaml.cs">
+      <DependentUpon>LogInWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\PrintSheet.xaml.cs">
       <DependentUpon>PrintSheet.xaml</DependentUpon>
@@ -188,6 +316,22 @@
     <Compile Include="Windows\SaveTransWin.xaml.cs">
       <DependentUpon>SaveTransWin.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Windows\TrainTableWindow.xaml.cs">
+      <DependentUpon>TrainTableWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\TypeCalibrationWindow.xaml.cs">
+      <DependentUpon>TypeCalibrationWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\UserRegistrationAddWindows.xaml.cs">
+      <DependentUpon>UserRegistrationAddWindows.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\UserRegistrationWindow.xaml.cs">
+      <DependentUpon>UserRegistrationWindow.xaml</DependentUpon>
+    </Compile>
+    <Page Include="Localization\LocalizationRS-LAT.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Resources\AutoScrollListBoxDictionary.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -200,11 +344,31 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Resources\CheckBoxStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Resources\Colours.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Resources\ComboBoxStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\DataGridHeaderStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Resources\DataGridStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\DataTemplateStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\ExpanderCalibrationStyle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -216,6 +380,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Resources\GroupBoxStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\ListViewStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Resources\PathStyle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -224,15 +396,43 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Resources\TextBoxLogInStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\TextBoxSearchStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\TextBoxShiftStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\VisibleCalibration.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\DisplayErrorCalibration.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\DisplayNewCalibrations.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\EquallyArrowUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\SaveNewCalibrationDisplay.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Windows\AddCalibrationOne.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Windows\AddMeasures.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UserControls\Graph1.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -259,16 +459,21 @@
     <Compile Include="FrontEndMethods\CalibrationFE.cs" />
     <Compile Include="FrontEndMethods\MeasuresFE.cs" />
     <Compile Include="FrontEndMethods\PercentageFE.cs" />
-    <Compile Include="UserControls\Graph1.xaml.cs">
-      <DependentUpon>Graph1.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Interfaces\BasicData.cs" />
     <Compile Include="Interfaces\IDates.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Windows\AddNewItemTrain.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Windows\ExcelImportWindows.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\LogInWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -285,6 +490,22 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Windows\SaveTransWin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\TrainTableWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\TypeCalibrationWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\UserRegistrationAddWindows.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\UserRegistrationWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -390,6 +611,27 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202007010654485_saveAdd.resx">
       <DependentUpon>202007010654485_saveAdd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012010751427_TrainTable.resx">
+      <DependentUpon>202012010751427_TrainTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012011005383_TrainTable_IsActive_LastUpdatedOn.resx">
+      <DependentUpon>202012011005383_TrainTable_IsActive_LastUpdatedOn.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012041022518_edit_date_number.resx">
+      <DependentUpon>202012041022518_edit_date_number.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012220810484_UserRegistration.resx">
+      <DependentUpon>202012220810484_UserRegistration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012220829487_UserRegistrationAdministrator.resx">
+      <DependentUpon>202012220829487_UserRegistrationAdministrator.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012240920585_TypeCalibration.resx">
+      <DependentUpon>202012240920585_TypeCalibration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101041337162_DateCalibration_Type.resx">
+      <DependentUpon>202101041337162_DateCalibration_Type.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

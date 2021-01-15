@@ -6,43 +6,81 @@
              xmlns:local="clr-namespace:enelex3.UserControls"
              xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+             xmlns:viewModel="clr-namespace:enelex3.ViewModel"
              mc:Ignorable="d" 
-             MinHeight="300" MinWidth="450" >
-
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"></RowDefinition>
-                <RowDefinition Height="*"></RowDefinition>
-                <RowDefinition Height="auto"></RowDefinition>
-            </Grid.RowDefinitions>
-
-            <lvc:CartesianChart Grid.Row="1"  Name="Graph" Loaded="Graph_Loaded">
-          
+             d:DataContext="{d:DesignInstance viewModel:ScatterLineGraphViewModel}"
+             MinHeight="350" MinWidth="500" >
+  
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+            <lvc:CartesianChart Grid.Row="1"  Name="Graph" LegendLocation="None">
                 <lvc:CartesianChart.Series>
-                    <lvc:ScatterSeries Title="Ge-x, Lab-y" Values="{Binding ValuesA}" PointGeometry="{x:Static lvc:DefaultGeometries.Circle}" 
-                                       >
+                    <lvc:ScatterSeries Title="Ge-x, Lab-y" 
+                                   Values="{Binding ValuesA}"
+                                   
+                                   PointGeometry="{x:Static lvc:DefaultGeometries.Circle}" >
                         <lvc:ScatterSeries.Fill>
                             <SolidColorBrush Color="#FF4E8EFF" Opacity="0.7"/>
                         </lvc:ScatterSeries.Fill>
-
                     </lvc:ScatterSeries>
-               
-                <lvc:ScatterSeries Title="Series C" Values="{Binding ValuesC}"
-                                   PointGeometry="{x:Static lvc:DefaultGeometries.Triangle}"
-                                   StrokeThickness="2" Fill="Transparent"/>
-                <lvc:LineSeries Title="Regresiona zavisnost" Values="{Binding ValuesB}"  Stroke="#595959"  >
-                    <lvc:LineSeries.Fill>
-                        <SolidColorBrush Color="Transparent" Opacity="0.9"/>
+                    <lvc:LineSeries 
+                                PointGeometry="{x:Static lvc:DefaultGeometries.None}"
+                                Values="{Binding ValuesB}"  
+                                Stroke="#595959" >
                         
-                    </lvc:LineSeries.Fill>
-                </lvc:LineSeries>
-            </lvc:CartesianChart.Series>
+                        <lvc:LineSeries.Fill>
+                            <SolidColorBrush Color="Transparent" Opacity="0.9"/>
+                        </lvc:LineSeries.Fill>
+                  
 
+                    </lvc:LineSeries>
+                </lvc:CartesianChart.Series>
                 <lvc:CartesianChart.AxisY>
-                    <!--setting the axis unit improved the labels rounding rule-->
-                    <lvc:Axis Unit="1"></lvc:Axis>
+                    <lvc:Axis Unit="5" MinValue="-5" MaxValue="{Binding MaxY}">
+                        <lvc:Axis.Separator>
+                            <lvc:Separator  Step="5"
+                                                StrokeThickness="0.3"
+                                                Stroke="#bfbfbf"></lvc:Separator>
+                        </lvc:Axis.Separator>
+                    </lvc:Axis>
                 </lvc:CartesianChart.AxisY>
-          
-        </lvc:CartesianChart>
-        </Grid> 
+                <lvc:CartesianChart.AxisX>
+                    <lvc:Axis Unit="5" 
+                          MinValue="0"
+                          MaxValue="{Binding MaxX}"
+                          Foreground="#bfbfbf">
+                        <lvc:Axis.Separator>
+                            <lvc:Separator  Step="5"
+                                                StrokeThickness="0.3"
+                                                Stroke="#bfbfbf"></lvc:Separator>
+                        </lvc:Axis.Separator>
+                    </lvc:Axis>
+
+                </lvc:CartesianChart.AxisX>
+
+            </lvc:CartesianChart>
+
+
+        <WrapPanel Orientation="Vertical"
+                   Grid.Row="0"
+                   Visibility="Collapsed"
+                   HorizontalAlignment="Center">
+            <WrapPanel Orientation="Horizontal">
+                <TextBlock Text="y = "></TextBlock>
+                <TextBlock Text="{Binding Result_P,StringFormat=N2}"></TextBlock>
+                <TextBlock Text="x - "></TextBlock>
+                <TextBlock Text="{Binding Result_Q,StringFormat=N2}"></TextBlock>
+                
+            </WrapPanel>
+            <WrapPanel Orientation="Horizontal">
+                <TextBlock Text="R² = "></TextBlock>
+                <TextBlock Text="{Binding Result_R,StringFormat=N2}"></TextBlock>
+            </WrapPanel>
+        </WrapPanel>
+
+
+    </Grid> 
 </UserControl>

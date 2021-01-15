@@ -1,0 +1,45 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:enelex3.Resources">
+
+    <Style x:Key="DefaultTextBoxShiftStyle" TargetType="TextBox">
+        <Setter Property="Margin" Value="0,5,0,0"></Setter>
+        <Setter Property="Width" Value="100"></Setter>
+        <Setter Property="Height" Value="25"></Setter>
+        <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
+        <Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
+      
+    </Style>
+    
+    <Style x:Key="TextBoxShiftAbsoluteFalseStyle" TargetType="TextBox" BasedOn="{StaticResource DefaultTextBoxShiftStyle}">
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType={x:Type UserControl}},Path=Uid}" Value="1">
+                <Setter Property="Text" Value="{Binding SettingsAbsoluteCalibration,UpdateSourceTrigger=PropertyChanged,StringFormat=N2}"></Setter>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType={x:Type UserControl}},Path=Uid}" Value="2">
+                <Setter Property="Text" Value="{Binding SettingsProportionShift,UpdateSourceTrigger=PropertyChanged,StringFormat=N2}"></Setter>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding ElementName=cbx, Path=IsChecked}" Value="True">
+                <Setter Property="IsEnabled" Value="False"></Setter>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding ElementName=cbx, Path=IsChecked}" Value="False">
+                <Setter Property="BorderBrush" Value="Green"></Setter>
+                <Setter Property="BorderThickness" Value="1"></Setter>
+                <Setter Property="IsEnabled" Value="True"></Setter>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+    <Style x:Key="TextBoxShiftAbsoluteStyle" TargetType="TextBox" BasedOn="{StaticResource DefaultTextBoxShiftStyle}">
+        
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding ElementName=cbx, Path=IsChecked}" Value="True">
+                <Setter Property="BorderBrush" Value="Green"></Setter>
+                <Setter Property="BorderThickness" Value="1"></Setter>
+                <Setter Property="IsEnabled" Value="True"></Setter>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding ElementName=cbx, Path=IsChecked}" Value="False">
+                <Setter Property="IsEnabled" Value="False"></Setter>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+</ResourceDictionary>

@@ -20,9 +20,9 @@ namespace enelex3.Windows
     /// </summary>
     public partial class ExcelImportWindows : Window
     {
-        public ExcelImportWindows(Action Load)
+        public ExcelImportWindows(Action Load, bool calibration,bool train)
         {
-            DataContext = new ExcelImportViewModel(Load);
+            DataContext = new ExcelImportViewModel(Load, calibration,train);
             InitializeComponent();
         }
     }

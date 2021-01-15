@@ -1,0 +1,89 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:enelex3.Resources">
+    <DataTemplate x:Key="EnumDataTemplate">
+        <TextBlock x:Name="txtCombo">
+            <TextBlock.Style>
+                <Style TargetType="TextBlock">
+                    <Setter Property="Text" Value="{Binding}" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding}" Value="One">
+                            <Setter Property="Text" Value="{StaticResource One}" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding}" Value="Two">
+                            <Setter Property="Text" Value="{StaticResource Two}" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding}" Value="Three">
+                            <Setter Property="Text" Value="{StaticResource Three}"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBlock.Style>
+        </TextBlock>
+    </DataTemplate>
+    <DataTemplate x:Key="EnumSexDataTemplate">
+        <TextBlock x:Name="txtCombo">
+            <TextBlock.Style>
+                <Style TargetType="TextBlock">
+                    <Setter Property="Text" Value="{Binding}" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding}" Value="Male">
+                            <Setter Property="Text" Value="{StaticResource Male}" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding}" Value="Female">
+                            <Setter Property="Text" Value="{StaticResource Female}" />
+                        </DataTrigger>
+
+                    </Style.Triggers>
+                </Style>
+            </TextBlock.Style>
+        </TextBlock>
+    </DataTemplate>
+    <DataTemplate x:Key="MonthDataTemplate">
+        <TextBlock x:Name="txtCombo">
+            <TextBlock.Style>
+                <Style TargetType="TextBlock">
+                    <Setter Property="Text" Value="{Binding}" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding}" Value="1">
+                            <Setter Property="Text" Value="januar" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding}" Value="2">
+                            <Setter Property="Text" Value="februar" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding}" Value="3">
+                            <Setter Property="Text" Value="mart"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding}" Value="4">
+                            <Setter Property="Text" Value="april"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding}" Value="5">
+                            <Setter Property="Text" Value="maj"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding}" Value="6">
+                            <Setter Property="Text" Value="jun"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding}" Value="7">
+                            <Setter Property="Text" Value="jul"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding}" Value="8">
+                            <Setter Property="Text" Value="avgust"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding}" Value="9">
+                            <Setter Property="Text" Value="septembar"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding}" Value="10">
+                            <Setter Property="Text" Value="oktobar"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding}" Value="11">
+                            <Setter Property="Text" Value="novembar"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding}" Value="12">
+                            <Setter Property="Text" Value="decembar"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBlock.Style>
+        </TextBlock>
+    </DataTemplate>
+</ResourceDictionary>
